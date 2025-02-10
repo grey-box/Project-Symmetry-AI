@@ -44,3 +44,6 @@ We do not have to limit ourselves to translate in only one direction. The goal i
 Teams have and are working on **validating** the use case of various models for translation, including **pre-trained models** like **T5 and Marian** and models that require **training** like **RNN**.
 
 An example of what contributes to Symmetry:  **BLEU (Bilingual Evaluation Understudy)** **considers different reference translations,** each of which may utilize a distinctive word choice to interpret the same source word. The BLEU **metric ranges from 0 to 1.** Hence, this metric was used to **measure the accuracy.**
+
+![Untitled](https://github.com/user-attachments/assets/2e2aef18-4218-4639-a6ea-a3a6b548c79e)
+
