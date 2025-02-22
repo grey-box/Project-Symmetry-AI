@@ -37,7 +37,7 @@ const createWindow = () => {
   if (app.isPackaged) {
     backendPath = path.join(process.resourcesPath, 'main');
   } else {
-    backendPath = path.join(process.cwd(), '../fastapi/app/dist/main');
+    backendPath = path.join(process.cwd(), '../fastapi/app/dist/main'); // Runs the API has background process
   }
   console.log(`[INFO] backendPath: ${backendPath}`)
   try {
