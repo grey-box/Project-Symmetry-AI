@@ -6,7 +6,7 @@ import { TranslateArticleResponse } from '@/models/apis/TranslateArticleResponse
 // API call for getting translated article
 export function translateArticle(body: TranslateArticleRequest): Promise<AxiosResponse<TranslateArticleResponse>> {
   return axiosInstance.post<TranslateArticleResponse, any, TranslateArticleRequest>(
-    'translate/targetArticle',
+    'translate/sourceArticle',
     body,
   )
 }

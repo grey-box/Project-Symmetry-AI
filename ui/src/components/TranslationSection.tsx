@@ -28,6 +28,7 @@ const TRANSLATION_LANGUAGES = [
   { value: 'arabic', label: 'Arabic' },
 ]
 
+
 const TranslationSection = () => {
   // Function to assign background color based on suggestion type
   const getColorClass = (type: any) => {
