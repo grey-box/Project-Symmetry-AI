@@ -10,6 +10,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import wikipediaapi
 import re
 
+from .ai.semantic_comparison import perform_semantic_comparison
+
+
 '''
 This is the API which handles backend. It handles following features
 1. Providing source article (with input as URL or Title)
@@ -42,6 +45,9 @@ class SourceArticleResponse(BaseModel):
     sourceArticle: str
     articleLanguages: List[str]
 
+class ArticleComparisonResponse(BaseModel):
+    missing_info: List[str]
+    extra_info: List[str]
 
 
 # Class defines the API reponse format for source article (output)
@@ -271,11 +277,6 @@ async def get_article(request: Request):
     return extract_article_content(url)
 '''
 
-# API endpoint to get the translated article (Need to build further)
-# @app.get("/translate/sourceArticle", response_model=ArticleResponse)
-# def translate_article(url: str = Query(None), title: str = Query(None)):
-#     pass
-
 class Url(BaseModel):
     address: str
 
@@ -308,6 +309,16 @@ def translate_article(url: str = Query(None), title: str = Query(None), language
     
     return {"translatedArticle": translated_content}
 
+@app.get("/comparison/semantic_comparison", response_model=ArticleComparisonResponse)
+def compare_articles(text_a: str, text_b: str):
+    logging.info("Calling semantic comparison endpoint.")
+
+    if text_a is None or text_b is None:
+        logging.info("Invalid input provided to semantic comparison.")
+        raise HTTPException(status_code=400, detail="Either text_a or text_b (or both) was found to be None.")
+
+    missing_info, extra_info = perform_semantic_comparison(text_a, text_b)
+    return {"missing_info": missing_info, "extra_info": extra_info}
 
 @app.post("/api/v1/article/original/")
 def get_orginal_article_by_url(url: Url):
@@ -316,3 +327,6 @@ def get_orginal_article_by_url(url: Url):
 if __name__ == '__main__':
     # Defines API URL (host, port)
     uvicorn.run(app, host='127.0.0.1', port=8000)
+
+
+
