@@ -52,8 +52,8 @@ app.add_middleware(
 
 # Class defines the API reponse format for source article (output)
 class SourceArticleResponse(BaseModel):
-    sourceArticle: str
-    articleLanguages: List[str]
+    source_article: str
+    article_languages: List[str]
 
 class ArticleComparisonResponse(BaseModel):
     missing_info: List[str]
@@ -61,7 +61,7 @@ class ArticleComparisonResponse(BaseModel):
 
 # Class defines the API reponse format for source article (output)
 class TranslateArticleResponse(BaseModel):
-    translatedArticle: str
+    translated_article: str
 
 wiki_wiki = wikipediaapi.Wikipedia(user_agent='MyApp/2.0 (contact@example.com)', language='en')  # English Wikipedia instance
 
