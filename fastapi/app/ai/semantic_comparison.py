@@ -9,6 +9,13 @@ Use this to build API for semantic comparison under FastAPI.
 
 '''
 
+comparison_models = [
+    "sentence-transformers/LaBSE",
+    "xlm-roberta-base",
+    "multi-qa-distilbert-cos-v1",
+    "multi-qa-MiniLM-L6-cos-v1",
+    "multi-qa-mpnet-base-cos-v1"
+]
 
 def split_into_sentences(text):
     sentences = []
@@ -17,40 +24,39 @@ def split_into_sentences(text):
             sentences.append(sentence.strip())
     return sentences
 
-def perform_semantic_comparison(english_text, french_text):
-    # Load a multilingual sentence transformer model (LaBSE or XLM-R)
-    model = SentenceTransformer('sentence-transformers/LaBSE')
+def perform_semantic_comparison(text_a, text_b, similarity_threshold, model_name):
+    model = SentenceTransformer(model_name)
     
-    # Step 1: Split the English and French texts into sentences
-    english_sentences = split_into_sentences(english_text)
-    french_sentences = split_into_sentences(french_text)
+    # Step 1: Split the texts into sentences
+    a_sentences = split_into_sentences(text_a)
+    b_sentences = split_into_sentences(text_b)
     
     # Step 2: Encode all sentences using the multilingual model
-    english_embeddings = model.encode(english_sentences)
-    french_embeddings = model.encode(french_sentences)
+    a_embeddings = model.encode(a_sentences)
+    b_embeddings = model.encode(b_sentences)
     
     # Step 3: Compare sentences using cosine similarity
     missing_info = []
     extra_info = []
     
-    for i, eng_embedding in enumerate(english_embeddings):
-        # Calculate similarity between the current English sentence and all French sentences
-        similarities = cosine_similarity([eng_embedding], french_embeddings)[0]
+    for i, a_embedding in enumerate(a_embeddings):
+        # Calculate similarity between the current a_sentence and all b_sentences
+        similarities = cosine_similarity([a_embedding], b_embeddings)[0]
         
-        # Find the best matching French sentence
+        # Find the best matching b_sentence
         max_sim = max(similarities)
         
-        if max_sim < 0.75:  # Threshold for missing information
-            missing_info.append(english_sentences[i])  # This sentence might be missing in the French text
+        if max_sim < similarity_threshold:  # Threshold for missing information
+            missing_info.append(a_sentences[i])  # This sentence might be missing in text b
     
-    # Step 4: Check for extra information in the French text
-    for i, fr_embedding in enumerate(french_embeddings):
-        similarities = cosine_similarity([fr_embedding], english_embeddings)[0]
+    # Step 4: Check for extra information in text b
+    for i, b_embedding in enumerate(b_embeddings):
+        similarities = cosine_similarity([b_embedding], a_embeddings)[0]
         
-        # Find the best matching English sentence
+        # Find the best matching a_sentence
         max_sim = max(similarities)
         
-        if max_sim < 0.75:  # Threshold for extra information
-            extra_info.append(french_sentences[i])  # This sentence might be extra in the French translation
+        if max_sim < similarity_threshold:  # Threshold for extra information
+            extra_info.append(b_sentences[i])  # This sentence might be extra in text b
 
     return missing_info, extra_info
