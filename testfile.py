@@ -7,6 +7,8 @@ import os
 TESTFLAG = 2
 
 if TESTFLAG == 0:
+    # semantic comparison
+
     with open("testdata/missingno_en.txt", 'r') as file:
         texta = file.read()
     with open("testdata/missingno_fr.txt", 'r') as file:
@@ -15,7 +17,8 @@ if TESTFLAG == 0:
     params = {
         'text_a': texta,
         'text_b': textb,
-        'similarity_threshold': 0.75
+        'similarity_threshold': 0.75,
+        'model_name': 'sentence-transformers/LaBSE'
     }
     address = "http://localhost:8000/comparison/semantic_comparison"
     response = requests.get(address, params=params)
@@ -23,9 +26,6 @@ if TESTFLAG == 0:
     print(f'Server responded with: {response.status_code}')
     
     if response.status_code == 200:
-        print(f'Source Texts:')
-        print(f'Text A: {params["text_a"]}')
-        print(f'Text B: {params["text_b"]}\n\n')
     
         content = json.loads(response.content)
         missing_info = content['missing_info']
@@ -35,6 +35,8 @@ if TESTFLAG == 0:
         print(f'EXTRA_INFO: {extra_info}')
 
 elif TESTFLAG == 1:
+    # get article and available article languages
+
     URL = "https://en.wikipedia.org/wiki/Bear"
     TITLE = "Bear"
     
@@ -43,14 +45,16 @@ elif TESTFLAG == 1:
     
     if response.status_code == 200:
         content = json.loads(response.content)
-        sourceArticle = content['sourceArticle']
-        languages = content['articleLanguages']
+        source_article = content['source_article']
+        languages = content['article_languages']
 
-        print(f'SOURCE_ARTICLE: {sourceArticle}')
+        print(f'SOURCE_ARTICLE: {source_article}')
         print("==================="*10)
         print(f'ARTICLE_LANGUAGES: {languages}')
 
 elif TESTFLAG == 2:
+    # get wiki provided human translated article
+
     address = "http://localhost:8000/wiki_translate/source_article"
     URL = "https://en.wikipedia.org/wiki/Bear"
     TITLE = "Bear"

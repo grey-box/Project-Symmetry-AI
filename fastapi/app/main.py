@@ -124,7 +124,7 @@ def get_article(url: str = Query(None), title: str = Query(None)):
     # Fetch available languages
     languages = list(page.langlinks.keys())
     
-    return {"sourceArticle": article_content, "articleLanguages": languages}
+    return {"source_article": article_content, "article_languages": languages}
 
 
 @app.get("/wiki_translate/source_article", response_model=TranslateArticleResponse)
@@ -169,7 +169,7 @@ def compare_articles(text_a: str, text_b: str, similarity_threshold: float = 0.7
         logging.info("Invalid input provided to semantic comparison.")
         raise HTTPException(status_code=400, detail="Either text_a or text_b (or both) was found to be None.")
 
-    missing_info, extra_info = perform_semantic_comparison(text_a, text_b, similarity_threshold)
+    missing_info, extra_info = perform_semantic_comparison(text_a, text_b, similarity_threshold, model_name)
     return {"missing_info": missing_info, "extra_info": extra_info}
 
 
