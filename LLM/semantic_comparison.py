@@ -1,49 +1,53 @@
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
+import spacy
 
 '''
-The base code to build API for semantic comparison b/w langauges.
+The altered code to build API for semantic comparison b/w langauges.
 In this example, we are using 'sentence-transformers/LaBSE' model which is train on French and English.
 Provides sentences which are missing in both the contents.
 Use this to build API for semantic comparison under FastAPI.
 
 '''
+def semantic_compare(model_name, og_article, translated_article, sim_threshold):
+    nlp = spacy.load("en_core_web_sm")
+    # Load a multilingual sentence transformer model (LaBSE or cmlm)
+    if model_name == "LaBSE":
+        model = SentenceTransformer('sentence-transformers/LaBSE')
+    else:
+        model = SentenceTransformer('sentence-transformers/LaBSE')  # default
 
-# Load a multilingual sentence transformer model (LaBSE or XLM-R)
-model = SentenceTransformer('sentence-transformers/LaBSE')
+    og_article_sentences = preprocess_input(og_article, nlp)
+    translated_article_sentences = preprocess_input(translated_article, nlp)
 
-# Step 1: Split the English and French texts into sentences
-english_sentences = ["This is the first sentence.", "This is the second sentence.", "Hello World"]  # Add all sentences here
-french_sentences = ["Ceci est la première phrase.", "Je vais bien.", "Ceci est la deuxième phrase."]  # Add all sentences here
+    # encode the sentences
+    og_embeddings = model.encode(og_article_sentences)
+    translated_embeddings = model.encode(translated_article_sentences)
 
-# Step 2: Encode all sentences using the multilingual model
-english_embeddings = model.encode(english_sentences)
-french_embeddings = model.encode(french_sentences)
+    missing_info = semantic_diff(og_embeddings, translated_embeddings, sim_threshold)
+    extra_info = semantic_diff(translated_embeddings, og_embeddings, sim_threshold)
+    # Output the missing and extra information
+    # print("Missing information from og text:", missing_info)
+    # print("Extra information in translated text:", extra_info)
+    return missing_info, extra_info
 
-# Step 3: Compare sentences using cosine similarity
-missing_info = []
-extra_info = []
 
-for i, eng_embedding in enumerate(english_embeddings):
-    # Calculate similarity between the current English sentence and all French sentences
-    similarities = cosine_similarity([eng_embedding], french_embeddings)[0]
-    
-    # Find the best matching French sentence
-    max_sim = max(similarities)
-    
-    if max_sim < 0.75:  # Threshold for missing information
-        missing_info.append(english_sentences[i])  # This sentence might be missing in the French text
+def preprocess_input(article, nlp):
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(article)
 
-# Step 4: Check for extra information in the French text
-for i, fr_embedding in enumerate(french_embeddings):
-    similarities = cosine_similarity([fr_embedding], english_embeddings)[0]
-    
-    # Find the best matching English sentence
-    max_sim = max(similarities)
-    
-    if max_sim < 0.75:  # Threshold for extra information
-        extra_info.append(french_sentences[i])  # This sentence might be extra in the French translation
+    sentences = [sent.text for sent in doc.sents]
+    return sentences
 
-# Output the missing and extra information
-print("Missing information from English text:", missing_info)
-print("Extra information in French text:", extra_info)
+def semantic_diff(first_embeddings, second_embeddings, sim_threshold):
+    diff_info = []
+    for i, eng_embedding in enumerate(first_embeddings):
+        # Calculate similarity between the current English sentence and all French sentences
+        similarities = cosine_similarity([eng_embedding], second_embeddings)[0]
+
+        # Find the best matching sentences
+        max_sim = max(similarities)
+
+        if max_sim < sim_threshold:  # Threshold for similarity
+            diff_info.append(first_embeddings[i])  # This sentence might be missing or extra
+    return diff_info
