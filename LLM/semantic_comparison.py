@@ -9,7 +9,9 @@ Provides sentences which are missing in both the contents.
 Use this to build API for semantic comparison under FastAPI.
 
 '''
-def semantic_compare(model_name, og_article, translated_article, sim_threshold):
+
+
+def semantic_compare(model_name, og_article, translated_article, sim_threshold):  # main function
     nlp = spacy.load("en_core_web_sm")
     # Load a multilingual sentence transformer model (LaBSE or cmlm)
     if model_name == "LaBSE":
@@ -24,22 +26,19 @@ def semantic_compare(model_name, og_article, translated_article, sim_threshold):
     og_embeddings = model.encode(og_article_sentences)
     translated_embeddings = model.encode(translated_article_sentences)
 
-    missing_info = semantic_diff(og_embeddings, translated_embeddings, sim_threshold)
-    extra_info = semantic_diff(translated_embeddings, og_embeddings, sim_threshold)
-    # Output the missing and extra information
-    # print("Missing information from og text:", missing_info)
-    # print("Extra information in translated text:", extra_info)
+    missing_info = sentences_diff(og_article_sentences, og_embeddings, translated_embeddings, sim_threshold)
+    extra_info = sentences_diff(translated_article_sentences, translated_embeddings, og_embeddings, sim_threshold)
     return missing_info, extra_info
 
 
 def preprocess_input(article, nlp):
-    nlp = spacy.load("en_core_web_sm")
     doc = nlp(article)
 
     sentences = [sent.text for sent in doc.sents]
     return sentences
 
-def semantic_diff(first_embeddings, second_embeddings, sim_threshold):
+
+def sentences_diff(article_sentences, first_embeddings, second_embeddings, sim_threshold):
     diff_info = []
     for i, eng_embedding in enumerate(first_embeddings):
         # Calculate similarity between the current English sentence and all French sentences
@@ -49,5 +48,21 @@ def semantic_diff(first_embeddings, second_embeddings, sim_threshold):
         max_sim = max(similarities)
 
         if max_sim < sim_threshold:  # Threshold for similarity
-            diff_info.append(first_embeddings[i])  # This sentence might be missing or extra
+            diff_info.append(article_sentences[i])  # This sentence might be missing or extra
     return diff_info
+
+
+def main():  # testing the fucntion
+    model_name = "LaBSE"
+    sim_thres = 0.75
+    english_article = "This is the first sentence. hi how are you. Hello World"  # Add all sentences here
+    french_article = "Ceci est la première phrase. Je vais bien. Ceci est la deuxième phrase."  # Add all sentences here
+    missing_info, extra_info = semantic_compare(model_name, english_article, french_article, sim_thres)
+
+    # Output the missing and extra information
+    print("Missing information from og text:", missing_info)
+    print("Extra information in translated text:", extra_info)
+
+
+if __name__ == "__main__":
+    main()
