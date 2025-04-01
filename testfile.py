@@ -4,7 +4,7 @@ import os
 
 # https://en.wikipedia.org/wiki/Bear
 
-TESTFLAG = 2
+TESTFLAG = 0
 
 if TESTFLAG == 0:
     # semantic comparison
