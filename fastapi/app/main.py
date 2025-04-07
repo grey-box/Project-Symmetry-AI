@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # from urllib.parse import urlparse, parse_qs
 import wikipediaapi
 import re
+from bs4 import BeautifulSoup
 
 '''
 This is the API which handles backend. It handles following features
@@ -106,8 +107,23 @@ def get_article(url: str = Query(None), title: str = Query(None)):
     
     article_content = page.text  # Get the article text
     
-    # Fetch available languages
-    languages = list(page.langlinks.keys())
+    try:
+        # Make the HTTP request
+        page = requests.get(url)
+        page.raise_for_status()  
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=400, detail=f"Request error: {e}")
+    
+    # Parse the page content
+    soup = BeautifulSoup(page.content, "html.parser")
+
+    # Extract languages
+    languages = []
+    language_list = soup.find_all('li', class_='interlanguage-link')
+    for lang_item in language_list:
+        lang = lang_item.find('a')
+        if lang:
+            languages.append(lang.text)
     
     return {"sourceArticle": article_content, "articleLanguages": languages}
 
@@ -283,7 +299,7 @@ class Comparator(BaseModel):
     source: str
     target: str
 
-@app.get("translate/sourceArticle", response_model=TranslateArticleResponse)
+@app.get("/translate/sourceArticle", response_model=TranslateArticleResponse)
 def translate_article(url: str = Query(None), title: str = Query(None), language: str = Query(...)):
     logging.info(f"Calling translate article endpoint for title: {title}, url: {url} and language: {language}")
     
