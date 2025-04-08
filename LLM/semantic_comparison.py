@@ -25,6 +25,9 @@ def semantic_compare(model_name, og_article, translated_article, language, sim_t
     og_embeddings = model.encode(og_article_sentences)
     translated_embeddings = model.encode(translated_article_sentences)
 
+    if sim_threshold is None:
+        sim_threshold = 0.75
+
     missing_info = sentences_diff(og_article_sentences, og_embeddings, translated_embeddings, sim_threshold)
     extra_info = sentences_diff(translated_article_sentences, translated_embeddings, og_embeddings, sim_threshold)
     return missing_info, extra_info
@@ -73,7 +76,7 @@ def sentences_diff(article_sentences, first_embeddings, second_embeddings, sim_t
 
 def main():  # testing the fucntion
     model_name = "LaBSE"
-    sim_thres = 0.75
+    sim_thres = 0.65
     language = ["en", "fr"]
     english_article = "This is the first sentence. hi how are you. Hello World"  # Add all sentences here
     french_article = "Ceci est la première phrase. Je vais bien. Ceci est la deuxième phrase."  # Add all sentences here
