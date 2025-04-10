@@ -84,37 +84,9 @@ def extract_title_from_url(url: str) -> str:
         return match.group(1).replace('_', ' ')
     return None
 
-'''
+
+#Here is the function to accept the query paramether for either url or keyword (elastic search)
 @app.get("/get_article", response_model=SourceArticleResponse)
-def get_article(url: str = Query(None), title: str = Query(None)):
-    logging.info("Calling get article endpoint")
-    
-    if url:
-        title = extract_title_from_url(url)
-        if not title:
-            logging.info("Invalid Wikipedia URL provided.")
-            raise HTTPException(status_code=400, detail="Invalid Wikipedia URL provided.")
-    
-    if not title:
-        logging.info("Either 'url' or 'title' must be provided.")
-        raise HTTPException(status_code=400, detail="Either 'url' or 'title' must be provided.")
-    
-    page = wiki_wiki.page(title)
-    
-    if not page.exists():
-        logging.info("Article not found.")
-        raise HTTPException(status_code=404, detail="Article not found.")
-    
-    article_content = page.text  # Get the article text
-    
-    # Fetch available languages
-    languages = list(page.langlinks.keys())
-    
-    return {"sourceArticle": article_content, "articleLanguages": languages} '''
-
-
-
-@app.get("/get_article_new", response_model=SourceArticleResponse)
 def get_article(query: str = Query(..., description="Either a full Wikipedia URL or a keyword/title")):
     logging.info("Calling get article endpoint with query parameter")
     
