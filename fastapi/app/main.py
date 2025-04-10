@@ -84,6 +84,7 @@ def extract_title_from_url(url: str) -> str:
         return match.group(1).replace('_', ' ')
     return None
 
+'''
 @app.get("/get_article", response_model=SourceArticleResponse)
 def get_article(url: str = Query(None), title: str = Query(None)):
     logging.info("Calling get article endpoint")
@@ -109,7 +110,37 @@ def get_article(url: str = Query(None), title: str = Query(None)):
     # Fetch available languages
     languages = list(page.langlinks.keys())
     
-    return {"sourceArticle": article_content, "articleLanguages": languages}
+    return {"sourceArticle": article_content, "articleLanguages": languages} '''
+
+
+
+@app.get("/get_article_new", response_model=SourceArticleResponse)
+def get_article(query: str = Query(..., description="Either a full Wikipedia URL or a keyword/title")):
+    logging.info("Calling get article endpoint with query parameter")
+    
+    # If the query contains “wikipedia.org”, we assume it’s a URL and extract the title
+    if "wikipedia.org" in query:
+        title = extract_title_from_url(query)
+        if not title:
+            logging.info("Invalid Wikipedia URL provided.")
+            raise HTTPException(status_code=400, detail="Invalid Wikipedia URL provided.")
+    else: 
+        # else: we assume the query is the title
+        title = query
+
+    page = wiki_wiki.page(title)
+    
+    # Check if Wikipedia page exists
+    if not page.exists():
+        logging.info("Article not found.")
+        raise HTTPException(status_code=404, detail="Article not found.")
+    
+    article_content = page.text  # Get the article text
+    
+    # Fetch available languages
+    languages = list(page.langlinks.keys())
+    
+    return {"sourceArticle": article_content, "articleLanguages": languages} 
 
 
 '''
