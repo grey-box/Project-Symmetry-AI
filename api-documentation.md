@@ -20,7 +20,7 @@ http://127.0.0.1:8000
 
 ## Endpoints
 
-### Get Article
+### 1. Get Article
 
 Retrieves a Wikipedia article and lists available translation languages.
 
@@ -66,7 +66,7 @@ GET /get_article?url=https://en.wikipedia.org/wiki/Albert_Einstein
 | 400         | Either 'url' or 'title' must be provided|
 | 404         | Article not found                       |
 
-### Translate Article
+### 2. Translate Article
 
 Retrieves a translated version of a Wikipedia article.
 
@@ -92,6 +92,7 @@ GET /wiki_translate/source_article
 }
 ```
 
+
 #### Example Request
 
 ```
@@ -106,7 +107,7 @@ GET /wiki_translate/source_article?title=Albert%20Einstein&language=fr
 | 400         | Either 'url' or 'title' must be provided|
 | 404         | Translated article not found            |
 
-### Semantic Comparison
+### 3. Semantic Comparison
 
 Compares two text chunks and identifies missing and extra information.
 
@@ -139,6 +140,9 @@ GET /comparison/semantic_comparison
   "extra_info": ["List of text chunks present in text_b but not in text_a"]
 }
 ```
+{
+    changed_info: "<The>content is extra<added/>
+}
 
 #### Example Request
 
@@ -192,9 +196,3 @@ The API returns appropriate HTTP status codes and error messages in the followin
 }
 ```
 
-Common error scenarios:
-- Wikipedia article not found
-- Invalid URL format
-- Missing required parameters
-- Invalid model name for comparison
-- Invalid similarity threshold value

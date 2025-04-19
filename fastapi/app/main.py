@@ -11,6 +11,7 @@ import wikipediaapi
 import re
 
 from .ai.semantic_comparison import perform_semantic_comparison
+from .ai.llm_comparison import llm_semantic_comparison
 
 
 '''
@@ -56,8 +57,8 @@ class SourceArticleResponse(BaseModel):
     article_languages: List[str]
 
 class ArticleComparisonResponse(BaseModel):
-    missing_info: List[str]
-    extra_info: List[str]
+    missing_info: List
+    extra_info: List
 
 # Class defines the API reponse format for source article (output)
 class TranslateArticleResponse(BaseModel):
@@ -169,8 +170,16 @@ def compare_articles(text_a: str, text_b: str, similarity_threshold: float = 0.7
         logging.info("Invalid input provided to semantic comparison.")
         raise HTTPException(status_code=400, detail="Either text_a or text_b (or both) was found to be None.")
 
-    missing_info, extra_info = perform_semantic_comparison(text_a, text_b, similarity_threshold, model_name)
-    return {"missing_info": missing_info, "extra_info": extra_info}
+    if text_a.isnumeric() or text_b.isnumeric():
+        logging.info("Invalid input provided to semantic comparison.")
+        raise HTTPException(status_code=400, detail="Either text_a or text_b was not the correct input type.")
+
+    # missing_info, extra_info = perform_semantic_comparison(text_a, text_b, similarity_threshold, model_name)
+    # return {"missing_info": missing_info, "extra_info": extra_info}
+    output = llm_semantic_comparison(text_a, text_b)
+    x = {"missing_info": output['missing_info'], "extra_info": output['extra_info']}
+    print(x)
+    return x
 
 
 if __name__ == '__main__':

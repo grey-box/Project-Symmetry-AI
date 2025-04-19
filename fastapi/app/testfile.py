@@ -9,9 +9,9 @@ TESTFLAG = 0
 if TESTFLAG == 0:
     # semantic comparison
 
-    with open("testdata/missingno_en.txt", 'r') as file:
+    with open("testdata/obama_A.txt", 'r') as file:
         texta = file.read()
-    with open("testdata/missingno_fr.txt", 'r') as file:
+    with open("testdata/obama_B.txt", 'r') as file:
         textb = file.read()
     
     params = {
@@ -20,6 +20,7 @@ if TESTFLAG == 0:
         'similarity_threshold': 0.75,
         'model_name': 'sentence-transformers/LaBSE'
     }
+
     address = "http://localhost:8000/comparison/semantic_comparison"
     response = requests.get(address, params=params)
     
@@ -30,9 +31,18 @@ if TESTFLAG == 0:
         content = json.loads(response.content)
         missing_info = content['missing_info']
         extra_info = content['extra_info']
-        print(f'MISSING_INFO: {missing_info}')
+        print('Info in A that is NOT in B (A - B):')
+        for info in missing_info:
+            print(info)
         print("==================="*10)
-        print(f'EXTRA_INFO: {extra_info}')
+        print(f'Info in B that is NOT in A (B - A):')
+        for info in extra_info:
+            print(info)
+    else:
+        # content = json.loads(response.content)
+        # error_message = content['detail']
+        # print(f'HTTP Error: {error_message}')
+        print(f'Error: {response}')
 
 elif TESTFLAG == 1:
     # get article and available article languages
