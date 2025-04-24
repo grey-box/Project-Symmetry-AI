@@ -4,7 +4,7 @@ import sys
 from traceback import format_exc
 
 import wikipediaapi
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, FastAPI
 from ..model.response import SourceArticleResponse, TranslateArticleResponse
 from starlette.requests import Request
 from starlette.responses import JSONResponse
@@ -18,7 +18,7 @@ wiki_wiki = wikipediaapi.Wikipedia(
 
 async def http_exception_handler(request: Request, exc: HTTPException):
     """Custom handler for HTTPExceptions to include stack trace in debug mode."""
-    if app.debug:
+    if request.app.debug:
         return JSONResponse(
             {"detail": exc.detail, "stack_trace": format_exc()},
             status_code=exc.status_code,
@@ -30,13 +30,18 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 async def generic_exception_handler(request: Request, exc: Exception):
     """Custom handler for generic Exceptions to provide a standardized error and stack trace in debug mode."""
     logging.error(f"Unhandled exception: {exc}")
-    if app.debug:
+    if request.app.debug:
         return JSONResponse(
             {"detail": "Internal Server Error", "stack_trace": format_exc()},
             status_code=500,
         )
     else:
         return JSONResponse({"detail": "Internal Server Error"}, status_code=500)
+
+
+def register_exception_handlers(app: FastAPI):  # Added function
+    app.add_exception_handler(HTTPException, http_exception_handler)
+    app.add_exception_handler(Exception, generic_exception_handler)
 
 
 @router.get("/get_article", response_model=SourceArticleResponse)
