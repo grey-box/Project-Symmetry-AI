@@ -1,14 +1,11 @@
 #!/bin/bash
-from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi import FastAPI
 import uvicorn
-from typing import Union, List
-import requests
-from pydantic import BaseModel
 import logging
 from fastapi.middleware.cors import CORSMiddleware
-# from urllib.parse import urlparse, parse_qs
-import wikipediaapi
-import re
+
+from app.api import wiki_article
+from app.model.request import Url
 
 '''
 This is the API which handles backend. It handles following features
@@ -27,6 +24,8 @@ logging.basicConfig(
 )
 
 app = FastAPI()
+# Add endpoints from other modules
+app.include_router(wiki_article.router)
 
 # Allow all origins (be cautious with this in production)
 app.add_middleware(
@@ -37,6 +36,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+<<<<<<< HEAD
 # Class defines the API reponse format for source article (output)
 class SourceArticleResponse(BaseModel):
     sourceArticle: str
@@ -312,6 +312,8 @@ def translate_article(url: str = Query(None), title: str = Query(None), language
     return {"translatedArticle": translated_content}
 
 
+=======
+>>>>>>> origin/main
 @app.post("/api/v1/article/original/")
 def get_orginal_article_by_url(url: Url):
     return 'hello'
