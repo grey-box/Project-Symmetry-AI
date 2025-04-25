@@ -10,21 +10,22 @@ router = APIRouter()
 wiki_wiki = wikipediaapi.Wikipedia(user_agent='MyApp/2.0 (contact@example.com)', language='en')  # English Wikipedia instance
 
 @router.get("/get_article", response_model=SourceArticleResponse)
-def get_article(url: str = Query(None), title: str = Query(None)):
-    logging.info("Calling get article endpoint")
+def get_article(query: str = Query(..., description="Either a full Wikipedia URL or a keyword/title")):
+    logging.info("Calling get article endpoint with query parameter")
 
-    if url:
-        title = extract_title_from_url(url)
+    # If the query contains “wikipedia.org”, we assume it’s a URL and extract the title
+    if "wikipedia.org" in query:
+        title = extract_title_from_url(query)
         if not title:
             logging.info("Invalid Wikipedia URL provided.")
             raise HTTPException(status_code=400, detail="Invalid Wikipedia URL provided.")
-
-    if not title:
-        logging.info("Either 'url' or 'title' must be provided.")
-        raise HTTPException(status_code=400, detail="Either 'url' or 'title' must be provided.")
+    else:
+        # else: we assume the query is the title
+        title = query
 
     page = wiki_wiki.page(title)
 
+    # Check if Wikipedia page exists
     if not page.exists():
         logging.info("Article not found.")
         raise HTTPException(status_code=404, detail="Article not found.")
