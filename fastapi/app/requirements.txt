@@ -1,7 +1,0 @@
-fastapi
-requests
-nltk
-uvicorn
-Wikipedia-API
-sentence-transformers
-scikit-learn
