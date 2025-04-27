@@ -159,7 +159,7 @@ def sentences_diff(article_sentences, first_embeddings, second_embeddings, sim_t
             
     return diff_info, indices
 
-def process_comparison_request(request_data):
+def perform_semantic_comparison(request_data):
     """
     Process the JSON request data and perform semantic comparison
     
@@ -227,7 +227,7 @@ def main(): #testing the code
         "model_name": "sentence-transformers/LaBSE"
     }
     
-    result = process_comparison_request(test_request)
+    result = perform_semantic_comparison(test_request)
     print("Comparison Results:", result)
 
 
