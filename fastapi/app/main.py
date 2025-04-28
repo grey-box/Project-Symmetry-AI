@@ -9,6 +9,8 @@ from starlette.responses import JSONResponse
 import uvicorn
 
 from app.api import wiki_article
+from app.api import comparison
+
 from app.model.request import Url
 
 """
@@ -63,6 +65,7 @@ register_exception_handlers()
 
 # Add endpoints from other modules
 app.include_router(wiki_article.router)
+app.include_router(comparison.router)
 
 # May not be necessary unless multiple domains are used
 # Resource sharing middleware (allows cross-domain relationships)
@@ -74,11 +77,6 @@ app.add_middleware(
     allow_methods=["GET","HEAD"],
     allow_headers=["*"],
 )
-
-
-@app.post("/api/v1/article/original/")
-def get_orginal_article_by_url(url: Url):
-    return "hello"
 
 
 if __name__ == "__main__":
