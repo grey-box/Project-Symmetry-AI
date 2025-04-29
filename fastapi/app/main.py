@@ -35,12 +35,14 @@ wiki_article.register_exception_handlers(app)
 # Add endpoints from other modules
 app.include_router(wiki_article.router)
 
-# Allow all origins (be cautious with this in production)
+# May not be necessary unless multiple domains are used
+# Resource sharing middleware (allows cross-domain relationships)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can specify the allowed origins here
+    allow_origins=["https://localhost:8000",
+                   "http://localhost:8000"],  # Specify domains that will need to communicate (i.e. if front-end is hosted separately from back-end)
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET","HEAD"],
     allow_headers=["*"],
 )
 
