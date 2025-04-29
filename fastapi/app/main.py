@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import wiki_article
 from app.model.request import Url
+from fastapi import HTTPException
 
 '''
 This is the API which handles backend. It handles following features
@@ -17,22 +18,38 @@ Note: You can run this API using 'python main.py' and use postman to get respons
 
 '''
 
+# # Configure logging
+# logging.basicConfig(
+#     level=logging.DEBUG,
+#     format='%(asctime)s - %(levelname)s - %(message)s'
+# )
+
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-app = FastAPI()
+""" 
+Initialize FastAPI app (if debug=True, it will show detailed error messages with stack traces)
+                       (if debug=False, it will show generic error messages)   
+"""
+
+app = FastAPI(debug=True)
+
+# Import the exception handlers and pass the app instance
+wiki_article.register_exception_handlers(app)
+
 # Add endpoints from other modules
 app.include_router(wiki_article.router)
 
-# Allow all origins (be cautious with this in production)
+# May not be necessary unless multiple domains are used
+# Resource sharing middleware (allows cross-domain relationships)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can specify the allowed origins here
+    allow_origins=["https://localhost:8000",
+                   "http://localhost:8000"],  # Specify domains that will need to communicate (i.e. if front-end is hosted separately from back-end)
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET","HEAD"],
     allow_headers=["*"],
 )
 
