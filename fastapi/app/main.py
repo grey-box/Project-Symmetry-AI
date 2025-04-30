@@ -18,12 +18,6 @@ Note: You can run this API using 'python main.py' and use postman to get respons
 
 '''
 
-# # Configure logging
-# logging.basicConfig(
-#     level=logging.DEBUG,
-#     format='%(asctime)s - %(levelname)s - %(message)s'
-# )
-
 # Configure logging
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
