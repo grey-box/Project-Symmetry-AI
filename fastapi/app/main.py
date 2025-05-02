@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import wiki_article
 from app.model.request import Url
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 
 """
 This is the API which handles backend. It handles following features
