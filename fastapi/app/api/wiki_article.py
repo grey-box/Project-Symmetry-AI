@@ -31,8 +31,8 @@ def get_article_cache_key(url: str) -> str:
     return hashlib.md5(url.encode()).hexdigest()
 
 # Check if article is cached and still valid
-def get_cached_article(url: str):
-    cache_key = get_article_cache_key(url)
+def get_cached_article(title: str):
+    cache_key = get_article_cache_key(title)
     cached_data = article_cache.get(cache_key)
 
     if cached_data:
@@ -110,18 +110,31 @@ def register_exception_handlers(app: FastAPI):
 async def get_article(url: str = Query(None), title: str = Query(None)):
     logging.info("Calling get article endpoint")
 
+    language_code = "en"  # Default to English
+
+    if url:
+        title = extract_title_from_url(url)
+        if not title:
+            logging.info("Either 'url' or 'title' must be provided.")
+            raise HTTPException(
+                status_code=400, detail="Either 'url' or 'title' must be provided."
+            )
+
+    if not title:
+        logging.info("Either 'url' or 'title' must be provided.")
+        raise HTTPException(
+            status_code=400, detail="Either 'url' or 'title' must be provided."
+        )
+
     # Check cache before proceeding
-    cached_content, cached_languages = get_cached_article(url)
+    cached_content, cached_languages = get_cached_article(title)
     if cached_content:
         return {
             "sourceArticle": cached_content,
             "articleLanguages": cached_languages
         }
 
-    language_code = "en"  # Default to English
-
     if url:
-        title = extract_title_from_url(url)
         parsed_url = urlparse(url)
 
         # Domain validation
@@ -143,12 +156,6 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
             logging.info("Invalid wiki article path.")
             raise HTTPException(status_code=400, detail="Invalid wiki article path.")
 
-    elif not title:
-        logging.info("Either 'url' or 'title' must be provided.")
-        raise HTTPException(
-            status_code=400, detail="Either 'url' or 'title' must be provided."
-        )
-
     # Dynamically create Wikipedia object for the selected language
     wiki_wiki = wikipediaapi.Wikipedia(user_agent='MyApp/2.0 (contact@example.com)', language=language_code)
 
@@ -161,7 +168,7 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
     languages = list(page.langlinks.keys()) if page.langlinks else []
 
     # Cache the article and languages
-    set_cached_article(url, article_content, languages)
+    set_cached_article(title, article_content, languages)
 
     return {
         "sourceArticle": article_content,
