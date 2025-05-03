@@ -10,7 +10,13 @@ class SourceArticleResponse(BaseModel):
 class TranslateArticleResponse(BaseModel):
     translatedArticle: str
 
-# Class defines the API response format for comparison endpoint
+
+class ComparisonResult(BaseModel):
+    left_article_array: List[str]
+    right_article_array: List[str]
+    left_article_missing_info_index: List[int]
+    right_article_extra_info_index: List[int]
+
+# Final response schema for the comparison endpoint
 class CompareResponse(BaseModel):
-    missing: List[str]
-    extra: List[str]
+    comparisons: List[ComparisonResult]

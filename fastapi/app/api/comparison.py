@@ -1,21 +1,36 @@
-# Location: fastapi/app/api/comparison_endpoint.py
-
+from app.model.response import CompareResponse, ComparisonResult
 from fastapi import APIRouter
 from app.model.request import CompareRequest
-from app.model.response import CompareResponse
-from typing import List
-# Call semantic_compare function from their LLM code:
-from app.ai.semantic_comparison import perform_semantic_comparison
 
 router = APIRouter(prefix="/api/v1", tags=["comparison"])
-@router.get("/test")
 
 @router.post("/article/compare", response_model=CompareResponse)
 def compare_articles(payload: CompareRequest):
-    missing_list, extra_list = perform_semantic_comparison(
-        text_a = payload.sourceArticle,
-        text_b = payload.translatedArticle,
-        similarity_threshold = payload.simThreshold,
-        model_name = "sentence-transformers/LaBSE"
+    left_article_array = [
+        "Barack Hussein Obama II is an American politician who served as the 44th president of the United States from 2009 to 2017.",
+        "Obama previously served as a U.S. senator representing Illinois from 2005 to 2008 and as an Illinois state senator from 1997 to 2004.",
+        "Obama was born in Honolulu, Hawaii.",
+        "He graduated from Columbia University in 1983 with a Bachelor of Arts degree in political science and later worked as a community organizer in Chicago.",
+        "In 1988, Obama enrolled in Harvard Law School, where he was the first black president of the Harvard Law Review.",
+        "In the 2008 presidential election, after a close primary campaign against Hillary Clinton, he was nominated by the Democratic Party for president.",
+        "Obama selected Joe Biden as his running mate and defeated Republican nominee John McCain and his running mate Sarah Palin."
+    ]
+
+    right_article_array = [
+        "Barack Hussein Obama II is an American politician who served as the 44th president of the United States from 2009 to 2017.",
+        "A member of the Democratic Party, he was the first African-American president in American history.",
+        "He graduated from Columbia University in 1983 with a Bachelor of Arts degree in political science and later worked as a community organizer in Chicago.",
+        "In 1988, Obama enrolled in Harvard Law School, where he was the first black president of the Harvard Law Review.",
+        "He became a civil rights attorney and an academic, teaching constitutional law at the University of Chicago Law School from 1992 to 2004.",
+        "In 1996, Obama was elected to represent the 13th district in the Illinois Senate, a position he held until 2004, when he successfully ran for the U.S. Senate.",
+        "In the 2008 presidential election, after a close primary campaign against Hillary Clinton, he was nominated by the Democratic Party for president."
+    ]
+
+    comparison = ComparisonResult(
+        left_article_array=left_article_array,
+        right_article_array=right_article_array,
+        left_article_missing_info_index=[1, 2, 6],  # Dummy indices
+        right_article_extra_info_index=[1, 4, 5]    # Dummy indices
     )
-    return CompareResponse(missing = missing_list, extra = extra_list) 
+
+    return CompareResponse(comparisons=[comparison])
