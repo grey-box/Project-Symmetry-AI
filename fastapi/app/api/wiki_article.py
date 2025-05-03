@@ -26,9 +26,11 @@ router = APIRouter()
 article_cache: Dict[str, Dict] = {}
 language_cache: Dict[str, bool] = {}
 
+
 # Function to generate a unique key for each URL
 def get_article_cache_key(url: str) -> str:
     return hashlib.md5(url.encode()).hexdigest()
+
 
 # Check if article is cached and still valid
 def get_cached_article(title: str):
@@ -45,6 +47,7 @@ def get_cached_article(title: str):
 
     return None, None
 
+
 # Cache the article content and associated languages
 def set_cached_article(url: str, content: str, languages: List[str]):
     cache_key = get_article_cache_key(url)
@@ -53,6 +56,7 @@ def set_cached_article(url: str, content: str, languages: List[str]):
         "languages": languages,
         "timestamp": time()
     }
+
 
 # Language validator and pre-flight request
 async def validate_language_code(language_code: str):
@@ -84,6 +88,7 @@ async def validate_language_code(language_code: str):
         language_cache[language_code] = False
         raise HTTPException(status_code=500, detail=f"Error occurred during language code validation: {str(e)}")
 
+
 # Exception Handlers
 async def http_exception_handler(request: Request, exc: HTTPException):
     # Custom HTTPException handler to include stack trace in debug mode
@@ -91,6 +96,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     if getattr(request.app, "debug", False):
         response_content["stack_trace"] = format_exc()
     return JSONResponse(response_content, status_code=exc.status_code)
+
 
 async def generic_exception_handler(request: Request, exc: Exception):
     # Catch-all exception handler
@@ -100,10 +106,12 @@ async def generic_exception_handler(request: Request, exc: Exception):
         response_content["stack_trace"] = format_exc()
     return JSONResponse(response_content, status_code=500)
 
+
 def register_exception_handlers(app: FastAPI):
     # Register custom exception handlers
     app.add_exception_handler(HTTPException, http_exception_handler)
     app.add_exception_handler(Exception, generic_exception_handler)
+
 
 # GET request method with input validation
 @router.get("/get_article", response_model=SourceArticleResponse)
@@ -176,6 +184,7 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
         "articleLanguages": languages
     }
 
+
 # Helper method to extract title from URL
 def extract_title_from_url(url: str) -> Optional[str]:
     match = re.search(r"/wiki/([^#?]*)", url)
@@ -186,7 +195,7 @@ def extract_title_from_url(url: str) -> Optional[str]:
 
 @router.get("translate/sourceArticle", response_model=TranslateArticleResponse)
 def translate_article(
-    url: str = Query(None), title: str = Query(None), language: str = Query(...)
+        url: str = Query(None), title: str = Query(None), language: str = Query(...)
 ):
     logging.info(
         f"Calling translate article endpoint for title: {title}, url: {url} and language: {language}"
