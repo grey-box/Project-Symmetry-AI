@@ -108,19 +108,20 @@ def register_exception_handlers(app: FastAPI):
 # GET request method with input validation
 @router.get("/get_article", response_model=SourceArticleResponse)
 async def get_article(url: str = Query(None), title: str = Query(None)):
-    logging.info("Calling get article endpoint")
+    logging.info("Calling get Wikipedia article endpoint (url='%s', title='%s')", url, title)
 
     language_code = "en"  # Default to English
 
     if url:
         title = extract_title_from_url(url)
         if not title:
-            logging.info("Either 'url' or 'title' must be provided.")
+            logging.info("Unable to parse title from URL.")
             raise HTTPException(
-                status_code=400, detail="Either 'url' or 'title' must be provided."
+                status_code=400, detail="Invalid article path."
             )
 
     if not title:
+        # Because title is not set, URL was also not set.
         logging.info("Either 'url' or 'title' must be provided.")
         raise HTTPException(
             status_code=400, detail="Either 'url' or 'title' must be provided."
@@ -139,13 +140,13 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
 
         # Domain validation
         if not parsed_url.netloc.endswith("wikipedia.org"):
-            logging.info("Invalid domain, only 'wikipedia.org' is allowed.")
+            logging.info("Invalid domain '%s', only 'wikipedia.org' is allowed.", parsed_url.netloc)
             raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
 
         # Language code syntax validation
         language_code = parsed_url.netloc.split('.')[0]
         if not language_code.isalpha() or len(language_code) > 2:
-            logging.info("Invalid language code format.")
+            logging.info("Invalid language code '%s'", language_code)
             raise HTTPException(status_code=400, detail="Invalid language code in URL.")
 
         # Validate language code through preflight check
@@ -153,7 +154,7 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
 
         # Validate the path starts with '/wiki/'
         if not parsed_url.path.startswith("/wiki/"):
-            logging.info("Invalid wiki article path.")
+            logging.debug("Invalid wiki article path '%s'", parsed_url.path)
             raise HTTPException(status_code=400, detail="Invalid wiki article path.")
 
     # Dynamically create Wikipedia object for the selected language
