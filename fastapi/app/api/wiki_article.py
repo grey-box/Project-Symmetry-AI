@@ -26,7 +26,7 @@ language_cache: Dict[str, bool] = {}
 
 # GET request method with input validation
 @router.get("/get_article", response_model=SourceArticleResponse)
-async def get_article(url: str = Query(None), title: str = Query(None)):
+async def get_article(query: str = Query(..., description="Either a full Wikipedia URL or a keyword/title")):
     """
     This endpoint requests an article from Wikipedia.
 
@@ -35,23 +35,25 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
     """
 
     logging.info(
-        "Calling get Wikipedia article endpoint (url='%s', title='%s')", url, title
+        "Calling get Wikipedia article endpoint (query='%s')", query
     )
 
-    language_code = "en"  # Default to English
+    if not query:
+        logging.info("No query parameter provided.")
+        raise HTTPException(status_code=400, detail="Invalid Wikipedia URL provided.")
 
-    if url:
-        title = extract_title_from_url(url)
+    # If the query contains “wikipedia.org”, we assume it’s a URL and extract the title
+    if "wikipedia.org" in query:
+        url = query
+        title = extract_title_from_url(query)
         if not title:
             logging.info("Unable to parse title from URL.")
             raise HTTPException(status_code=400, detail="Invalid article path.")
+    else:
+        url = None
+        title = query
 
-    if not title:
-        # Because title is not set, URL was also not set.
-        logging.info("Either 'url' or 'title' must be provided.")
-        raise HTTPException(
-            status_code=400, detail="Either 'url' or 'title' must be provided."
-        )
+    language_code = "en"  # Default to English
 
     # Check cache before proceeding
     cached_content, cached_languages = get_cached_article(title)
@@ -98,6 +100,7 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
 
     page = wiki_wiki.page(title)
 
+    # Check if Wikipedia page exists
     if not page.exists():
         raise HTTPException(status_code=404, detail="Article not found.")
 

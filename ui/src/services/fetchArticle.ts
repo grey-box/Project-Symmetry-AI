@@ -17,7 +17,7 @@ export function fetchArticle(body: FetchArticleRequest): Promise<AxiosResponse<F
 // Updated logic which calls '/get_article' endpoint of FastAPI to get source article content
 export function fetchArticle(sourceArticleUrl: string): Promise<AxiosResponse<FetchArticleResponse>> {
   return axiosInstance.get<FetchArticleResponse>('/get_article', {
-    params: { url: sourceArticleUrl },
+    params: { query: sourceArticleUrl },
   });
 }
 
