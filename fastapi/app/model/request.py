@@ -1,15 +1,10 @@
 from pydantic import BaseModel
-from typing import List
 
-class Url(BaseModel):
-    address: str
-
-class Comparator(BaseModel):
-    source: str
-    target: str
 
 class CompareRequest(BaseModel):
-    sourceArticle: str
-    translatedArticle: str
-    language: List[str]
-    simThreshold: float
+    article_text_blob_1: str
+    article_text_blob_2: str
+    article_text_blob_1_language: str
+    article_text_blob_2_language: str
+    comparison_threshold: float
+    model_name: str
