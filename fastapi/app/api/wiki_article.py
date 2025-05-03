@@ -6,7 +6,7 @@ import asyncio
 import urllib.request
 from urllib.parse import urlparse
 from urllib.error import URLError
-from typing import Dict
+from typing import Dict, Optional
 import hashlib
 from time import time
 from typing import List
@@ -177,7 +177,7 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
     }
 
 # Helper method to extract title from URL
-def extract_title_from_url(url: str) -> str:
+def extract_title_from_url(url: str) -> Optional[str]:
     match = re.search(r"/wiki/([^#?]*)", url)
     if match:
         return match.group(1).replace("_", " ")
