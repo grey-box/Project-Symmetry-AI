@@ -65,12 +65,17 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
         parsed_url = urlparse(url)
 
         # Domain validation
-        if not parsed_url.netloc.endswith("wikipedia.org"):
+        if not parsed_url.netloc.endswith(".wikipedia.org"):
             logging.info("Invalid domain '%s', only 'wikipedia.org' is allowed.", parsed_url.netloc)
             raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
 
+        split_url = parsed_url.netloc.split('.')
+        if len(split_url) != 3:
+            logging.info("Invalid subdomain '%s', only '*.wikipedia.org' is allowed.", parsed_url.netloc)
+            raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
+
         # Language code syntax validation
-        language_code = parsed_url.netloc.split('.')[0]
+        language_code = split_url[0]
         if not language_code.isalpha() or len(language_code) > 2:
             logging.info("Invalid language code '%s'", language_code)
             raise HTTPException(status_code=400, detail="Invalid language code in URL.")
