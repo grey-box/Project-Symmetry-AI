@@ -1,7 +1,6 @@
 # Standard library imports
 import logging
 import re
-from traceback import format_exc
 import asyncio
 import urllib.request
 from urllib.parse import urlparse
@@ -13,9 +12,7 @@ from typing import List
 
 # Third-party imports
 import wikipediaapi
-from fastapi import APIRouter, Query, HTTPException, FastAPI
-from starlette.requests import Request
-from starlette.responses import JSONResponse
+from fastapi import APIRouter, Query, HTTPException
 
 # Local imports
 from ..model.response import SourceArticleResponse, TranslateArticleResponse
@@ -166,30 +163,6 @@ async def validate_language_code(language_code: str):
         # Handle generic exceptions
         language_cache[language_code] = False
         raise HTTPException(status_code=500, detail=f"Error occurred during language code validation: {str(e)}")
-
-
-# Exception Handlers
-async def http_exception_handler(request: Request, exc: HTTPException):
-    # Custom HTTPException handler to include stack trace in debug mode
-    response_content = {"detail": exc.detail}
-    if getattr(request.app, "debug", False):
-        response_content["stack_trace"] = format_exc()
-    return JSONResponse(response_content, status_code=exc.status_code)
-
-
-async def generic_exception_handler(request: Request, exc: Exception):
-    # Catch-all exception handler
-    logging.error(f"Unhandled exception: {exc}")
-    response_content = {"detail": "Internal Server Error"}
-    if getattr(request.app, "debug", False):
-        response_content["stack_trace"] = format_exc()
-    return JSONResponse(response_content, status_code=500)
-
-
-def register_exception_handlers(app: FastAPI):
-    # Register custom exception handlers
-    app.add_exception_handler(HTTPException, http_exception_handler)
-    app.add_exception_handler(Exception, generic_exception_handler)
 
 
 # Helper method to extract title from URL

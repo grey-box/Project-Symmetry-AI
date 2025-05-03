@@ -1,11 +1,15 @@
 #!/bin/bash
-import uvicorn
 import logging
+from traceback import format_exc
+
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.requests import Request
+from starlette.responses import JSONResponse
+import uvicorn
 
 from app.api import wiki_article
 from app.model.request import Url
-from fastapi import FastAPI
 
 """
 This is the API which handles backend. It handles following features
@@ -29,8 +33,33 @@ Initialize FastAPI app (if debug=True, it will show detailed error messages with
 
 app = FastAPI(debug=True)
 
-# Import the exception handlers and pass the app instance
-wiki_article.register_exception_handlers(app)
+
+# Exception Handlers
+async def http_exception_handler(request: Request, exc: HTTPException):
+    # Custom HTTPException handler to include stack trace in debug mode
+    response_content = {"detail": exc.detail}
+    if getattr(request.app, "debug", False):
+        response_content["stack_trace"] = format_exc()
+    return JSONResponse(response_content, status_code=exc.status_code)
+
+
+async def generic_exception_handler(request: Request, exc: Exception):
+    # Catch-all exception handler
+    logging.error(f"Unhandled exception: {exc}")
+    response_content = {"detail": "Internal Server Error"}
+    if getattr(request.app, "debug", False):
+        response_content["stack_trace"] = format_exc()
+    return JSONResponse(response_content, status_code=500)
+
+
+def register_exception_handlers():
+    # Register custom exception handlers
+    app.add_exception_handler(HTTPException, http_exception_handler)
+    app.add_exception_handler(Exception, generic_exception_handler)
+
+
+# Import the exception handlers
+register_exception_handlers()
 
 # Add endpoints from other modules
 app.include_router(wiki_article.router)
