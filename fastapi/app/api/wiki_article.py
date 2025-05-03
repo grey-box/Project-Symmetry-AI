@@ -34,7 +34,9 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
     that this endpoint is phased out and transformed into a helper method.
     """
 
-    logging.info("Calling get Wikipedia article endpoint (url='%s', title='%s')", url, title)
+    logging.info(
+        "Calling get Wikipedia article endpoint (url='%s', title='%s')", url, title
+    )
 
     language_code = "en"  # Default to English
 
@@ -42,9 +44,7 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
         title = extract_title_from_url(url)
         if not title:
             logging.info("Unable to parse title from URL.")
-            raise HTTPException(
-                status_code=400, detail="Invalid article path."
-            )
+            raise HTTPException(status_code=400, detail="Invalid article path.")
 
     if not title:
         # Because title is not set, URL was also not set.
@@ -56,22 +56,25 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
     # Check cache before proceeding
     cached_content, cached_languages = get_cached_article(title)
     if cached_content:
-        return {
-            "sourceArticle": cached_content,
-            "articleLanguages": cached_languages
-        }
+        return {"sourceArticle": cached_content, "articleLanguages": cached_languages}
 
     if url:
         parsed_url = urlparse(url)
 
         # Domain validation
         if not parsed_url.netloc.endswith(".wikipedia.org"):
-            logging.info("Invalid domain '%s', only 'wikipedia.org' is allowed.", parsed_url.netloc)
+            logging.info(
+                "Invalid domain '%s', only 'wikipedia.org' is allowed.",
+                parsed_url.netloc,
+            )
             raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
 
-        split_url = parsed_url.netloc.split('.')
+        split_url = parsed_url.netloc.split(".")
         if len(split_url) != 3:
-            logging.info("Invalid subdomain '%s', only '*.wikipedia.org' is allowed.", parsed_url.netloc)
+            logging.info(
+                "Invalid subdomain '%s', only '*.wikipedia.org' is allowed.",
+                parsed_url.netloc,
+            )
             raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
 
         # Language code syntax validation
@@ -89,7 +92,9 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
             raise HTTPException(status_code=400, detail="Invalid wiki article path.")
 
     # Dynamically create Wikipedia object for the selected language
-    wiki_wiki = wikipediaapi.Wikipedia(user_agent='MyApp/2.0 (contact@example.com)', language=language_code)
+    wiki_wiki = wikipediaapi.Wikipedia(
+        user_agent="MyApp/2.0 (contact@example.com)", language=language_code
+    )
 
     page = wiki_wiki.page(title)
 
@@ -102,10 +107,7 @@ async def get_article(url: str = Query(None), title: str = Query(None)):
     # Cache the article and languages
     set_cached_article(title, article_content, languages)
 
-    return {
-        "sourceArticle": article_content,
-        "articleLanguages": languages
-    }
+    return {"sourceArticle": article_content, "articleLanguages": languages}
 
 
 # Function to generate a unique key for each URL
@@ -135,7 +137,7 @@ def set_cached_article(url: str, content: str, languages: List[str]):
     article_cache[cache_key] = {
         "content": content,
         "languages": languages,
-        "timestamp": time()
+        "timestamp": time(),
     }
 
 
@@ -159,15 +161,22 @@ async def validate_language_code(language_code: str):
             return True
         else:
             language_cache[language_code] = False
-            raise HTTPException(status_code=400, detail=f"Invalid language code '{language_code}'.")
+            raise HTTPException(
+                status_code=400, detail=f"Invalid language code '{language_code}'."
+            )
 
     except URLError:
         language_cache[language_code] = False
-        raise HTTPException(status_code=400, detail=f"Invalid language code '{language_code}'.")
+        raise HTTPException(
+            status_code=400, detail=f"Invalid language code '{language_code}'."
+        )
     except Exception as e:
         # Handle generic exceptions
         language_cache[language_code] = False
-        raise HTTPException(status_code=500, detail=f"Error occurred during language code validation: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error occurred during language code validation: {str(e)}",
+        )
 
 
 # Helper method to extract title from URL
@@ -178,9 +187,9 @@ def extract_title_from_url(url: str) -> Optional[str]:
     return None
 
 
-@router.get("translate/sourceArticle", response_model=TranslateArticleResponse)
+@router.get("/translate/sourceArticle", response_model=TranslateArticleResponse)
 def translate_article(
-        url: str = Query(None), title: str = Query(None), language: str = Query(...)
+    url: str = Query(None), title: str = Query(None), language: str = Query(...)
 ):
     logging.info(
         f"Calling translate article endpoint for title: {title}, url: {url} and language: {language}"
