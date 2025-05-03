@@ -11,8 +11,6 @@ import uvicorn
 from app.api import wiki_article
 from app.api import comparison
 
-from app.model.request import Url
-
 """
 This is the API which handles backend. It handles following features
 1. Providing source article (with input as URL or Title)
@@ -67,12 +65,13 @@ register_exception_handlers()
 app.include_router(wiki_article.router)
 app.include_router(comparison.router)
 
-# May not be necessary unless multiple domains are used
 # Resource sharing middleware (allows cross-domain relationships)
+# May not be necessary unless multiple domains are used
 app.add_middleware(
     CORSMiddleware,
+    # Specify domains that will need to communicate (i.e. if front-end is hosted separately from back-end)
     allow_origins=["https://localhost:8000",
-                   "http://localhost:8000"],  # Specify domains that will need to communicate (i.e. if front-end is hosted separately from back-end)
+                   "http://localhost:8000"],
     allow_credentials=True,
     allow_methods=["GET","HEAD"],
     allow_headers=["*"],
