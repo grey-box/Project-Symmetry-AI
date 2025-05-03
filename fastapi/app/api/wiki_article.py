@@ -30,6 +30,13 @@ language_cache: Dict[str, bool] = {}
 # GET request method with input validation
 @router.get("/get_article", response_model=SourceArticleResponse)
 async def get_article(url: str = Query(None), title: str = Query(None)):
+    """
+    This endpoint requests an article from Wikipedia.
+
+    In the future when Symmetry adds support for more platforms, it is suggested
+    that this endpoint is phased out and transformed into a helper method.
+    """
+
     logging.info("Calling get Wikipedia article endpoint (url='%s', title='%s')", url, title)
 
     language_code = "en"  # Default to English
