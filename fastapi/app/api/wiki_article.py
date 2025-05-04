@@ -5,7 +5,7 @@ import asyncio
 import urllib.request
 from urllib.parse import urlparse
 from urllib.error import URLError
-from typing import Dict, Optional
+from typing import Dict, Optional, Annotated
 import hashlib
 from time import time
 from typing import List
@@ -15,7 +15,7 @@ import wikipediaapi
 from fastapi import APIRouter, Query, HTTPException
 
 # Local imports
-from ..model.response import SourceArticleResponse, TranslateArticleResponse
+from ..model.response import SourceArticleResponse
 
 router = APIRouter(prefix="/symmetry/v1/wiki")
 
@@ -26,9 +26,15 @@ language_cache: Dict[str, bool] = {}
 
 # GET request method with input validation
 @router.get("/articles", response_model=SourceArticleResponse)
-async def get_article(query: str = Query(..., description="Either a full Wikipedia URL or a keyword/title")):
+async def get_article(
+        query: Annotated[Optional[str], Query(description="Either a full Wikipedia URL or a keyword/title")] = None,
+        lang: Annotated[str, Query(description="Article language code")] = "en"
+):
     """
     This endpoint requests an article from Wikipedia.
+
+    If the query is a URL, the lang parameter is overwritten with a value parsed from the URL.
+    If the query is a title, the language parameter is used, defaulting to 'en' for English.
 
     In the future when Symmetry adds support for more platforms, it is suggested
     that this endpoint is phased out and transformed into a helper method.
@@ -52,8 +58,6 @@ async def get_article(query: str = Query(..., description="Either a full Wikiped
     else:
         url = None
         title = query
-
-    language_code = "en"  # Default to English
 
     # Check cache before proceeding
     cached_content, cached_languages = get_cached_article(title)
@@ -80,13 +84,13 @@ async def get_article(query: str = Query(..., description="Either a full Wikiped
             raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
 
         # Language code syntax validation
-        language_code = split_url[0]
-        if not language_code.isalpha() or len(language_code) > 2:
-            logging.info("Invalid language code '%s'", language_code)
+        lang = split_url[0]
+        if not lang.isalpha() or len(lang) > 2:
+            logging.info("Invalid language code '%s'", lang)
             raise HTTPException(status_code=400, detail="Invalid language code in URL.")
 
         # Validate language code through preflight check
-        await validate_language_code(language_code)
+        await validate_language_code(lang)
 
         # Validate the path starts with '/wiki/'
         if not parsed_url.path.startswith("/wiki/"):
@@ -95,7 +99,7 @@ async def get_article(query: str = Query(..., description="Either a full Wikiped
 
     # Dynamically create Wikipedia object for the selected language
     wiki_wiki = wikipediaapi.Wikipedia(
-        user_agent="MyApp/2.0 (contact@example.com)", language=language_code
+        user_agent="MyApp/2.0 (contact@example.com)", language=lang
     )
 
     page = wiki_wiki.page(title)
@@ -188,44 +192,3 @@ def extract_title_from_url(url: str) -> Optional[str]:
     if match:
         return match.group(1).replace("_", " ")
     return None
-
-
-@router.get("/translate/sourceArticle", response_model=TranslateArticleResponse)
-def translate_article(
-    url: str = Query(None), title: str = Query(None), language: str = Query(...)
-):
-    logging.info(
-        f"Calling translate article endpoint for title: {title}, url: {url} and language: {language}"
-    )
-    try:
-        if url:
-            title = extract_title_from_url(url)
-            if not title:
-                logging.info("Invalid Wikipedia URL provided.")
-                raise HTTPException(
-                    status_code=400, detail="Invalid Wikipedia URL provided."
-                )
-
-        if not title:
-            logging.info("Either 'url' or 'title' must be provided.")
-            raise HTTPException(
-                status_code=400, detail="Either 'url' or 'title' must be provided."
-            )
-
-        translated_wiki = wikipediaapi.Wikipedia(
-            user_agent="MyApp/1.0 (contact@example.com)", language=language
-        )
-        translated_page = translated_wiki.page(title)
-
-        if not translated_page.exists():
-            logging.info("Translated article not found.")
-            raise HTTPException(status_code=404, detail="Translated article not found.")
-
-        translated_content = translated_page.text if translated_page.text else ""
-
-        return {"translatedArticle": translated_content}
-    except HTTPException:
-        raise  # Re-raise HTTPExceptions as they are already handled
-    except Exception as e:
-        logging.error(f"Error fetching translated article: {e}")
-        raise
