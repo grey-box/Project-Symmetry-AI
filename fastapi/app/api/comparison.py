@@ -2,7 +2,7 @@ from app.model.response import CompareResponse, ComparisonResult
 from fastapi import APIRouter
 from app.model.request import CompareRequest
 
-router = APIRouter(prefix="/api/v1", tags=["comparison"])
+router = APIRouter(prefix="/symmetry/v1", tags=["comparison"])
 
 @router.post("/article/compare", response_model=CompareResponse)
 def compare_articles(payload: CompareRequest):

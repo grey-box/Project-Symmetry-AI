@@ -17,7 +17,7 @@ from fastapi import APIRouter, Query, HTTPException
 # Local imports
 from ..model.response import SourceArticleResponse, TranslateArticleResponse
 
-router = APIRouter()
+router = APIRouter(prefix="/symmetry/v1/wiki")
 
 # Cache dictionaries with TTL mechanisms
 article_cache: Dict[str, Dict] = {}
@@ -25,7 +25,7 @@ language_cache: Dict[str, bool] = {}
 
 
 # GET request method with input validation
-@router.get("/get_article", response_model=SourceArticleResponse)
+@router.get("/articles", response_model=SourceArticleResponse)
 async def get_article(query: str = Query(..., description="Either a full Wikipedia URL or a keyword/title")):
     """
     This endpoint requests an article from Wikipedia.
