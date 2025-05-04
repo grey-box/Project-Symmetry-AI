@@ -8,6 +8,7 @@ class SourceArticleResponse(BaseModel):
     articleLanguages: List[str]
 
 
+# Schema for a single comparison
 class ComparisonResult(BaseModel):
     left_article_array: List[str]
     right_article_array: List[str]

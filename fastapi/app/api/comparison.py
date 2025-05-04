@@ -4,8 +4,16 @@ from app.model.request import CompareRequest
 
 router = APIRouter(prefix="/symmetry/v1", tags=["comparison"])
 
-@router.post("/article/compare", response_model=CompareResponse)
+@router.post("/articles/compare", response_model=CompareResponse)
 def compare_articles(payload: CompareRequest):
+    """
+    This endpoint requests a comparison of two blobs of text.
+    The request includes the articles, the languages of the articles, the comparison threshold, and model name.
+
+    The response is an array of comparison results, allowing support for a future state where
+    output may be requested from multiple ML models in a single request.
+    """
+
     left_article_array = [
         "Barack Hussein Obama II is an American politician who served as the 44th president of the United States from 2009 to 2017.",
         "Obama previously served as a U.S. senator representing Illinois from 2005 to 2008 and as an Illinois state senator from 1997 to 2004.",

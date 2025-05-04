@@ -26,9 +26,9 @@ logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-""" 
+"""
 Initialize FastAPI app (if debug=True, it will show detailed error messages with stack traces)
-                       (if debug=False, it will show generic error messages)   
+                       (if debug=False, it will show generic error messages)
 """
 
 app = FastAPI(debug=True)
@@ -61,7 +61,13 @@ def register_exception_handlers():
 # Import the exception handlers
 register_exception_handlers()
 
-# Add endpoints from other modules
+# Add endpoints from other modules.
+# Note that when adding more endpoints, they should follow a similar format!
+# The current format is /symmetry/v1/<path>/<to>/<resource>
+# A quick read on RESTful resource naming: https://restfulapi.net/resource-naming/
+# For a more dense and in-depth view of the RESTful philosophy, the above article
+# links Roy Fielding's dissertation:
+# https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_2_1_1
 app.include_router(wiki_article.router)
 app.include_router(comparison.router)
 

@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 
+# Request schema for comparison
 class CompareRequest(BaseModel):
     article_text_blob_1: str
     article_text_blob_2: str
