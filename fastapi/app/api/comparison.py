@@ -17,7 +17,7 @@ def compare_articles(payload: CompareRequest):
     The schema for this response is defined in the model/response.py file.
 
     ------------------------------------------------------------------------------------------------
-    THIS SCHEMA IS NOT FINALIZED!!!
+    THIS ENDPOINT IS NOT FINALIZED!!!
 
     This is currently returning dummy data, and still needs to be integrated with the ML model
     in order to return the actual comparison results from the backend.
@@ -25,7 +25,7 @@ def compare_articles(payload: CompareRequest):
     """
 
     """
-    
+
     """
 
     left_article_array = [

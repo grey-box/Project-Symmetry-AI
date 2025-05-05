@@ -3,8 +3,12 @@ from pydantic import BaseModel
 
 
 """
-This is the beta schema that is used to pass data from the backend to the front end post comparison.
+This is the beta schema that is used to pass data from the backend to the front end.
+
 The source article is passed, along with the languages of the article in 'SourceArticleResponse'.
+The UI then selects a language of the article and requests a Wikipedia-provided translation.
+The target article is passed back in a second 'SourceArticleResponse'.
+
 The source article and the target article are then passed as array of sentences in 'ComparisonResult',
 with the indices of the sentences that are 'missing' from the source article and the sentences that are
 'extra' in the source article.
