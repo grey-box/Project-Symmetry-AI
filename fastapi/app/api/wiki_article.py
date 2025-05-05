@@ -86,7 +86,7 @@ async def get_article(
 
     # If the query is a URL, validate it and set language from it.
     if url:
-        parsed_lang = validate_url(url)
+        parsed_lang = await validate_url(url)
         if not lang:
             lang = parsed_lang
 
