@@ -16,27 +16,20 @@ from fastapi import APIRouter, Query, HTTPException
 
 # Local imports
 from ..model.response import SourceArticleResponse
+from .cache import get_cached_article, set_cached_article
 
 # Initialize the router for wiki related endpoints
 router = APIRouter(prefix="/symmetry/v1/wiki")
 
-# Cache dictionaries with TTL mechanisms
-article_cache: Dict[str, Dict] = {}
 # This caches short language codes existing on Wikipedia.
 language_cache: Dict[str, bool] = {}
-
 
 # GET request method with input validation
 @router.get("/articles", response_model=SourceArticleResponse)
 async def get_article(
-    query: Annotated[
-        Optional[str],
-        Query(description="Either a full Wikipedia URL or a keyword/title"),
-    ] = None,
-    lang: Annotated[
-        Optional[str], Query(description="Article language code")
-    ] = None,
-):
+    query: Annotated[Optional[str], Query(description="Either a full Wikipedia URL or a keyword/title"),] = None,
+    lang: Annotated[Optional[str], Query(description="Article language code")] = None,):
+
     """
        This endpoint requests an article from Wikipedia.
 
@@ -78,7 +71,6 @@ async def get_article(
         logging.info("No query parameter provided.")
         raise HTTPException(status_code=400, detail="Invalid Wikipedia URL provided.")
 
-    # If the query contains “wikipedia.org”, we assume it’s a URL and extract the title
     if "wikipedia.org" in query:
         url = query
         title = extract_title_from_url(query)
@@ -89,38 +81,31 @@ async def get_article(
         url = None
         title = query
 
-    # Check cache before proceeding
-    cached_content, cached_languages = get_cached_article(title)
-    if cached_content:
-        return {"sourceArticle": cached_content, "articleLanguages": cached_languages}
-
-    # If the query is a URL, validate it and set language from it.
     if url:
         parsed_lang = await validate_url(url)
         if not lang:
             lang = parsed_lang
 
-    # If language is not provided by parameter or by parsing URL, default to English.
     if not lang:
         lang = "en"
 
-    # Dynamically create Wikipedia object for the selected language
+    cached_content, cached_languages = get_cached_article(lang + "." + title)
+    if cached_content:
+        return {"sourceArticle": cached_content, "articleLanguages": cached_languages}
+
+
     wiki_wiki = wikipediaapi.Wikipedia(
         user_agent="Symmetry/2.0 (contact@grey-box.ca)", language=lang
     )
 
     page = wiki_wiki.page(title)
 
-    # Check if Wikipedia page exists
     if not page.exists():
         raise HTTPException(status_code=404, detail="Article not found.")
 
     article_content = page.text
     languages = list(page.langlinks.keys()) if page.langlinks else []
 
-    # Cache the article and languages.
-    # Use a combination of language code and title to resolve issues with
-    # conflicts where articles exist under the same title in multiple languages.
     set_cached_article(lang + "." + title, article_content, languages)
 
     return {"sourceArticle": article_content, "articleLanguages": languages}
@@ -134,10 +119,8 @@ async def validate_url(url):
        It returns the language code included in the URL.
     """
 
-    # Parse the URL with urllib
     parsed_url = urlparse(url)
 
-    # Domain validation
     if not parsed_url.netloc.endswith(".wikipedia.org"):
         logging.info(
             "Invalid domain '%s', only 'wikipedia.org' is allowed.",
@@ -147,7 +130,6 @@ async def validate_url(url):
 
     split_url = parsed_url.netloc.split(".")
 
-    # Ensure that URL matches the format '<language_code>.wikipedia.org'
     if len(split_url) != 3:
         logging.info(
             "Invalid subdomain '%s', only '__.wikipedia.org' is allowed.",
@@ -155,70 +137,33 @@ async def validate_url(url):
         )
         raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
 
-    # Language code syntax validation
     lang = split_url[0]
     if not lang.isalpha() or len(lang) > 2:
         logging.info("Invalid language code '%s'", lang)
         raise HTTPException(status_code=400, detail="Invalid language code in URL.")
 
-    # Validate language code through preflight check
     await validate_language_code(lang)
 
-    # Validate the path starts with '/wiki/'
     if not parsed_url.path.startswith("/wiki/"):
         logging.debug("Invalid wiki article path '%s'", parsed_url.path)
         raise HTTPException(status_code=400, detail="Invalid wiki article path.")
     return lang
 
 
-# Function to generate a unique key for each URL
-def get_article_cache_key(url: str) -> str:
-    return hashlib.md5(url.encode()).hexdigest()
-
-
-# Check if article is cached and still valid
-def get_cached_article(title: str):
-    cache_key = get_article_cache_key(title)
-    cached_data = article_cache.get(cache_key)
-
-    if cached_data:
-        if time() - cached_data["timestamp"] < 10000:  # TTL
-            logging.info("Returning cached article")
-            return cached_data["content"], cached_data["languages"]
-        else:
-            # Cache expired, remove it
-            del article_cache[cache_key]
-
-    return None, None
-
-
-# Cache the article content and associated languages
-def set_cached_article(url: str, content: str, languages: List[str]):
-    cache_key = get_article_cache_key(url)
-    article_cache[cache_key] = {
-        "content": content,
-        "languages": languages,
-        "timestamp": time(),
-    }
-
-
-# Language validator and pre-flight request
+# Language validator and main page ping
 async def validate_language_code(language_code: str):
-    # Check cache first
     if language_code in language_cache:
         logging.info(f"Using cached validation for language code: {language_code}")
         return language_cache[language_code]
 
-    # Ping main page for validation
     url = f"https://{language_code}.wikipedia.org/wiki/Main_Page"
 
     try:
-        # Use asyncio.to_thread to run the blocking urllib request in a separate thread
         response = await asyncio.to_thread(urllib.request.urlopen, url)
 
         if response.status == 200:
             logging.info(f"Valid language code: {language_code}")
-            language_cache[language_code] = True  # Cache the validation result
+            language_cache[language_code] = True
             return True
         else:
             language_cache[language_code] = False
@@ -232,7 +177,6 @@ async def validate_language_code(language_code: str):
             status_code=400, detail=f"Invalid language code '{language_code}'."
         )
     except Exception as e:
-        # Handle generic exceptions
         language_cache[language_code] = False
         raise HTTPException(
             status_code=500,
@@ -240,7 +184,6 @@ async def validate_language_code(language_code: str):
         )
 
 
-# Helper method to extract title from URL
 def extract_title_from_url(url: str) -> Optional[str]:
     match = re.search(r"/wiki/([^#?]*)", url)
     if match:
