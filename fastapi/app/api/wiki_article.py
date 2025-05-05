@@ -105,7 +105,7 @@ async def get_article(
 
     # Dynamically create Wikipedia object for the selected language
     wiki_wiki = wikipediaapi.Wikipedia(
-        user_agent="MyApp/2.0 (contact@example.com)", language=lang
+        user_agent="Symmetry/2.0 (contact@grey-box.ca)", language=lang
     )
 
     page = wiki_wiki.page(title)
