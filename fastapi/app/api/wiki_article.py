@@ -32,7 +32,9 @@ async def get_article(
         Optional[str],
         Query(description="Either a full Wikipedia URL or a keyword/title"),
     ] = None,
-    lang: Annotated[str, Query(description="Article language code")] = "en",
+    lang: Annotated[
+        Optional[str], Query(description="Article language code")
+    ] = None,
 ):
     """
        This endpoint requests an article from Wikipedia.
@@ -93,7 +95,13 @@ async def get_article(
 
     # If the query is a URL, validate it and set language from it.
     if url:
-        lang = await validate_url(url)
+        parsed_lang = validate_url(url)
+        if not lang:
+            lang = parsed_lang
+
+    # If language is not provided by parameter or by parsing URL, default to English.
+    if not lang:
+        lang = "en"
 
     # Dynamically create Wikipedia object for the selected language
     wiki_wiki = wikipediaapi.Wikipedia(
