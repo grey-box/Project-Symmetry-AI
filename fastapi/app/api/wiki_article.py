@@ -6,6 +6,9 @@ import urllib.request
 from urllib.parse import urlparse
 from urllib.error import URLError
 from typing import Dict, Optional, Annotated
+import hashlib
+from time import time
+from typing import List
 
 # Third-party imports
 import wikipediaapi
@@ -17,6 +20,8 @@ from ..model.response import SourceArticleResponse
 # Initialize the router for wiki related endpoints
 router = APIRouter(prefix="/symmetry/v1/wiki")
 
+# Cache dictionaries with TTL mechanisms
+article_cache: Dict[str, Dict] = {}
 # This caches short language codes existing on Wikipedia.
 language_cache: Dict[str, bool] = {}
 
@@ -84,6 +89,11 @@ async def get_article(
         url = None
         title = query
 
+    # Check cache before proceeding
+    cached_content, cached_languages = get_cached_article(title)
+    if cached_content:
+        return {"sourceArticle": cached_content, "articleLanguages": cached_languages}
+
     # If the query is a URL, validate it and set language from it.
     if url:
         parsed_lang = await validate_url(url)
@@ -107,6 +117,11 @@ async def get_article(
 
     article_content = page.text
     languages = list(page.langlinks.keys()) if page.langlinks else []
+
+    # Cache the article and languages.
+    # Use a combination of language code and title to resolve issues with
+    # conflicts where articles exist under the same title in multiple languages.
+    set_cached_article(lang + "." + title, article_content, languages)
 
     return {"sourceArticle": article_content, "articleLanguages": languages}
 
@@ -154,6 +169,37 @@ async def validate_url(url):
         logging.debug("Invalid wiki article path '%s'", parsed_url.path)
         raise HTTPException(status_code=400, detail="Invalid wiki article path.")
     return lang
+
+
+# Function to generate a unique key for each URL
+def get_article_cache_key(url: str) -> str:
+    return hashlib.md5(url.encode()).hexdigest()
+
+
+# Check if article is cached and still valid
+def get_cached_article(title: str):
+    cache_key = get_article_cache_key(title)
+    cached_data = article_cache.get(cache_key)
+
+    if cached_data:
+        if time() - cached_data["timestamp"] < 10000:  # TTL
+            logging.info("Returning cached article")
+            return cached_data["content"], cached_data["languages"]
+        else:
+            # Cache expired, remove it
+            del article_cache[cache_key]
+
+    return None, None
+
+
+# Cache the article content and associated languages
+def set_cached_article(url: str, content: str, languages: List[str]):
+    cache_key = get_article_cache_key(url)
+    article_cache[cache_key] = {
+        "content": content,
+        "languages": languages,
+        "timestamp": time(),
+    }
 
 
 # Language validator and pre-flight request
