@@ -117,8 +117,10 @@ async def get_article(
     article_content = page.text
     languages = list(page.langlinks.keys()) if page.langlinks else []
 
-    # Cache the article and languages
-    set_cached_article(title, article_content, languages)
+    # Cache the article and languages.
+    # Use a combination of language code and title to resolve issues with
+    # conflicts where articles exist under the same title in multiple languages.
+    set_cached_article(lang + "." + title, article_content, languages)
 
     return {"sourceArticle": article_content, "articleLanguages": languages}
 
