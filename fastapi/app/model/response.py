@@ -23,6 +23,14 @@ The final response is then passed as 'CompareResponse' which contains the list o
 # Class defines the API reponse format for source article (output)
 class SourceArticleResponse(BaseModel):
     sourceArticle: str
+    """
+       Future maintainer: This needs to be modified!
+       Currently it returns a list of available short language codes.
+       The UI expects a map of short language codes to user-friendly language names, but that isn't
+       enough! The UI will also need a title or (ideally) URL to query the correct page in another
+       language. This information is available through the request made in wiki_article.py, but is
+       not currently returned or expected on the UI side.
+    """
     articleLanguages: List[str]
 
 

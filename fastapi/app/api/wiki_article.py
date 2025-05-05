@@ -22,6 +22,7 @@ router = APIRouter(prefix="/symmetry/v1/wiki")
 
 # Cache dictionaries with TTL mechanisms
 article_cache: Dict[str, Dict] = {}
+# This caches short language codes existing on Wikipedia.
 language_cache: Dict[str, bool] = {}
 
 
