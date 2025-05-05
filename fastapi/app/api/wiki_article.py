@@ -28,9 +28,7 @@ async def get_article(
         Optional[str],
         Query(description="Either a full Wikipedia URL or a keyword/title"),
     ] = None,
-    lang: Annotated[
-        Optional[str], Query(description="Article language code")
-    ] = None,
+    lang: Annotated[Optional[str], Query(description="Article language code")] = None,
 ):
     """
        This endpoint requests an article from Wikipedia.
@@ -73,26 +71,42 @@ async def get_article(
         logging.info("No query parameter provided.")
         raise HTTPException(status_code=400, detail="Invalid Wikipedia URL provided.")
 
-    # If the query contains “wikipedia.org”, we assume it’s a URL and extract the title
-    if "wikipedia.org" in query:
-        url = query
-        title = extract_title_from_url(query)
-        if not title:
-            logging.info("Unable to parse title from URL.")
-            raise HTTPException(status_code=400, detail="Invalid article path.")
+    url: Optional[str] = None
+    title: Optional[str] = None
+    parsed_lang: Optional[str] = None
+
+    # If the query looks like a URL
+    if "://" in query:
+        try:
+            parsed_url = urlparse(query)
+            if not parsed_url.netloc.endswith(".wikipedia.org"):
+                raise HTTPException(
+                    status_code=400, detail="URL is not a valid Wikipedia request."
+                )
+            url = query
+            title = extract_title_from_url(query)
+            if not title:
+                logging.info("Unable to parse title from URL.")
+                raise HTTPException(status_code=400, detail="Invalid article path.")
+            # If it's a Wikipedia URL, validate it and set language from it.
+            parsed_lang = await validate_url(url)
+            lang = parsed_lang
+        except HTTPException as e:
+            # Re-raise the HTTPException raised during URL parsing or validation
+            raise e
+        except ValueError:
+            # Handle cases where the query might be a badly formed URL
+            raise HTTPException(status_code=400, detail="Invalid URL format provided.")
     else:
         url = None
         title = query
 
-    # If the query is a URL, validate it and set language from it.
-    if url:
-        parsed_lang = await validate_url(url)
-        if not lang:
-            lang = parsed_lang
-
     # If language is not provided by parameter or by parsing URL, default to English.
     if not lang:
         lang = "en"
+
+    # Validate the language code *before* initializing wikipediaapi
+    await validate_language_code(lang)
 
     # Dynamically create Wikipedia object for the selected language
     wiki_wiki = wikipediaapi.Wikipedia(
@@ -113,23 +127,16 @@ async def get_article(
 
 async def validate_url(url):
     """
-       This method is used to validate a Wikipedia article URL.
-       The URL should match the general format <language_code>.wikipedia.org/wiki/<article_title>
+    This method is used to validate a Wikipedia article URL.
+    The URL should match the general format <language_code>.wikipedia.org/wiki/<article_title>
 
-       It returns the language code included in the URL.
+    It returns the language code included in the URL.
     """
 
     # Parse the URL with urllib
     parsed_url = urlparse(url)
 
     # Domain validation
-    if not parsed_url.netloc.endswith(".wikipedia.org"):
-        logging.info(
-            "Invalid domain '%s', only 'wikipedia.org' is allowed.",
-            parsed_url.netloc,
-        )
-        raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
-
     split_url = parsed_url.netloc.split(".")
 
     # Ensure that URL matches the format '<language_code>.wikipedia.org'
@@ -138,7 +145,10 @@ async def validate_url(url):
             "Invalid subdomain '%s', only '__.wikipedia.org' is allowed.",
             parsed_url.netloc,
         )
-        raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid Wikipedia URL format: Incorrect subdomain format.",
+        )
 
     # Language code syntax validation
     lang = split_url[0]
@@ -152,12 +162,23 @@ async def validate_url(url):
     # Validate the path starts with '/wiki/'
     if not parsed_url.path.startswith("/wiki/"):
         logging.debug("Invalid wiki article path '%s'", parsed_url.path)
-        raise HTTPException(status_code=400, detail="Invalid wiki article path.")
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid Wikipedia URL format: Invalid article path.",
+        )
     return lang
 
 
 # Language validator and pre-flight request
 async def validate_language_code(language_code: str):
+    # Basic format check
+    if not language_code.isalpha() or len(language_code) > 2:
+        logging.info(f"Invalid language code format: {language_code}")
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid language code in query parameter: {language_code}.",
+        )
+
     # Check cache first
     if language_code in language_cache:
         logging.info(f"Using cached validation for language code: {language_code}")
