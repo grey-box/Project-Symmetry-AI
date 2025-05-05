@@ -13,8 +13,8 @@ The source article and the target article are then passed as array of sentences 
 with the indices of the sentences that are 'missing' from the source article and the sentences that are
 'extra' in the source article.
 
-'missing' -> sentences that are found in the target article but not in the source article
-'extra' -> sentences that are found in the source article but not in the target article
+'missing' -> sentences that are found in the source article but not in the target article
+'extra' -> sentences that are found in the target article but not in the source article
 
 The final response is then passed as 'CompareResponse' which contains the list of comparison results.
 """
