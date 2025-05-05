@@ -91,38 +91,9 @@ async def get_article(
     if cached_content:
         return {"sourceArticle": cached_content, "articleLanguages": cached_languages}
 
+    # If the query is a URL, validate it and set language from it.
     if url:
-        parsed_url = urlparse(url)
-
-        # Domain validation
-        if not parsed_url.netloc.endswith(".wikipedia.org"):
-            logging.info(
-                "Invalid domain '%s', only 'wikipedia.org' is allowed.",
-                parsed_url.netloc,
-            )
-            raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
-
-        split_url = parsed_url.netloc.split(".")
-        if len(split_url) != 3:
-            logging.info(
-                "Invalid subdomain '%s', only '*.wikipedia.org' is allowed.",
-                parsed_url.netloc,
-            )
-            raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
-
-        # Language code syntax validation
-        lang = split_url[0]
-        if not lang.isalpha() or len(lang) > 2:
-            logging.info("Invalid language code '%s'", lang)
-            raise HTTPException(status_code=400, detail="Invalid language code in URL.")
-
-        # Validate language code through preflight check
-        await validate_language_code(lang)
-
-        # Validate the path starts with '/wiki/'
-        if not parsed_url.path.startswith("/wiki/"):
-            logging.debug("Invalid wiki article path '%s'", parsed_url.path)
-            raise HTTPException(status_code=400, detail="Invalid wiki article path.")
+        lang = await validate_url(url)
 
     # Dynamically create Wikipedia object for the selected language
     wiki_wiki = wikipediaapi.Wikipedia(
@@ -142,6 +113,51 @@ async def get_article(
     set_cached_article(title, article_content, languages)
 
     return {"sourceArticle": article_content, "articleLanguages": languages}
+
+
+async def validate_url(url):
+    """
+       This method is used to validate a Wikipedia article URL.
+       The URL should match the general format <language_code>.wikipedia.org/wiki/<article_title>
+
+       It returns the language code included in the URL.
+    """
+
+    # Parse the URL with urllib
+    parsed_url = urlparse(url)
+
+    # Domain validation
+    if not parsed_url.netloc.endswith(".wikipedia.org"):
+        logging.info(
+            "Invalid domain '%s', only 'wikipedia.org' is allowed.",
+            parsed_url.netloc,
+        )
+        raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
+
+    split_url = parsed_url.netloc.split(".")
+
+    # Ensure that URL matches the format '<language_code>.wikipedia.org'
+    if len(split_url) != 3:
+        logging.info(
+            "Invalid subdomain '%s', only '__.wikipedia.org' is allowed.",
+            parsed_url.netloc,
+        )
+        raise HTTPException(status_code=400, detail="Invalid Wikipedia URL.")
+
+    # Language code syntax validation
+    lang = split_url[0]
+    if not lang.isalpha() or len(lang) > 2:
+        logging.info("Invalid language code '%s'", lang)
+        raise HTTPException(status_code=400, detail="Invalid language code in URL.")
+
+    # Validate language code through preflight check
+    await validate_language_code(lang)
+
+    # Validate the path starts with '/wiki/'
+    if not parsed_url.path.startswith("/wiki/"):
+        logging.debug("Invalid wiki article path '%s'", parsed_url.path)
+        raise HTTPException(status_code=400, detail="Invalid wiki article path.")
+    return lang
 
 
 # Function to generate a unique key for each URL
