@@ -17,6 +17,7 @@ from fastapi import APIRouter, Query, HTTPException
 # Local imports
 from ..model.response import SourceArticleResponse
 
+# Initialize the router for wiki related endpoints
 router = APIRouter(prefix="/symmetry/v1/wiki")
 
 # Cache dictionaries with TTL mechanisms
@@ -27,22 +28,48 @@ language_cache: Dict[str, bool] = {}
 # GET request method with input validation
 @router.get("/articles", response_model=SourceArticleResponse)
 async def get_article(
-        query: Annotated[Optional[str], Query(description="Either a full Wikipedia URL or a keyword/title")] = None,
-        lang: Annotated[str, Query(description="Article language code")] = "en"
+    query: Annotated[
+        Optional[str],
+        Query(description="Either a full Wikipedia URL or a keyword/title"),
+    ] = None,
+    lang: Annotated[str, Query(description="Article language code")] = "en",
 ):
     """
-    This endpoint requests an article from Wikipedia.
+       This endpoint requests an article from Wikipedia.
 
-    If the query is a URL, the lang parameter is overwritten with a value parsed from the URL.
-    If the query is a title, the language parameter is used, defaulting to 'en' for English.
+       If the query is a URL, the lang parameter is overwritten with a value parsed from the URL.
+       If the query is a title, the language parameter is used, defaulting to 'en' for English.
 
-    In the future when Symmetry adds support for more platforms, it is suggested
-    that this endpoint is phased out and transformed into a helper method.
+    EXPLANATION OF ENDPOINT CONCATENATION USING THE EXAMPLE QUERY:
+       Consider the example query:
+       http://127.0.0.1:8000/symmetry/v1/wiki/articles?query=https://en.wikipedia.org/wiki/covid
+
+       1. Base URL (http://127.0.0.1:8000): This specifies the host (your local machine at IP address 127.0.0.1)
+          and the port (8000) where your FastAPI application is running. This port is declared in main.py.
+
+       2. Router Prefix (/symmetry/v1/wiki): The APIRouter is initialized with this prefix. It acts as a base path
+          for all the endpoints defined within this router, creating a logical grouping for wiki-related functionality.
+
+       3. Endpoint Path (/articles): The @router.get("/articles", ...) decorator registers the 'get_article' function
+          to handle GET requests at this specific path. This path is appended to the router's prefix.
+
+       4. Concatenated Endpoint (/symmetry/v1/wiki/articles): FastAPI automatically combines the router's prefix
+          and the endpoint path to form the full URL path for this resource.
+
+       5. Query Parameters (?query=https://en.wikipedia.org/wiki/covid): The part after the '?' consists of query
+          parameters. In this case, 'query' is the parameter name, and 'https://en.wikipedia.org/wiki/covid' is its
+          value. This is how you pass data to the GET request. The 'query' parameter is defined in the
+          'get_article' function signature using FastAPI's 'Query' dependency.
+
+       In summary, the endpoint "/symmetry/v1/wiki/articles" is constructed by joining the router's prefix and the
+       path defined in the GET decorator. The data you want to send to this endpoint (like the Wikipedia URL) is
+       then appended to this URL as a query parameter.
+
+       In the future when Symmetry adds support for more platforms, it is suggested
+       that this endpoint is phased out and transformed into a helper method.
     """
 
-    logging.info(
-        "Calling get Wikipedia article endpoint (query='%s')", query
-    )
+    logging.info("Calling get Wikipedia article endpoint (query='%s')", query)
 
     if not query:
         logging.info("No query parameter provided.")
