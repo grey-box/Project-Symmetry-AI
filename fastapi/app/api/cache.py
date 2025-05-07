@@ -8,6 +8,14 @@ from sys import getsizeof
 CACHE_LIMIT = 10  # Max number of cached articles
 TTL_SECONDS = 4000  # Time to live for cached items in seconds
 
+"""
+This module implements an LRU (Least Recently Used) cache for storing articles fetched from Wikipedia.
+of the endpoint path. The above parameters are passed to the function as arguments which will determine
+the time to love as well as the amount of elements which can be stored in the cache to prevent memory leaks.
+This current implementation is exclusively insantiated and used in the wiki_article.py file, but can be 
+extrported and used in other files in future implemenetations.
+"""
+
 
 # Internal LRU cache manager
 class ArticleCache:
