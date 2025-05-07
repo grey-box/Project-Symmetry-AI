@@ -8,6 +8,7 @@ from sys import getsizeof
 CACHE_LIMIT = 10  # Max number of cached articles
 TTL_SECONDS = 4000  # Time to live for cached items in seconds
 
+
 # Internal LRU cache manager
 class ArticleCache:
     def __init__(self, max_size: int = CACHE_LIMIT, ttl: int = TTL_SECONDS):
@@ -65,15 +66,19 @@ class ArticleCache:
             del self.cache[key]
             logging.info(f"[CACHE {reason.upper()}] Evicted key: {key}")
 
+
 # Instantiate global cache object
 _article_cache = ArticleCache()
+
 
 # For external use
 def get_article_cache_key(key: str) -> str:
     return _article_cache._get_cache_key(key)
 
+
 def get_cached_article(title: str) -> Tuple[Optional[str], Optional[List[str]]]:
     return _article_cache.get(title)
+
 
 def set_cached_article(key: str, content: str, languages: List[str]) -> None:
     _article_cache.set(key, content, languages)
