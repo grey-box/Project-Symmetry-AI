@@ -4,10 +4,12 @@ This the file which runs when you use command 'npm run start'
 
 import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
-import { exec, execFile } from 'child_process'
+import { exec, execFile, spawn} from 'child_process'
 
 declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
+
+import { AppConstants } from './constants/AppConstants'
 
 const isDev = false;
 
@@ -41,17 +43,8 @@ const createWindow = () => {
   }
   console.log(`[INFO] backendPath: ${backendPath}`)
   try {
-    execFile(backendPath, ['--port', '8000'], (error: any, stdout: any, stderr: any) => {
-      console.log("[INFO] Running backend API")
-      if (error) {
-        console.error(`exec error: ${error}`);
-        return;
-      }
-      console.log(`[INFO] API has started!`)
-      console.log(`stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
-    });
-  }
+    child = spawn(backendPath, ['--port', AppConstants.BACKEND_PORT])
+        }
   catch(e) {
     console.log(`Error while running API : ${e}`);
   }
