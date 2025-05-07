@@ -9,7 +9,14 @@ and dependency installation. This section is purely for running the backend.
 2) If you have not already, set up your virtual environment (`python3 -m venv venv`)
 3) Switch to the virtual environment (`source venv/bin/activate` or `venv\bin\activate.bat` depending on OS)
 4) If you have not already, install dependencies (`pip install -r requirements.txt`)
-5) Finally, run the app with Uvicorn (`uvicorn app.main:app --reload`)
+5) Consider enabling debug logging:
+   1) Create `.env` inside the `fastapi` folder
+   2) Edit it and properties to change the logging level to debug and set the debug flag for FastAPI
+      ```properties
+      LOG_LEVEL=DEBUG
+      FASTAPI_DEBUG=True
+      ```
+6) Finally, run the app with Uvicorn (`uvicorn app.main:app --reload`)
    * The app runs on port 8000 by default. To use another port, add `--port <number>` to the command.
 
 You should see logs similar to the following:

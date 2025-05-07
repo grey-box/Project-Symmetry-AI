@@ -31,7 +31,7 @@ Further documentation on how these requests are concatenated can be found in the
 # This is how FastAPI recommends setting up debug logging
 # to avoid accidentally leaving it enabled in production.
 # https://www.starlette.io/config/
-config = Config("../.env")
+config = Config(".env")
 
 LOG_LEVEL = config.get("LOG_LEVEL", default="INFO")
 FASTAPI_DEBUG = config.get("FASTAPI_DEBUG", cast=bool, default=False)
