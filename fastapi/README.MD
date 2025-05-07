@@ -10,15 +10,12 @@ and dependency installation. This section is purely for running the backend.
 3) Switch to the virtual environment (`source venv/bin/activate` or `venv\bin\activate.bat` depending on OS)
 4) If you have not already, install dependencies (`pip install -r requirements.txt`)
 5) Finally, run the app with Uvicorn (`uvicorn app.main:app --reload`)
-   1) To use another port, use `--port <number>` when executing Uvicorn
+   * The app runs on port 8000 by default. To use another port, add `--port <number>` to the command.
 
-This will instantiate the app on your local port hosted utilizing uvicorn.
-You should receive a message similar to the following:
-
+You should see logs similar to the following:
 ![result](../extras/uvicornrun.png)
 
-To test your results utilizing the configured endpoints, use a tool like POSTMAN
-or curl in order to make GET or POST requests and receive formatted JSON responses.
+To test the endpoints, use a tool like POSTMAN or curl in order to make GET or POST requests and receive formatted JSON responses.
 
 ## II. **FILE STRUCTURE**
 
@@ -133,7 +130,7 @@ For a more dense and in-depth view of the RESTful philosophy, the above article
 links Roy Fielding's dissertation:
 https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_2_1_1
 
-## V. **WHATS NEXT**
+## V. **WHAT'S NEXT**
 
 ### External Request Rejection
 As Symmetry does run a local web server, it would be a good idea to ensure that all
@@ -142,6 +139,8 @@ remote requests are rejected.
 ### Porting
 Currently, the port number is hard-coded in the UI. The port should be configurable
 so that Symmetry can run without conflicts on systems running other servers.
+
+Port number changes should also be propagated to the CORS middleware.
 
 ### Caching
 Caching article content can significantly increase response time. However, if not done
