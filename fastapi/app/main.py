@@ -4,6 +4,7 @@ from traceback import format_exc
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.config import Config
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 import uvicorn
@@ -21,24 +22,30 @@ Note: You can run this API by cd'ing into 'fastapi' and running 'uvicorn app.mai
 
 Here is a sample request to request an article using a URL:
 
-GET http://127.0.0.1:8000/symmetry/v1/wiki/articles?query=https://en.wikipedia.org/wiki/covid 
+GET http://127.0.0.1:8000/symmetry/v1/wiki/articles?query=https://en.wikipedia.org/wiki/covid
 
 The response will be a JSON object with the source article and the languages available for translation.
 Further documentation on how these requests are concatenated can be found in the wiki_article.py file.
 """
 
+# This is how FastAPI recommends setting up debug logging
+# to avoid accidentally leaving it enabled in production.
+# https://www.starlette.io/config/
+config = Config("../.env")
+
+LOG_LEVEL = config.get("LOG_LEVEL", default="INFO")
+FASTAPI_DEBUG = config.get("FASTAPI_DEBUG", cast=bool, default=False)
+
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=LOG_LEVEL, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 
 # Initialize FastAPI app. The 'debug' flag controls the level of error reporting.
 # When 'debug' is True, detailed error messages including stack traces will be shown, which is helpful during development.
 # When 'debug' is False, more generic error messages are returned to the client, suitable for production environments.
-
-
-app = FastAPI(debug=True)
+app = FastAPI(debug=FASTAPI_DEBUG)
 
 
 # Custom exception handlers
