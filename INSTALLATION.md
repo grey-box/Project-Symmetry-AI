@@ -106,7 +106,7 @@ npm run package
 
 **For Mac**
 
-- Within the UI folder a new folder "out" will be created. Inside will be a single project_symmetry-xxx-xxx.app file. Running this will work fine but, to complete the next step you'll have to right click the file and select "" to view the internal file structure.
+- Within the UI folder a new folder "out" will be created. Inside will be a single project_symmetry-xxx-xxx.app file. Running this will work fine but, to complete the next step you'll have to right-click the file and select "" to view the internal file structure.
 
 III. **Insert the Python Executable**
 

@@ -2,14 +2,33 @@
 This the file which runs when you use command 'npm run start'
 */
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import * as path from 'path'
 import { exec, execFile, spawn} from 'child_process'
 
 declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
 
-import { AppConstants } from './constants/AppConstants'
+import { appConstantsPromise } from './constants/AppConstants'
+let AppConstants;
+
+// A function to load our configuration file. Must be done from this main process
+// since renderer processes have no file access.
+async function grabConfig() {
+    let AppConstants;
+   try {
+        AppConstants = await appConstantsPromise;
+    } catch (error) {
+        console.error("Failed to load the configuration file: ", error);
+        throw new Error(`Failed to load the configuration file: ${error instanceof Error ? error.message : String(error)}`);
+    }
+    return AppConstants;
+}
+
+// Defining an IPC handle so renderer processes can access the config.
+ipcMain.handle('get-app-config', () => {
+  return AppConstants;
+});
 
 const isDev = false;
 
@@ -18,7 +37,7 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-const createWindow = () => {
+const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -43,8 +62,18 @@ const createWindow = () => {
   }
   console.log(`[INFO] backendPath: ${backendPath}`)
   try {
-    child = spawn(backendPath, ['--port', AppConstants.BACKEND_PORT])
-        }
+    AppConstants = await grabConfig();
+    execFile(backendPath, ['--port', AppConstants.BACKEND_PORT], (error: any, stdout: any, stderr: any) => {
+      console.log("[INFO] Running backend API")
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.log(`[INFO] API has started!`)
+      console.log(`stdout: ${stdout}`);
+      console.error(`stderr: ${stderr}`);
+    });
+  }
   catch(e) {
     console.log(`Error while running API : ${e}`);
   }
