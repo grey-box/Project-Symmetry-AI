@@ -6,7 +6,7 @@
 
 <p align="center">
   <img alt="Project-Symmetry: Cross-Language Wikipedia Article Semantic Analysis Tool"
-       src="extras/symmetrydemo.png">
+       src="extras/symmetrydemo2.png">
 </p>
 
 ## About
