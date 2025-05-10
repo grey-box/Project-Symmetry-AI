@@ -77,13 +77,15 @@ async def get_article(
     # If the query looks like a URL
     if "://" in query:
         try:
-            url: Optional[str] = query
+            # If it's a Wikipedia URL, validate it and set language from it.
+            lang = await validate_url(query)
+
             title = extract_title_from_url(query)
+
+            # Shouldn't be possible to hit.
             if not title:
                 logging.info("Unable to parse title from URL.")
                 raise HTTPException(status_code=400, detail="Invalid article path.")
-            # If it's a Wikipedia URL, validate it and set language from it.
-            lang = await validate_url(url)
         except HTTPException as e:
             # Re-raise the HTTPException raised during URL parsing or validation
             raise e
