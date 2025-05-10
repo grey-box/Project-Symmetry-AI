@@ -1,6 +1,5 @@
 # Standard library imports
 import logging
-import re
 import asyncio
 import urllib.request
 from urllib.parse import urlparse
@@ -77,15 +76,9 @@ async def get_article(
     # If the query looks like a URL
     if "://" in query:
         try:
-            # If it's a Wikipedia URL, validate it and set language from it.
-            lang = await validate_url(query)
-
-            title = extract_title_from_url(query)
-
-            # Shouldn't be possible to hit.
-            if not title:
-                logging.info("Unable to parse title from URL.")
-                raise HTTPException(status_code=400, detail="Invalid article path.")
+            # If it's a Wikipedia URL, validate and parse it.
+            lang, title = await validate_url(query)
+            logging.debug("Parsed query as URL (lang='%s'; title='%s')", lang, title)
         except HTTPException as e:
             # Re-raise the HTTPException raised during URL parsing or validation
             raise e
@@ -175,7 +168,25 @@ async def validate_url(url):
             status_code=400,
             detail="Invalid Wikipedia URL format: Invalid article path.",
         )
-    return lang
+
+    # Drop "/wiki/" prefix and replace underscores with spaces.
+    title = _extract_wiki_title(parsed_url.path)
+
+    return lang, title
+
+# Helper for parsing title from path, i.e. "/wiki/COVID-19"
+def _extract_wiki_title(url: str) -> str:
+    # Drop "/wiki/" prefix.
+    title = url[6:]
+
+    # Ignore any suffixes like specific article subsections.
+    for index, c in enumerate(title):
+        if c == '#' or c == '?':
+            title = title[0:index]
+            break
+
+    # Replace underscores with spaces.
+    return title.replace("_", " ")
 
 
 # Language validator and main page ping
@@ -214,11 +225,3 @@ async def validate_language_code(language_code: str):
             status_code=500,
             detail=f"Error occurred during language code validation: {str(e)}",
         )
-
-
-# Helper method to extract title from URL
-def extract_title_from_url(url: str) -> Optional[str]:
-    match = re.search(r"/wiki/([^#?]*)", url)
-    if match:
-        return match.group(1).replace("_", " ")
-    return None
