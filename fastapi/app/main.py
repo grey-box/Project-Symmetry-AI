@@ -90,18 +90,6 @@ register_exception_handlers()
 app.include_router(wiki_article.router)
 app.include_router(comparison.router)
 
-# Resource sharing middleware (allows cross-domain relationships)
-# May not be necessary unless multiple domains are used (e.g. front-end and back-end are hosted separately, which is not the case currently)
-# CORS does not really have any security risks in this implementation, but it is good practice to limit the domains that can access the API
-app.add_middleware(
-    CORSMiddleware,
-    # Specify domains that will need to communicate via API
-    allow_origins=["https://localhost:8000", "http://localhost:8000"],
-    allow_credentials=True,
-    allow_methods=["GET", "HEAD"],
-    allow_headers=["*"],
-)
-
 
 if __name__ == "__main__":
     # Configure our port number.
@@ -115,5 +103,18 @@ if __name__ == "__main__":
         port = int(args["port"]) # If you don't cast this, the logger will freak out
     else:
         port = 8000
+
+    # Resource sharing middleware (allows cross-domain relationships)
+    # May not be necessary unless multiple domains are used (e.g. front-end and back-end are hosted separately, which is not the case currently)
+    # CORS does not really have any security risks in this implementation, but it is good practice to limit the domains that can access the API
+    app.add_middleware(
+        CORSMiddleware,
+        # Specify domains that will need to communicate via API
+        allow_origins=[f"https://localhost:{port}", f"http://localhost:{port}"],
+        allow_credentials=True,
+        allow_methods=["GET", "HEAD"],
+        allow_headers=["*"],
+    )
+
     # Defines API URL (host, port)
     uvicorn.run(app, host="127.0.0.1", port=port)

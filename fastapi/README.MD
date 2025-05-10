@@ -143,11 +143,9 @@ https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_2_1_1
 As Symmetry does run a local web server, it would be a good idea to ensure that all
 remote requests are rejected.
 
-### Porting
-Currently, the port number is hard-coded in the UI. The port should be configurable
-so that Symmetry can run without conflicts on systems running other servers.
-
-Port number changes should also be propagated to the CORS middleware.
+### CORS Configurability
+As stated above, CORS is not particularly necessary for Symmetry in its current state.
+However, in the future, it should likely be configurable to allow other origins.
 
 ### Caching
 There is a cache implementation in place for articles. However, it is global and
