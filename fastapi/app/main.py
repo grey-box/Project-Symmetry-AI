@@ -1,4 +1,5 @@
 #!/bin/bash
+import argparse
 import logging
 from traceback import format_exc
 
@@ -103,5 +104,16 @@ app.add_middleware(
 
 
 if __name__ == "__main__":
+    # Configure our port number.
+    parser = argparse.ArgumentParser(
+        prog="Project Symmetry",
+        description="A semantic comparison tool")  # Simple command line description
+    parser.add_argument("-p", "--port")
+    args = vars(parser.parse_args())
+    # If we don't get a port number, default to 8000
+    if args["port"] is not None and args["port"].isnumeric():
+        port = int(args["port"]) # If you don't cast this, the logger will freak out
+    else:
+        port = 8000
     # Defines API URL (host, port)
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=port)
