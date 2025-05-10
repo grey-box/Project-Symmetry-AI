@@ -11,7 +11,7 @@ and dependency installation. This section is purely for running the backend.
 4) If you have not already, install dependencies (`pip install -r requirements.txt`)
 5) Consider enabling debug logging:
    1) Create `.env` inside the `fastapi` folder
-   2) Edit it and properties to change the logging level to debug and set the debug flag for FastAPI
+   2) Add properties to enable FastAPI and general debug logging:
       ```properties
       LOG_LEVEL=DEBUG
       FASTAPI_DEBUG=True
@@ -150,13 +150,9 @@ so that Symmetry can run without conflicts on systems running other servers.
 Port number changes should also be propagated to the CORS middleware.
 
 ### Caching
-Caching article content can significantly increase response time. However, if not done
-correctly, it can effectively cause memory leaks.
-
-For a baseline, one can revert 279c847dddf099609d47547c6b1e33254b5892e2. This requires
-additional edits - the implementation does not purge stale entries until they specifically
-are requested from it again. If the same article is not requested twice, this results in
-a continuous increase in memory consumption.
+There is a cache implementation in place for articles. However, it is global and
+designed only for use in Wikipedia article fetching. With a little effort, ArticleCache
+could be repurposed into a more general and reusable content cache.
 
 ### Live Comparison Data
 The [comparison endpoint](#symmetryv1articlescompare) currently returns dummy data.
