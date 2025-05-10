@@ -13,6 +13,7 @@ from fastapi import APIRouter, Query, HTTPException
 
 # Local imports
 from ..model.response import SourceArticleResponse
+from .cache import get_cached_article, set_cached_article
 
 # Initialize the router for wiki related endpoints
 router = APIRouter(prefix="/symmetry/v1/wiki")
@@ -71,26 +72,18 @@ async def get_article(
         logging.info("No query parameter provided.")
         raise HTTPException(status_code=400, detail="Invalid Wikipedia URL provided.")
 
-    url: Optional[str] = None
-    title: Optional[str] = None
-    parsed_lang: Optional[str] = None
+    title: Optional[str]
 
     # If the query looks like a URL
     if "://" in query:
         try:
-            parsed_url = urlparse(query)
-            if not parsed_url.netloc.endswith(".wikipedia.org"):
-                raise HTTPException(
-                    status_code=400, detail="URL is not a valid Wikipedia request."
-                )
-            url = query
+            url: Optional[str] = query
             title = extract_title_from_url(query)
             if not title:
                 logging.info("Unable to parse title from URL.")
                 raise HTTPException(status_code=400, detail="Invalid article path.")
             # If it's a Wikipedia URL, validate it and set language from it.
-            parsed_lang = await validate_url(url)
-            lang = parsed_lang
+            lang = await validate_url(url)
         except HTTPException as e:
             # Re-raise the HTTPException raised during URL parsing or validation
             raise e
@@ -98,10 +91,8 @@ async def get_article(
             # Handle cases where the query might be a badly formed URL
             raise HTTPException(status_code=400, detail="Invalid URL format provided.")
     else:
-        url = None
         title = query
 
-    # If language is not provided by parameter or by parsing URL, default to English.
     if not lang:
         lang = "en"
 
@@ -109,6 +100,10 @@ async def get_article(
     await validate_language_code(lang)
 
     # Dynamically create Wikipedia object for the selected language
+    cached_content, cached_languages = get_cached_article(lang + "." + title)
+    if cached_content:
+        return {"sourceArticle": cached_content, "articleLanguages": cached_languages}
+
     wiki_wiki = wikipediaapi.Wikipedia(
         user_agent="Symmetry/2.0 (contact@grey-box.ca)", language=lang
     )
@@ -121,6 +116,8 @@ async def get_article(
 
     article_content = page.text
     languages = list(page.langlinks.keys()) if page.langlinks else []
+
+    set_cached_article(lang + "." + title, article_content, languages)
 
     return {"sourceArticle": article_content, "articleLanguages": languages}
 
@@ -137,6 +134,16 @@ async def validate_url(url):
     parsed_url = urlparse(url)
 
     # Domain validation
+    if not parsed_url.netloc.endswith(".wikipedia.org"):
+        logging.info(
+            "Invalid domain '%s', only 'wikipedia.org' is allowed.",
+            parsed_url.netloc,
+        )
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid Wikipedia URL format: Not Wikipedia or no language subdomain."
+        )
+
     split_url = parsed_url.netloc.split(".")
 
     # Ensure that URL matches the format '<language_code>.wikipedia.org'
@@ -169,16 +176,8 @@ async def validate_url(url):
     return lang
 
 
-# Language validator and pre-flight request
+# Language validator and main page ping
 async def validate_language_code(language_code: str):
-    # Basic format check
-    if not language_code.isalpha() or len(language_code) > 2:
-        logging.info(f"Invalid language code format: {language_code}")
-        raise HTTPException(
-            status_code=400,
-            detail=f"Invalid language code in query parameter: {language_code}.",
-        )
-
     # Check cache first
     if language_code in language_cache:
         logging.info(f"Using cached validation for language code: {language_code}")
