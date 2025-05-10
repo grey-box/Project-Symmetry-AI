@@ -172,6 +172,13 @@ async def validate_url(url):
     # Drop "/wiki/" prefix and replace underscores with spaces.
     title = _extract_wiki_title(parsed_url.path)
 
+    if len(title) == 0:
+        logging.debug("Empty wiki article title")
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid Wikipedia URL format: No article specified.",
+        )
+
     return lang, title
 
 # Helper for parsing title from path, i.e. "/wiki/COVID-19"
