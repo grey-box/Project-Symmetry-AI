@@ -38,6 +38,9 @@ jobs:
         run: pip install pyinstaller
       
       - name: Build with PyInstaller
-        run: pyinstaller -F main.py
+        run: |
+          echo "=== Running PyInstaller from backend-fastapi directory ==="
+          cd backend-fastapi/app/
+          pyinstaller -F main.py
       
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
