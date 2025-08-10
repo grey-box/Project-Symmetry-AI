@@ -1,6 +1,0 @@
-fastapi
-requests
-requests
-nltk
-uvicorn
-Wikipedia-API

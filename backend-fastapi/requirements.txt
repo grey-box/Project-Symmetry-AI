@@ -1,0 +1,14 @@
+fastapi
+pydantic
+requests
+starlette
+wikipedia-api
+sentence-transformers
+scikit-learn
+spacy
+ollama
+transformers
+nltk
+uvicorn
+Wikipedia-API
+pytest
