@@ -1,0 +1,6 @@
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning:click.parser",
+    "ignore::DeprecationWarning:weasel.util.config", 
+    "ignore::DeprecationWarning:spacy.cli._util"
+]
