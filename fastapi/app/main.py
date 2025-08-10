@@ -1,17 +1,22 @@
 #!/bin/bash
-from fastapi import FastAPI
-import uvicorn
+import argparse
 import logging
+from traceback import format_exc
+
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.config import Config
+from starlette.requests import Request
+from starlette.responses import JSONResponse
+import uvicorn
 
 from app.api import wiki_article
-from app.model.request import Url
+from app.api import comparison
 
 from .ai.semantic_comparison import perform_semantic_comparison
 from .ai.llm_comparison import llm_semantic_comparison
 
-
-'''
+"""
 This is the API which handles backend. It handles following features
 1. Providing source article (with input as URL or Title)
 2. Providing available translation languages list
@@ -20,8 +25,15 @@ This is the API which handles backend. It handles following features
 
 Note: You can run this API using 'python main.py' and use postman to get response while debugging
       OR you can simply run "fastapi dev main.py" in the same directory as this file
+"""
 
-'''
+# This is how FastAPI recommends setting up debug logging
+# to avoid accidentally leaving it enabled in production.
+# https://www.starlette.io/config/
+config = Config(".env")
+
+LOG_LEVEL = config.get("LOG_LEVEL", default="INFO")
+FASTAPI_DEBUG = config.get("FASTAPI_DEBUG", cast=bool, default=False)
 
 comparison_models = [
     "sentence-transformers/LaBSE",
@@ -33,22 +45,57 @@ comparison_models = [
 
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=LOG_LEVEL, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-app = FastAPI()
-# Add endpoints from other modules
+
+# Initialize FastAPI app. The 'debug' flag controls the level of error reporting.
+# When 'debug' is True, detailed error messages including stack traces will be shown, which is helpful during development.
+# When 'debug' is False, more generic error messages are returned to the client, suitable for production environments.
+app = FastAPI(debug=FASTAPI_DEBUG)
+
+
+# Custom exception handlers
+
+
+# This handler is used to catch specifically HTTP exceptions and return a JSON response with the error details.
+async def http_exception_handler(request: Request, exc: HTTPException):
+    # Custom HTTPException handler to include stack trace in debug mode
+    response_content = {"detail": exc.detail}
+    if getattr(request.app, "debug", False):
+        response_content["stack_trace"] = format_exc()
+    return JSONResponse(response_content, status_code=exc.status_code)
+
+
+# This handler is used to catch all other exceptions that are not HTTP exceptions.
+async def generic_exception_handler(request: Request, exc: Exception):
+    # Catch-all exception handler
+    logging.error(f"Unhandled exception: {exc}")
+    response_content = {"detail": "Internal Server Error"}
+    if getattr(request.app, "debug", False):
+        response_content["stack_trace"] = format_exc()
+    return JSONResponse(response_content, status_code=500)
+
+
+def register_exception_handlers():
+    # Register custom exception handlers
+    app.add_exception_handler(HTTPException, http_exception_handler)
+    app.add_exception_handler(Exception, generic_exception_handler)
+
+
+# Import the exception handlers
+register_exception_handlers()
+
+# Add endpoints from other modules.
+# Note that when adding more endpoints, they should follow a similar format!
+# The current format is /symmetry/v1/<path>/<to>/<resource>
+# A quick read on RESTful resource naming: https://restfulapi.net/resource-naming/
+# For a more dense and in-depth view of the RESTful philosophy, the above article
+# links Roy Fielding's dissertation:
+# https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_2_1_1
 app.include_router(wiki_article.router)
+app.include_router(comparison.router)
 
-# Allow all origins (be cautious with this in production)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # You can specify the allowed origins here
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Class defines the API reponse format for source article (output)
 class SourceArticleResponse(BaseModel):
@@ -180,9 +227,5 @@ def compare_articles(text_a: str, text_b: str, similarity_threshold: float = 0.7
     print(x)
     return x
 
-if __name__ == '__main__':
     # Defines API URL (host, port)
     uvicorn.run(app, host='127.0.0.1', port=8000)
-
-
-
