@@ -19,9 +19,20 @@ jobs:
           cd fastapi/
           pip install -r requirements.txt
           python -m nltk.downloader punkt
+          echo "=== Installed packages ==="
+          pip list
+          echo "=== Current directory ==="
+          pwd
+          echo "=== Python path ==="
+          python -c "import sys; print('\n'.join(sys.path))"
+          echo "=== Checking pytest installation ==="
+          python -c "import pytest; print('pytest version:', pytest.__version__)"
 
       - name: Run Pytest
-        run: python -m pytest
+        run: |
+          echo "=== Running pytest from fastapi directory ==="
+          cd fastapi/
+          python -m pytest
       
       - name: Install PyInstaller
         run: pip install pyinstaller
