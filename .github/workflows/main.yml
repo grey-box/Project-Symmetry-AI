@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is building symmetry 🚀
 on: [push]
 jobs:
   Test_API_endpoints:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -11,22 +11,36 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11.8'
+          python-version: '3.13'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          cd fastapi/
+          cd backend-fastapi/
           pip install -r requirements.txt
           python -m nltk.downloader punkt
+          echo "=== Installed packages ==="
+          pip list
+          echo "=== Current directory ==="
+          pwd
+          echo "=== Python path ==="
+          python -c "import sys; print('\n'.join(sys.path))"
+          echo "=== Checking pytest installation ==="
+          python -c "import pytest; print('pytest version:', pytest.__version__)"
 
       - name: Run Pytest
-        run: python -m pytest
+        run: |
+          echo "=== Running pytest from backend-fastapi directory ==="
+          cd backend-fastapi/
+          python -m pytest
       
       - name: Install PyInstaller
         run: pip install pyinstaller
       
       - name: Build with PyInstaller
-        run: pyinstaller -F api/flaskr/pyapp.py
-
+        run: |
+          echo "=== Running PyInstaller from backend-fastapi directory ==="
+          cd backend-fastapi/app/
+          pyinstaller -F main.py
+      
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."

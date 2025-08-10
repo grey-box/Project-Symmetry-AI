@@ -1,14 +1,20 @@
 #!/bin/bash
 import argparse
 import logging
+import re
+import requests
 from traceback import format_exc
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Query
+from pydantic import BaseModel
 from starlette.config import Config
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 import uvicorn
+import wikipediaapi
+from typing import List
 
 from app.api import wiki_article
 from app.api import comparison
