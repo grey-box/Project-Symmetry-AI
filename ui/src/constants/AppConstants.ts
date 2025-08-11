@@ -8,10 +8,11 @@ import * as path from 'path';
 // Defining our config json interface for type safety
 interface AppConfig {
   port: number;
+  backendBaseUrl?: string; // Optional backend URL override
 }
 
 // Handles the reading of the json file, run by the main process.
-async function initializeConstants(): Promise {
+async function initializeConstants(): Promise<any> {
   // Our relative path is different between packaged and non-packaged versions...
   let backendPath;
   if (app.isPackaged) {
@@ -31,7 +32,7 @@ async function initializeConstants(): Promise {
 
     // Construct and return the constants object
     let result = {
-      BACKEND_BASE_URL: `http://127.0.0.1:${configData.port}`,
+      BACKEND_BASE_URL: configData.backendBaseUrl || `http://127.0.0.1:${configData.port}`,
       BACKEND_PORT: configData.port,
     }
     return result;

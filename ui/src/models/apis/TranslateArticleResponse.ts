@@ -1,2 +1,2 @@
 // Defines translated article endpoint expected output while making call to FastAPI
-export type TranslateArticleResponse = { text: string, title: string }
+export type TranslateArticleResponse = { translated_article: string }

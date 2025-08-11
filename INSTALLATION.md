@@ -40,16 +40,18 @@ This guide will help you set up a Python virtual environment and install the req
    If you haven't already created a virtual environment, you can do so by running the following command:
    
    ```
-   cd ../fastapi
+   cd ../backend-fastapi
    python -m venv venv
    ```
    2. Activate the Virtual Environment
    
-   | **Operating System** | **Command**                                                                          |
-   |----------------------|--------------------------------------------------------------------------------------|
-   | **Windows**          | `cd venv\Scripts\` <br> `.\Activate` |
-   | **Linux/MacOS**      | `source venv/bin/activate`                                                           |
+   | **Operating System** |  **Command**                                                |
+   |----------------------|-------------------------------------------------------------|
+   | **Windows**          | `cd venv\Scripts\` <br> `.\Activate`                        |
+   | **Linux/MacOS**      | `source venv/bin/activate`                                  |
+   
    You should see (venv) on the left of your terminal now.
+   
    3. Install Dependencies
       
    Once the virtual environment is activated, install the necessary dependencies from the requirements.txt file:

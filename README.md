@@ -36,3 +36,16 @@ make sure to npm install
 go the folder thats ui
 then execute npm run package
 
+
+## How to run on MacOS
+
+Start Electron app:
+
+```
+cd YOUR FULL PATH HERE/Project-Symmetry-AI && ./start_app_with_devtools.sh
+```
+
+Start the backend with Uvicorn
+
+cd YOUR FULL PATH HERE/Project-Symmetry-AI/backend-fastapi && PYTHONPATH="YOUR FULL PATH HERE/Project-Symmetry-AI/backend-fastapi:$PYTHONPATH" source venv/bin/activate && python -m app.main
+
