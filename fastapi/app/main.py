@@ -26,13 +26,34 @@ Note: You can run this API using 'python main.py' and use postman to get respons
 
 '''
 
-comparison_models = [
-    "sentence-transformers/LaBSE",
-    "xlm-roberta-base",
-    "multi-qa-distilbert-cos-v1",
-    "multi-qa-MiniLM-L6-cos-v1",
-    "multi-qa-mpnet-base-cos-v1"
-]
+class ArticleDeconstruct:
+    # todo: make these dicts and have the keys be unique ids for each section so that we can iterate in order
+    text_sections: list[str] = []
+    media_sections: list[str] = [] # list of image url links for markdown
+    tabular: dict = {}
+
+class BackendDataStore:
+    comparison_models: list[str] = [
+        "sentence-transformers/LaBSE",
+        "xlm-roberta-base",
+        "multi-qa-distilbert-cos-v1",
+        "multi-qa-MiniLM-L6-cos-v1",
+        "multi-qa-mpnet-base-cos-v1"
+    ]
+    selected_model: str = comparison_models[0]
+    article_deconstruct: ArticleDeconstruct = None
+
+    # todo: expose these functions to the api
+    def set_selected_model(self, choice: str) -> bool:
+        if choice not in comparison_models:
+            return False
+
+        selected_model = choice
+        return True
+
+    def available_models_list(self):
+        return comparison_models
+
 
 # Configure logging
 logging.basicConfig(
@@ -61,8 +82,10 @@ class ArticleComparisonResponse(BaseModel):
     extra_info: List
 
 # Class defines the API reponse format for source article (output)
-class TranslateArticleResponse(BaseModel):
+class ArticleResponse(BaseModel):
     translated_article: str
+
+
 
 wiki_wiki = wikipediaapi.Wikipedia(user_agent='MyApp/2.0 (contact@example.com)', language='en')  # English Wikipedia instance
 
@@ -128,7 +151,7 @@ def get_article(url: str = Query(None), title: str = Query(None)):
     return {"source_article": article_content, "article_languages": languages}
 
 
-@app.get("/wiki_translate/source_article", response_model=TranslateArticleResponse)
+@app.get("/wiki_translate/source_article", response_model=ArticleResponse)
 def translate_article(url: str = Query(None), title: str = Query(None), language: str = Query(...)):
     logging.info(f"Calling translate article endpoint for title: {title}, url: {url} and language: {language}")
     
@@ -176,10 +199,46 @@ def compare_articles(text_a: str, text_b: str, similarity_threshold: float = 0.7
 
     # missing_info, extra_info = perform_semantic_comparison(text_a, text_b, similarity_threshold, model_name)
     # return {"missing_info": missing_info, "extra_info": extra_info}
+
     output = llm_semantic_comparison(text_a, text_b)
-    x = {"missing_info": output['missing_info'], "extra_info": output['extra_info']}
-    print(x)
-    return x
+    # response = {"missing_info": output['missing_info'], "extra_info": output['extra_info']}
+    # return response
+    return output
+
+@app.get("/synthesis/full", response_model=ArticleResponse)
+def synthesize_full_article(target_language: str, article_a: str, article_b: str, article_synth_base: int):
+    if article_synth_base < 0 or article_synth_base >= 2:
+        raise HTTPException(status_code=400, detail="article_synth_base must be 0 or 1")
+    # todo: check if language target is supported
+
+    deconstruct_a = deconstruct_article(article_a)
+    deconstruct_b = deconstruct_article(article_b)
+
+    target_base = deconstruct_a if article_synth_base == 0 else deconstruct_b
+    comp_base = deconstruct_b if article_synth_base == 0 else deconstruct_a
+
+    missing = {}
+    extra = {}
+
+    synthesis = []
+
+    # todo: this full comparison code should be in the sem. comparison (underlying function) endpoint also
+    for id, text_a in enumerate(target_base.text):
+        for text_b in comp_base.text: # use multiprocessing
+            output = llm_semantic_comparison(text_a, text_b)
+            missing[id] = output['missing_info']
+            extra[id] = output['extra_info']
+
+        for id, text in enumerate(target_base.text):
+            # synthesize paragraph
+            para_synth = synthesize_paragraph(text, missing[id])
+            # add to full synthesis
+            synthesis.append(para_synth)
+
+    synthesis.extend(target_base.media)
+    synthesis.extend(target_base.tabular)
+
+    return synthesis
 
 
 if __name__ == '__main__':
