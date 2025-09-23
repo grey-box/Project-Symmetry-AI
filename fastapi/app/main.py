@@ -1,14 +1,11 @@
 #!/bin/bash
-from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi import FastAPI
 import uvicorn
-from typing import Union, List
-import requests
-from pydantic import BaseModel
 import logging
 from fastapi.middleware.cors import CORSMiddleware
-# from urllib.parse import urlparse, parse_qs
-import wikipediaapi
-import re
+
+from app.api import wiki_article
+from app.model.request import Url
 
 from .ai.semantic_comparison import perform_semantic_comparison
 from .ai.llm_comparison import llm_semantic_comparison
@@ -62,6 +59,8 @@ logging.basicConfig(
 )
 
 app = FastAPI()
+# Add endpoints from other modules
+app.include_router(wiki_article.router)
 
 # Allow all origins (be cautious with this in production)
 app.add_middleware(
@@ -239,7 +238,6 @@ def synthesize_full_article(target_language: str, article_a: str, article_b: str
     synthesis.extend(target_base.tabular)
 
     return synthesis
-
 
 if __name__ == '__main__':
     # Defines API URL (host, port)
