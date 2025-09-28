@@ -1,28 +1,16 @@
-Prereq knowledge for contributing
+# 🎓 Project Symmetry Learning Resources
 
-Git base knowledge : 
+**Technologies**: FastAPI (Python), React/TypeScript, Electron, AI/ML (NLP, Translation)
 
-https://www.youtube.com/watch?v=tRZGeaHPoaw
-https://www.youtube.com/watch?v=Uszj_k0DGsg
+**Key Areas**: 
+- Backend: RESTful APIs, semantic comparison, translation services
+- Frontend: Desktop app, React components, API integration  
+- AI: Natural language processing, machine learning, translation quality
 
-Test Driven Development :
+**Resources**: 
+- [API Documentation](api-documentation.md)
+- [Installation Guide](INSTALLATION.md) 
+- [Contributing Guide](CONTRIBUTING.md)
+- [Project Guide](guide/SymmetryAI-Guide.md)
 
-
-
-Select Interest for contributing :
-
-RESTful API : link 
-
-Machine Learning Algorithm and Libraries
-
-CI/CD
-
-React:
-
-Electron:
-
-Refactoring :
-
-Debugging:
-
-Test Driven development
+**Start Here**: Clone repository, follow installation docs, then explore codebase structure.
