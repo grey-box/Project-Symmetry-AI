@@ -19,8 +19,8 @@ from typing import List
 from app.api import wiki_article
 from app.api import comparison
 
-from .ai.semantic_comparison import perform_semantic_comparison
-from .ai.llm_comparison import llm_semantic_comparison
+from app.ai.semantic_comparison import perform_semantic_comparison
+from app.ai.llm_comparison import llm_semantic_comparison
 
 """
 This is the API which handles backend. It handles following features
@@ -91,6 +91,15 @@ def register_exception_handlers():
 
 # Import the exception handlers
 register_exception_handlers()
+
+# Add CORS middleware to allow frontend requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins for development
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Add endpoints from other modules.
 # Note that when adding more endpoints, they should follow a similar format!
@@ -233,5 +242,7 @@ def compare_articles(text_a: str, text_b: str, similarity_threshold: float = 0.7
     print(x)
     return x
 
-    # Defines API URL (host, port)
+
+# Defines API URL (host, port)
+if __name__ == "__main__":
     uvicorn.run(app, host='127.0.0.1', port=8000)

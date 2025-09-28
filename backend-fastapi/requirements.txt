@@ -12,3 +12,4 @@ nltk
 uvicorn
 Wikipedia-API
 pytest
+sphinx

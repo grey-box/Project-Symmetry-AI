@@ -27,7 +27,7 @@ def llm_semantic_comparison(buffer_a, buffer_b):
     responses = [None, None]
 
     for response_index, prompt in enumerate(prompts):
-        server_response = llama.generate(model='deepseek-r1:8b', prompt=prompt, options={
+        server_response = llama.generate(model='deepseek-r1:latest', prompt=prompt, options={
             'temperature': 0.0
         })
         print(server_response['response'])

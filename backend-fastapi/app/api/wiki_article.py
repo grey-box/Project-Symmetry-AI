@@ -8,11 +8,11 @@ from typing import Dict, Optional, Annotated
 
 # Third-party imports
 import wikipediaapi
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, Request
 
 # Local imports
-from ..model.response import SourceArticleResponse
-from .cache import get_cached_article, set_cached_article
+from app.model.response import SourceArticleResponse
+from app.api.cache import get_cached_article, set_cached_article
 
 # Initialize the router for wiki related endpoints
 router = APIRouter(prefix="/symmetry/v1/wiki")
@@ -24,6 +24,7 @@ language_cache: Dict[str, bool] = {}
 # GET request method with input validation
 @router.get("/articles", response_model=SourceArticleResponse)
 async def get_article(
+    request: Request,
     query: Annotated[
         Optional[str],
         Query(description="Either a full Wikipedia URL or a keyword/title"),
@@ -66,6 +67,8 @@ async def get_article(
     """
 
     logging.info("Calling get Wikipedia article endpoint (query='%s')", query)
+    logging.info("[DEBUG] Request headers: %s", dict(request.headers))
+    logging.info("[DEBUG] Request client: %s", request.client.host if request.client else "Unknown")
 
     if not query:
         logging.info("No query parameter provided.")

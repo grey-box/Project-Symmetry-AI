@@ -10,12 +10,12 @@ declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
 
 import { appConstantsPromise } from './constants/AppConstants'
-let AppConstants;
+let AppConstants: any;
 
 // A function to load our configuration file. Must be done from this main process
 // since renderer processes have no file access.
 async function grabConfig() {
-    let AppConstants;
+    let AppConstants: any;
    try {
         AppConstants = await appConstantsPromise;
     } catch (error) {
@@ -27,10 +27,44 @@ async function grabConfig() {
 
 // Defining an IPC handle so renderer processes can access the config.
 ipcMain.handle('get-app-config', () => {
-  return AppConstants;
+  return AppConstants as any;
 });
 
-const isDev = false;
+// IPC handler to start backend from renderer
+ipcMain.handle('start-backend', async () => {
+  try {
+    // Kill any existing backend processes first
+    console.log("[INFO] Killing existing backend processes...")
+    exec('pkill -f "python.*main.py" || true', (err: any) => {
+      if (err) {
+        console.log(`No existing backend processes found: ${err}`);
+      }
+    });
+    
+    // Start the backend from the correct directory
+    console.log("[INFO] Starting backend API from renderer request...")
+    execFile('python3', ['app/main.py'], {
+      cwd: path.join(process.cwd(), '../backend-fastapi'),
+      timeout: 10000
+    }, (error: any, stdout: any, stderr: any) => {
+      if (error) {
+        console.error(`Backend exec error: ${error}`);
+        return { success: false, error: error.message };
+      }
+      console.log(`[INFO] Backend API started successfully from renderer!`)
+      console.log(`stdout: ${stdout}`);
+      console.error(`stderr: ${stderr}`);
+    });
+    
+    return { success: true };
+  } catch (error) {
+    console.error('Error starting backend from renderer:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+});
+
+// Detect if we're in development mode
+const isDev = !app.isPackaged || process.env.NODE_ENV === 'development';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -55,27 +89,57 @@ const createWindow = async () => {
     );
   }
   let backendPath;
+  let backendDir;
   if (app.isPackaged) {
     backendPath = path.join(process.resourcesPath, 'main');
+    backendDir = path.join(process.resourcesPath, '..');
   } else {
-    backendPath = path.join(process.cwd(), '../fastapi/app/dist/main'); // Runs the API has background process
+    // For development, run the Python script directly from the correct directory
+    backendPath = path.join(process.cwd(), '../backend-fastapi/app/main.py');
+    backendDir = path.join(process.cwd(), '../backend-fastapi');
   }
   console.log(`[INFO] backendPath: ${backendPath}`)
+  console.log(`[INFO] backendDir: ${backendDir}`)
+  
   try {
     AppConstants = await grabConfig();
-    execFile(backendPath, ['--port', AppConstants.BACKEND_PORT], (error: any, stdout: any, stderr: any) => {
-      console.log("[INFO] Running backend API")
-      if (error) {
-        console.error(`exec error: ${error}`);
-        return;
+    
+    // Kill any existing backend processes first
+    console.log("[INFO] Killing existing backend processes...")
+    
+    // Kill processes on the specific port first
+    exec(`lsof -ti:8000 | xargs kill -9 || true`, (err: any, stdout: any, stderr: any) => {
+      if (err) {
+        console.log(`No processes found on port 8000 or kill command failed: ${err}`);
       }
-      console.log(`[INFO] API has started!`)
-      console.log(`stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
+      
+      // Then kill any python main.py processes
+      exec('pkill -f "python.*main.py" || true', (err: any, stdout: any, stderr: any) => {
+        if (err) {
+          console.log(`No existing backend processes found or kill command failed: ${err}`);
+        }
+        console.log("[INFO] Existing backend processes killed")
+        
+        // Start the backend from the correct directory
+        console.log("[INFO] Starting backend API from correct directory...")
+        execFile('python3', ['app/main.py'], {
+          cwd: backendDir,
+          timeout: 10000
+        }, (error: any, stdout: any, stderr: any) => {
+          console.log("[INFO] Backend API process started")
+          if (error) {
+            console.error(`Backend exec error: ${error}`);
+            return;
+          }
+          console.log(`[INFO] Backend API has started on port ${AppConstants.BACKEND_PORT}!`)
+          console.log(`stdout: ${stdout}`);
+          console.error(`stderr: ${stderr}`);
+        });
+      });
     });
   }
   catch(e) {
-    console.log(`Error while running API : ${e}`);
+    console.error(`Error while running API : ${e}`);
   }
 
   // Open the DevTools.

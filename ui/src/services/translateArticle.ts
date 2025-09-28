@@ -1,20 +1,22 @@
 import { AxiosResponse } from 'axios'
-import { axiosInstance } from '@/services/axios'
-import { TranslateArticleRequest } from '@/models/apis/TranslateArticleRequest'
+import { getAxiosInstance } from '@/services/axios'
 import { TranslateArticleResponse } from '@/models/apis/TranslateArticleResponse'
 
-/*
-Note that this completely diverges from the design on the FastAPI side:
-translate/sourceArticle was a GET request, not POST, and the parameters do not
-line up with TranslateArticleRequest. Only URL is provided, no language.
-As the API team's tenure is coming to an end, unfortunately we don't have time to
-address this.
-Future maintainers, please use the same endpoint as fetchArticle and delete this.
- */
 // API call for getting translated article
-export function translateArticle(body: TranslateArticleRequest): Promise<AxiosResponse<TranslateArticleResponse>> {
-  return axiosInstance.post<TranslateArticleResponse, any, TranslateArticleRequest>(
-    'translate/sourceArticle',
-    body,
-  )
+export async function translateArticle(title: string, language: string): Promise<AxiosResponse<TranslateArticleResponse>> {
+  try {
+    const axiosInstance = await getAxiosInstance();
+    
+    console.log('[DEBUG] translateArticle called with title:', title, 'language:', language);
+    
+    return axiosInstance.get<TranslateArticleResponse>('/wiki_translate/source_article', {
+      params: {
+        title: title,
+        language: language
+      }
+    });
+  } catch (error) {
+    console.error('Failed to get axios instance:', error);
+    throw error;
+  }
 }
