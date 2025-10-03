@@ -1,11 +1,19 @@
 #!/bin/bash
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import uvicorn
 import logging
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import wiki_article
-from app.model.request import Url
+from fastapi import Query
+from pydantic import BaseModel
+from starlette.config import Config
+from starlette.requests import Request
+from starlette.responses import JSONResponse
+import wikipediaapi
+from typing import List
+
+from .api import wiki_article
+from .model.request import Url
 
 from .ai.semantic_comparison import perform_semantic_comparison
 from .ai.llm_comparison import llm_semantic_comparison
@@ -23,11 +31,7 @@ Note: You can run this API using 'python main.py' and use postman to get respons
 
 '''
 
-class ArticleDeconstruct:
-    # todo: make these dicts and have the keys be unique ids for each section so that we can iterate in order
-    text_sections: list[str] = []
-    media_sections: list[str] = [] # list of image url links for markdown
-    tabular: dict = {}
+
 
 class BackendDataStore:
     comparison_models: list[str] = [
@@ -38,7 +42,7 @@ class BackendDataStore:
         "multi-qa-mpnet-base-cos-v1"
     ]
     selected_model: str = comparison_models[0]
-    article_deconstruct: ArticleDeconstruct = None
+    article_model: ArticleModel= None
 
     # todo: expose these functions to the api
     def set_selected_model(self, choice: str) -> bool:
