@@ -209,39 +209,42 @@ def compare_articles(text_a: str, text_b: str, similarity_threshold: float = 0.7
     return output
 
 @app.get("/synthesis/full", response_model=ArticleResponse)
-def synthesize_full_article(target_language: str, article_a: str, article_b: str, article_synth_base: int):
+def synthesize_full_article(target_language: str, article_title_a: str, article_title_b: str, article_synth_base: int):
+    # article_synth_base indicates which article model will be used as the base for the newly synthesized article
+
     if article_synth_base < 0 or article_synth_base >= 2:
         raise HTTPException(status_code=400, detail="article_synth_base must be 0 or 1")
     # todo: check if language target is supported
 
-    deconstruct_a = deconstruct_article(article_a)
-    deconstruct_b = deconstruct_article(article_b)
+    model_a = create_article_model(article_title_a)
+    model_b = create_article_model(article_title_b)
 
-    target_base = deconstruct_a if article_synth_base == 0 else deconstruct_b
-    comp_base = deconstruct_b if article_synth_base == 0 else deconstruct_a
+    target_base = model_a if article_synth_base == 0 else model_b
+    comp_base = model_b if article_synth_base == 0 else model_a
 
     missing = {}
     extra = {}
 
-    synthesis = []
-
     # todo: this full comparison code should be in the sem. comparison (underlying function) endpoint also
-    for id, text_a in enumerate(target_base.text):
-        for text_b in comp_base.text: # use multiprocessing
-            output = llm_semantic_comparison(text_a, text_b)
-            missing[id] = output['missing_info']
-            extra[id] = output['extra_info']
+    for fragment_a in enumerate(target_base.text):
+        for fragment_b in comp_base.text:
+            output = llm_semantic_comparison(fragment_a.text, fragment_b.text)
+            fragment_a.missing_info = output['missing_info']
+            # missing[id] = output['missing_info']
+            # extra[id] = output['extra_info']
 
-        for id, text in enumerate(target_base.text):
-            # synthesize paragraph
-            para_synth = synthesize_paragraph(text, missing[id])
-            # add to full synthesis
-            synthesis.append(para_synth)
+    symmetrical_article_text = ""
+    for pack in target_base.structure:
+        section_type, index = pack
 
-    synthesis.extend(target_base.media)
-    synthesis.extend(target_base.tabular)
+        section = target_base.get_section(section_type, index)
+        if section_type == TEXT:
 
-    return synthesis
+            # full_text = section.text + 
+        else:
+
+
+    # return synthesis
 
 if __name__ == '__main__':
     # Defines API URL (host, port)

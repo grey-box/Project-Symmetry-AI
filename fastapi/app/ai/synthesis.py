@@ -14,10 +14,11 @@ REFERENCES = 4
 class TextFragment:
     text: str
     missing_info: List[str] = field(default_factory=list)
+    translation: str = field(default_factory=str)
 
 @dataclass
 class ArticleModel:
-    titles: list[str] = field(default_factory=list)
+    titles: list[TextFragment] = field(default_factory=list)
     text: list[TextFragment] = field(default_factory=list)
     media: list[str] = field(default_factory=list)
     tabular: list[str] = field(default_factory=list) 
@@ -25,10 +26,24 @@ class ArticleModel:
 
     structure: List[Tuple[int, int]] = field(default_factory=list)
 
+    def get_section(self, _type: int, index: int):
+        if _type == TITLE:
+            return self.titles[index]
+        elif _type == TEXT:
+            return self.text[index]
+        elif _type == MEDIA:
+            return self.media[index]
+        elif _type == TABULAR:
+            return self.tabular[index]
+        elif _type == REFERENCES:
+            return self.references[index]
+        else:
+            return None
+
     def add_to_section(self, section_type: int, section_content: str):
         idx = 0
         if section_type == 0:
-            self.titles.append(section_content)
+            self.titles.append(TextFragment(text=section_content))
             idx = len(self.titles)-1
         elif section_type == 1:
             self.text.append(TextFragment(text=section_content))
@@ -44,6 +59,9 @@ class ArticleModel:
             idx = len(self.references)-1
         self.structure.append((section_type, idx))
 
+    # def synthesize(self):
+    #     pass
+
 def html_to_md(page_name):
     params = {
         "action": "parse",
@@ -54,13 +72,26 @@ def html_to_md(page_name):
         "redirects": 1
     }
 
-    r = requests.get("https://en.wikipedia.org/w/api.php", params=params, headers={"User-Agent": "YourAppName/1.0 (contact@example.com)"}, timeout=30)
-    html = r.json()["parse"]["text"]
-    markdown = convert_to_markdown(html)
+    try:
+        r = requests.get("https://en.wikipedia.org/w/api.php", params=params, headers={"User-Agent": "YourAppName/1.0 (contact@example.com)"}, timeout=30)
+        r.raise_for_status()  # Raise an exception for bad status codes
+        
+        json_data = r.json()
+        if "parse" not in json_data:
+            raise ValueError(f"No 'parse' key in API response for page '{page_name}'. Response: {json_data}")
+        
+        html = json_data["parse"]["text"]
+        markdown = convert_to_markdown(html)
+        return markdown
+        
+    except requests.exceptions.RequestException as e:
+        raise Exception(f"Failed to fetch Wikipedia page '{page_name}': {e}")
+    except ValueError as e:
+        raise Exception(f"Invalid response from Wikipedia API for page '{page_name}': {e}")
+    except KeyError as e:
+        raise Exception(f"Missing expected key in Wikipedia API response for page '{page_name}': {e}")
 
-    return markdown
-
-def create_article_model(md_content: str) -> ArticleModel:
+def create_article_model_from_md(md_content: str) -> ArticleModel:
     def html_image_to_markdown(html_img):
         src_match = re.search(r'src=["\']([^"\']+)["\']', html_img)
         alt_match = re.search(r'alt=["\']([^"\']*)["\']', html_img)
@@ -178,15 +209,16 @@ def create_article_model(md_content: str) -> ArticleModel:
         model.add_to_section(TEXT, article_lines[line_idx])
         line_idx += 1
 
-    for x in model.tabular:
-        print("-"*50)
-        print(x)
+    # for x in model.tabular:
+    #     print("-"*50)
+    #     print(x)
 
     return model
 
+def create_article_model(article_title):
+    md = html_to_md(article_title)
+    return create_article_model_from_md(md)
 
-# article_titles = ["Pet door", "Owner-occupancy"]
-# 
-# md = html_to_md(article_titles[1])
-# model = create_article_model(md)
+
+
 
