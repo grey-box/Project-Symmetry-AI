@@ -13,3 +13,4 @@ uvicorn
 Wikipedia-API
 pytest
 sphinx
+beautifulsoup4

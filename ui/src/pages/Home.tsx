@@ -4,6 +4,7 @@ import { Phase } from '@/models/Phase'
 import { Separator } from '@/components/ui/separator'
 import TranslationSection from '@/components/TranslationSection'
 import ComparisonSection from '@/components/ComparisonSection'
+import StructuredArticleViewer from '@/components/StructuredArticleViewer'
 
 const Home = () => {
   const [phase, setPhase] = useState(Phase.TRANSLATION)
@@ -32,6 +33,16 @@ const Home = () => {
         >
           AI Comparison
         </button>
+        <button
+          className={`px-4 py-2 rounded-lg transition-colors ${
+            phase === Phase.STRUCTURED_ARTICLE
+              ? 'bg-blue-500 text-white'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+          onClick={() => setPhase(Phase.STRUCTURED_ARTICLE)}
+        >
+          Structured Article
+        </button>
       </div>
 
       <Separator className="mb-6" />
@@ -39,10 +50,14 @@ const Home = () => {
       {
         phase === Phase.TRANSLATION ?
           <TranslationSection />
-          :
-          <div id="comparison-section">
-            <ComparisonSection />
-          </div>
+          : phase === Phase.AI_COMPARISON ?
+            <div id="comparison-section">
+              <ComparisonSection />
+            </div>
+            :
+            <div id="structured-article-section">
+              <StructuredArticleViewer initialQuery=" " initialLang="en" />
+            </div>
       }
     </section>
   )
