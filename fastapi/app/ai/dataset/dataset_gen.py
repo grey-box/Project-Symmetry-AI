@@ -2,6 +2,7 @@ import json
 import sys
 from pathlib import Path
 from refine_compare import semantic_compare
+import csv
 
 
 def read_text_file(filepath):
@@ -17,7 +18,7 @@ def read_text_file(filepath):
 def align_sentences_semantically(original_text, translated_text, source_lang, target_lang, sim_threshold=0.75):
     """
     Use semantic comparison to get sentence pairs from both texts.
-    Returns the sentences from the semantic_compare function.
+    Returns the full comparison result including sentences and leftover info.
     """
     result = semantic_compare(
         original_blob=original_text,
@@ -31,7 +32,7 @@ def align_sentences_semantically(original_text, translated_text, source_lang, ta
         print("Warning: Semantic comparison was not fully successful")
         print("Continuing with available data...")
 
-    return result["original_sentences"], result["translated_sentences"]
+    return result
 
 
 def create_qna_pairs(original_sentences, translated_sentences, source_lang, target_lang):
@@ -104,10 +105,92 @@ def create_qna_pairs(original_sentences, translated_sentences, source_lang, targ
     return qna_dataset
 
 
+def create_leftover_json(comparison_result, source_lang, target_lang, output_file="leftover_sentences.json"):
+    """
+    Create a JSON file containing sentences that didn't pass the similarity threshold.
+    No duplicates - each leftover sentence appears only once.
+    """
+    leftover_data = {
+        "metadata": {
+            "source_language": source_lang,
+            "target_language": target_lang,
+            "description": "Sentences that did not meet the similarity threshold"
+        },
+        "missing_from_translation": {
+            "description": "Original sentences missing or poorly translated",
+            "count": len(comparison_result["missing_info"]),
+            "sentences": [
+                {
+                    "index": idx,
+                    "text": sent
+                }
+                for idx, sent in zip(comparison_result["missing_info_indices"], comparison_result["missing_info"])
+            ]
+        },
+        "extra_in_translation": {
+            "description": "Translated sentences not found in original or added content",
+            "count": len(comparison_result["extra_info"]),
+            "sentences": [
+                {
+                    "index": idx,
+                    "text": sent
+                }
+                for idx, sent in zip(comparison_result["extra_info_indices"], comparison_result["extra_info"])
+            ]
+        }
+    }
+
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(leftover_data, f, ensure_ascii=False, indent=2)
+
+    print(f"✓ Created leftover sentences JSON: {output_file}")
+    print(f"  - Missing from translation: {leftover_data['missing_from_translation']['count']} sentences")
+    print(f"  - Extra in translation: {leftover_data['extra_in_translation']['count']} sentences")
+
+    return leftover_data
+
+
+def create_rag_csv(original_sentences, translated_sentences, missing_indices, extra_indices,
+                   source_lang, target_lang, output_file="rag_aligned_pairs.csv"):
+    """
+    Create a CSV file with aligned sentence pairs that passed the threshold.
+    Only includes sentences that are semantically aligned (above threshold).
+    Format: original_text, translated_text
+    """
+    # Create sets of indices to exclude
+    missing_set = set(missing_indices)
+    extra_set = set(extra_indices)
+
+    # Determine the minimum length
+    min_length = min(len(original_sentences), len(translated_sentences))
+
+    with open(output_file, 'w', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+
+        # Write header
+        writer.writerow([f'original_text_{source_lang}', f'translated_text_{target_lang}'])
+
+        # Write only aligned pairs (sentences that passed the threshold)
+        aligned_count = 0
+        for i in range(min_length):
+            # Only include if neither sentence is in the missing/extra lists
+            if i not in missing_set and i not in extra_set:
+                writer.writerow([original_sentences[i], translated_sentences[i]])
+                aligned_count += 1
+
+    print(f"✓ Created RAG CSV file: {output_file}")
+    print(f"  - Aligned sentence pairs: {aligned_count}")
+
+    return aligned_count
+
+
 def generate_dataset(original_file, translated_file, source_lang, target_lang,
-                     sim_threshold=0.75, output_file="dataset.json"):
+                     sim_threshold=0.75, output_file="dataset.json",
+                     leftover_file="leftover_sentences.json",
+                     rag_csv_file="rag_aligned_pairs.csv"):
     """
     Main function to generate QnA dataset from two text files using semantic comparison.
+    Also creates leftover sentences JSON and RAG CSV file.
     """
     print(f"Reading original file: {original_file}")
     original_text = read_text_file(original_file)
@@ -118,7 +201,7 @@ def generate_dataset(original_file, translated_file, source_lang, target_lang,
     print(f"Performing semantic comparison between {source_lang} and {target_lang}...")
     print(f"Using similarity threshold: {sim_threshold}")
 
-    original_sentences, translated_sentences = align_sentences_semantically(
+    comparison_result = align_sentences_semantically(
         original_text,
         translated_text,
         source_lang,
@@ -126,13 +209,16 @@ def generate_dataset(original_file, translated_file, source_lang, target_lang,
         sim_threshold
     )
 
+    original_sentences = comparison_result["original_sentences"]
+    translated_sentences = comparison_result["translated_sentences"]
+
     print(f"Found {len(original_sentences)} sentences in original text")
     print(f"Found {len(translated_sentences)} sentences in translated text")
 
-    print("Generating QnA pairs...")
+    print("\nGenerating QnA pairs...")
     qna_dataset = create_qna_pairs(original_sentences, translated_sentences, source_lang, target_lang)
 
-    # Create output structure
+    # Create output structure for main dataset
     output_data = {
         "metadata": {
             "source_language": source_lang,
@@ -147,7 +233,7 @@ def generate_dataset(original_file, translated_file, source_lang, target_lang,
         "qna_pairs": qna_dataset
     }
 
-    print(f"Writing dataset to {output_file}...")
+    print(f"\nWriting main dataset to {output_file}...")
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
 
@@ -155,7 +241,40 @@ def generate_dataset(original_file, translated_file, source_lang, target_lang,
     print(f"  - Single sentence pairs: {len([q for q in qna_dataset if q['type'] == 'single_sentence'])}")
     print(f"  - Batch sentence pairs: {len([q for q in qna_dataset if q['type'] == 'batch_sentences'])}")
 
-    return output_data
+    # Create leftover sentences JSON
+    print(f"\nCreating leftover sentences file...")
+    leftover_data = create_leftover_json(
+        comparison_result,
+        source_lang,
+        target_lang,
+        leftover_file
+    )
+
+    # Create RAG CSV file with aligned pairs
+    print(f"\nCreating RAG CSV file...")
+    aligned_count = create_rag_csv(
+        original_sentences,
+        translated_sentences,
+        comparison_result["missing_info_indices"],
+        comparison_result["extra_info_indices"],
+        source_lang,
+        target_lang,
+        rag_csv_file
+    )
+
+    print("\n" + "=" * 60)
+    print("SUMMARY")
+    print("=" * 60)
+    print(f"Main Dataset: {output_file}")
+    print(f"  - Total QnA pairs: {len(qna_dataset)}")
+    print(f"\nLeftover Sentences: {leftover_file}")
+    print(f"  - Missing from translation: {len(comparison_result['missing_info'])}")
+    print(f"  - Extra in translation: {len(comparison_result['extra_info'])}")
+    print(f"\nRAG CSV: {rag_csv_file}")
+    print(f"  - Aligned pairs (above threshold): {aligned_count}")
+    print("=" * 60)
+
+    return output_data, leftover_data, aligned_count
 
 
 def main():
@@ -168,7 +287,11 @@ def main():
     source_lang = "en"  # Source language code
     target_lang = "es"  # Target language code
     sim_threshold = 0.75  # Similarity threshold for semantic matching (0.0-1.0)
-    output_file = "dataset.json"  # Output JSON file path
+
+    # Output files
+    output_file = "dataset.json"  # Main QnA dataset
+    leftover_file = "leftover_sentences.json"  # Sentences that didn't pass threshold
+    rag_csv_file = "rag_aligned_pairs.csv"  # CSV with aligned pairs for RAG
 
     # ============================================
 
@@ -178,7 +301,9 @@ def main():
         source_lang,
         target_lang,
         sim_threshold,
-        output_file
+        output_file,
+        leftover_file,
+        rag_csv_file
     )
 
 
