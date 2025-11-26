@@ -1,0 +1,2395 @@
+{
+  "metadata": {
+    "source_language": "en",
+    "target_language": "es",
+    "description": "Sentences that did not meet the similarity threshold"
+  },
+  "missing_from_translation": {
+    "description": "Original sentences missing or poorly translated",
+    "count": 420,
+    "sentences": [
+      {
+        "index": 0,
+        "text": "A door is a hinged or otherwise movable barrier that allows ingress (entry) into and egress (exit) from an enclosure."
+      },
+      {
+        "index": 1,
+        "text": "The created opening in the wall is a doorway or portal."
+      },
+      {
+        "index": 2,
+        "text": "A door's essential and primary purpose is to provide security by controlling access to the doorway (portal)."
+      },
+      {
+        "index": 3,
+        "text": "Conventionally, it is a panel that fits into the doorway of a building, room, or vehicle."
+      },
+      {
+        "index": 4,
+        "text": "Doors are generally made of a material suited to the door's task."
+      },
+      {
+        "index": 5,
+        "text": "They are commonly attached by hinges, but can move by other means, such as slides or counterbalancing.."
+      },
+      {
+        "index": 9,
+        "text": "the two sides are radically different.."
+      },
+      {
+        "index": 14,
+        "text": "Receiving the key to a door can signify a change in status from outsider to insider.[1] Doors and doorways frequently appear in literature and the arts with metaphorical or allegorical import as a portent of change.."
+      },
+      {
+        "index": 25,
+        "text": "Stone door in Hampi (India).  ."
+      },
+      {
+        "index": 26,
+        "text": "A massive door socket from Persepolis (modern-day Iran)."
+      },
+      {
+        "index": 28,
+        "text": "Those Hilprecht found at Nippur, dating from 2000 BC, were in dolerite."
+      },
+      {
+        "index": 38,
+        "text": "In the last case, the leaves were hinged and folded back."
+      },
+      {
+        "index": 45,
+        "text": "The Greek scholar Heron of Alexandria created the earliest known automatic door in the first century AD during the era of Roman Egypt.[4] The first foot-sensor-activated automatic door was made in China during the reign of Emperor Yang of Sui (r. 604–618), who had one installed for his royal library.[4]"
+      },
+      {
+        "index": 47,
+        "text": "Copper and its alloys were integral in medieval architecture."
+      },
+      {
+        "index": 48,
+        "text": "The doors of the church of the Nativity at Bethlehem (6th century) are covered with plates of bronze, cut out in patterns."
+      },
+      {
+        "index": 49,
+        "text": "Those of Hagia Sophia at Constantinople, of the eighth and ninth century, are wrought in bronze, and the west doors of the cathedral of Aix-la-Chapelle (9th century), of similar manufacture, were probably brought from Constantinople, as also some of those in St. Marks, Venice."
+      },
+      {
+        "index": 50,
+        "text": "The bronze doors on the Aachen Cathedral in Germany date back to about 800 AD."
+      },
+      {
+        "index": 51,
+        "text": "Bronze baptistery doors at the Cathedral of Florence were completed in 1423 by Ghiberti.[7] (For more information, see: Copper in architecture).."
+      },
+      {
+        "index": 52,
+        "text": "Roman wall painting of an ornate door, in the Villa Boscoreale (Italy), from the first century AD."
+      },
+      {
+        "index": 53,
+        "text": "Of the 11th and 12th centuries there are numerous examples of bronze doors, the earliest being one at Hildesheim, Germany (1015)."
+      },
+      {
+        "index": 54,
+        "text": "The Hildesheim design affected the concept of Gniezno door in Poland."
+      },
+      {
+        "index": 55,
+        "text": "Of others in South Italy and Sicily, the following are the finest: in Sant'Andrea, Amalfi (1060); Salerno (1099); Canosa di Puglia (1111); Troia, two doors (1119 and 1124); Ravello (1179), by Barisano of Trani, who also made doors for Trani cathedral; and in Monreale and Pisa cathedrals, by Bonano of Pisa."
+      },
+      {
+        "index": 56,
+        "text": "In all these cases the hanging stile had pivots at the top and bottom."
+      },
+      {
+        "index": 57,
+        "text": "The exact period when the builder moved to the hinge is unknown, but the change apparently brought about another method of strengthening and decorating doors—wrought-iron bands of various designs."
+      },
+      {
+        "index": 58,
+        "text": "As a rule, three bands with ornamental work constitute the hinges, with rings outside the hanging stiles that fit on vertical tenons set into the masonry or wooden frame."
+      },
+      {
+        "index": 59,
+        "text": "There is an early example of the 12th century in Lincoln."
+      },
+      {
+        "index": 60,
+        "text": "In France, the metalwork of the doors of Notre Dame at Paris is a beautiful example, but many others exist throughout France and England.."
+      },
+      {
+        "index": 61,
+        "text": "In Italy, celebrated doors include those of the Battistero di San Giovanni (Florence), which are all in bronze, including the door frames."
+      },
+      {
+        "index": 62,
+        "text": "The modeling of the figures, birds, and foliage of the south doorway, by Andrea Pisano (1330), and of the east doorway by Ghiberti (1425–1452), are of great beauty."
+      },
+      {
+        "index": 63,
+        "text": "In the north door (1402–1424), Ghiberti adopted the same scheme of design for the paneling and figure subjects as Andrea Pisano, but in the east door, the rectangular panels are all filled, with bas-reliefs that illustrate Scripture subjects and innumerable figures."
+      },
+      {
+        "index": 64,
+        "text": "These may the gates of Paradise of which Michelangelo speaks.."
+      },
+      {
+        "index": 65,
+        "text": "Doors of the mosques in Cairo were of two kinds: those externally cased with sheets of bronze or iron, cut in decorative patterns, and incised or inlaid, with bosses in relief; and those of wood-framed with interlaced square and diamond designs."
+      },
+      {
+        "index": 66,
+        "text": "The latter design is Coptic in origin."
+      },
+      {
+        "index": 67,
+        "text": "The doors of the palace at Palermo, which were made by Saracenic workmen for the Normans, are fine examples in good preservation."
+      },
+      {
+        "index": 68,
+        "text": "A somewhat similar decorative class of door is found in Verona, where the edges of the stiles and rails are beveled and notched.."
+      },
+      {
+        "index": 69,
+        "text": "Glass door decorated with Art Nouveau elements, from the Singer House (Saint Petersburg, Russia)."
+      },
+      {
+        "index": 70,
+        "text": "In the Renaissance period, Italian doors are quite simple, their architects trusting more to the doorways for effect; but in France and Germany, the contrary is the case, the doors being elaborately carved, especially in the Louis XIV and Louis XV periods, and sometimes with architectural features such as columns and entablatures with pediment and niches, the doorway being in plain masonry."
+      },
+      {
+        "index": 71,
+        "text": "While in Italy the tendency was to give scale by increasing the number of panels, in France the contrary seems to have been the rule; and one of the great doors at Fontainebleau, which is in two leaves, is entirely carried out as if consisting of one great panel only.."
+      },
+      {
+        "index": 72,
+        "text": "The earliest Renaissance doors in France are those of the cathedral of St. Sauveur at Aix (1503)."
+      },
+      {
+        "index": 73,
+        "text": "In the lower panels, there are figures 3 ft (0.91 m)."
+      },
+      {
+        "index": 74,
+        "text": "high in Gothic niches, and in the upper panels a double range of niches with figures about 2 ft (0.61 m)."
+      },
+      {
+        "index": 75,
+        "text": "high with canopies over them, all carved in cedar."
+      },
+      {
+        "index": 76,
+        "text": "The south door of Beauvais Cathedral is, in some respects, the finest in France; the upper panels are carved in high relief with figure subjects and canopies over them."
+      },
+      {
+        "index": 77,
+        "text": "The doors of the church at Gisors (1575) are carved with figures in niches subdivided by classic pilasters superimposed."
+      },
+      {
+        "index": 78,
+        "text": "In St. Maclou at Rouen are three magnificently carved doors; those by Jean Goujon have figures in niches on each side, and others in a group of great beauty in the center."
+      },
+      {
+        "index": 79,
+        "text": "The other doors, probably about forty to fifty years later, are enriched with bas-reliefs, landscapes, figures and elaborate interlaced borders.."
+      },
+      {
+        "index": 80,
+        "text": "NASA's Vehicle Assembly Building at the Kennedy Space Center contains the four largest doors."
+      },
+      {
+        "index": 81,
+        "text": "The Vehicle Assembly Building was originally built for the assembly of the Apollo missions' Saturn vehicles and was then used to support Space Shuttle operations."
+      },
+      {
+        "index": 82,
+        "text": "Each of the four doors are 139 meters (456 feet) high.[8]."
+      },
+      {
+        "index": 83,
+        "text": "The oldest door in England can be found in Westminster Abbey and dates from 1050.[9]"
+      },
+      {
+        "index": 84,
+        "text": "In England in the 17th century, the door panels were raised with bolection or projecting moldings, sometimes richly carved, around them."
+      },
+      {
+        "index": 85,
+        "text": "In the 18th century, the moldings worked on the stiles and rails were carved with the egg-and-dart ornament.. •\tShort visual history of doors."
+      },
+      {
+        "index": 86,
+        "text": "•\t ."
+      },
+      {
+        "index": 87,
+        "text": "Fragment from an Ancient Egyptian tomb door, circa 2150 –1981 BC, in the Metropolitan Museum of Art (New York City).  ."
+      },
+      {
+        "index": 88,
+        "text": "•\t ."
+      },
+      {
+        "index": 89,
+        "text": "Ancient Greek door carved on the Hercules sarcophagus from the Kayseri Archaeology Museum (Kayseri, Turkey).  ."
+      },
+      {
+        "index": 90,
+        "text": "•\t ."
+      },
+      {
+        "index": 91,
+        "text": "Ancient Roman bronze doors of the Curia Julia, now in the Basilica of St. John Lateran (Rome).  ."
+      },
+      {
+        "index": 92,
+        "text": "•\t ."
+      },
+      {
+        "index": 93,
+        "text": "Indian Mughal teak wood and brass door.  ."
+      },
+      {
+        "index": 94,
+        "text": "•\t ."
+      },
+      {
+        "index": 95,
+        "text": "Traditional Chinese folding doors in The Old Museum of Wisteria (Changzhou, China).  ."
+      },
+      {
+        "index": 96,
+        "text": "•\t ."
+      },
+      {
+        "index": 97,
+        "text": "Byzantine door of the Little Metropolis (Athens, Greece).  ."
+      },
+      {
+        "index": 98,
+        "text": "•\t ."
+      },
+      {
+        "index": 99,
+        "text": "Islamic door decorated with geometric patterns in Morocco.  ."
+      },
+      {
+        "index": 100,
+        "text": "•\t ."
+      },
+      {
+        "index": 101,
+        "text": "Romanesque door of the Saint Nicholas' Church in Barfrestone (Kent, England).  ."
+      },
+      {
+        "index": 102,
+        "text": "•\t ."
+      },
+      {
+        "index": 103,
+        "text": "Gothic door of the St Magnus Cathedral (Kirkwall, Scotland).  ."
+      },
+      {
+        "index": 104,
+        "text": "•\t ."
+      },
+      {
+        "index": 105,
+        "text": "Russian door in Saint Basil's Cathedral (Moscow).  ."
+      },
+      {
+        "index": 106,
+        "text": "•\t ."
+      },
+      {
+        "index": 107,
+        "text": "Brâncovenesc door of the Antim Monastery (Bucharest, Romania), with a pisanie above it.  ."
+      },
+      {
+        "index": 108,
+        "text": "•\t ."
+      },
+      {
+        "index": 109,
+        "text": "Renaissance door in Gdańsk (Poland).  ."
+      },
+      {
+        "index": 110,
+        "text": "•\t ."
+      },
+      {
+        "index": 111,
+        "text": "Baroque door in the Palace of Versailles (Versailles, France).  ."
+      },
+      {
+        "index": 112,
+        "text": "•\t ."
+      },
+      {
+        "index": 113,
+        "text": "Rococo door on Rue Monsieur-le-Prince (Paris).  ."
+      },
+      {
+        "index": 114,
+        "text": "•\t ."
+      },
+      {
+        "index": 115,
+        "text": "Louis XVI door of the Hôtel Mortier de Sandreville, on Rue des Francs-Bourgeois (Paris).  ."
+      },
+      {
+        "index": 116,
+        "text": "•\t ."
+      },
+      {
+        "index": 117,
+        "text": "Neoclassical painted double-leaf door, 1790s, by , in the Cleveland Museum of Art (US).  ."
+      },
+      {
+        "index": 118,
+        "text": "•\t ."
+      },
+      {
+        "index": 119,
+        "text": "African door with lock, late 19th or early 20th century, wood with iron, from Burkina Faso, in the Brooklyn Museum (New York City).  ."
+      },
+      {
+        "index": 120,
+        "text": "•\t ."
+      },
+      {
+        "index": 121,
+        "text": "A decorated door from the Gandantegchinlen Monastery (Mongolia).  ."
+      },
+      {
+        "index": 122,
+        "text": "•\t ."
+      },
+      {
+        "index": 123,
+        "text": "Gothic Revival door on Rue Malebranche (Paris).  ."
+      },
+      {
+        "index": 124,
+        "text": "•\t ."
+      },
+      {
+        "index": 125,
+        "text": "Egyptian Revival door of a mausoleum in the Forest Home Cemetery (Wisconsin, US).  ."
+      },
+      {
+        "index": 126,
+        "text": "•\t ."
+      },
+      {
+        "index": 127,
+        "text": "Rococo Revival door of the Hôtel de Breteuil (Paris).  ."
+      },
+      {
+        "index": 128,
+        "text": "•\t ."
+      },
+      {
+        "index": 129,
+        "text": "Romanian Revival door of the Școala Centrală National College on Strada Icoanei (Bucharest).  ."
+      },
+      {
+        "index": 130,
+        "text": "•\t ."
+      },
+      {
+        "index": 131,
+        "text": "19th century Eclectic Classicist door on Rue La Bruyère (Paris).  ."
+      },
+      {
+        "index": 132,
+        "text": "•\t ."
+      },
+      {
+        "index": 133,
+        "text": "Beaux-Arts door of the Cantacuzino Palace (Bucharest).  ."
+      },
+      {
+        "index": 134,
+        "text": "•\t ."
+      },
+      {
+        "index": 135,
+        "text": "Art Nouveau metal and glass door in Nancy (France), with a big transparent awning above it.  ."
+      },
+      {
+        "index": 136,
+        "text": "•\t ."
+      },
+      {
+        "index": 137,
+        "text": "Stripped Classicist door of the Royal Palace of Bucharest, now the National Museum of Art of Romania.  ."
+      },
+      {
+        "index": 138,
+        "text": "•\t ."
+      },
+      {
+        "index": 139,
+        "text": "Art Deco door in Angers (France).  ."
+      },
+      {
+        "index": 140,
+        "text": "•\t ."
+      },
+      {
+        "index": 141,
+        "text": "Wooden church door in Born auf dem Darß (Germany)."
+      },
+      {
+        "index": 142,
+        "text": "Design and styles."
+      },
+      {
+        "index": 143,
+        "text": "Door of the Florence Baptistery called The Gates of Paradise, 1425–1452, gilded bronze, height: 5.2 m Entrance of the Kunsthistorisches Museum (Vienna, Austria)."
+      },
+      {
+        "index": 144,
+        "text": "There are many kinds of doors, with different purposes:."
+      },
+      {
+        "index": 145,
+        "text": "•\tThe most common type is the single-leaf door, which consists of a single rigid panel that fills the doorway."
+      },
+      {
+        "index": 146,
+        "text": "There are many variations on this basic design, such as the double-leaf door or double door and French windows, which have two adjacent independent panels hinged on each side of the doorway.[citation needed]."
+      },
+      {
+        "index": 147,
+        "text": "•\tA half door or Dutch door or stable door is divided in half horizontally."
+      },
+      {
+        "index": 148,
+        "text": "Traditionally the top half opens so a worker can feed a horse or other animal while the bottom half remains closed to keep the animal inside."
+      },
+      {
+        "index": 149,
+        "text": "This style of door has been adapted for homes.. •\tSaloon doors are a pair of lightweight swing doors often found in public bars, and especially associated with the American west."
+      },
+      {
+        "index": 150,
+        "text": "Saloon doors, also known as cafe doors, often use bidirectional hinges that close the door regardless of which direction it opens by incorporating springs."
+      },
+      {
+        "index": 151,
+        "text": "Saloon doors that only extend from knee-level to chest-level are known as batwing doors.[citation needed]."
+      },
+      {
+        "index": 152,
+        "text": "•\tA blind door, Gibb door, or jib door has no visible trim or operable components."
+      },
+      {
+        "index": 153,
+        "text": "It blends with the adjacent wall in all finishes, to appear as part of the wall—a disguised door.[10]."
+      },
+      {
+        "index": 154,
+        "text": "•\tA French door consists of a frame around one or more transparent or translucent panels (called lights or lites) that may be installed singly, in matching pairs, or even as series."
+      },
+      {
+        "index": 155,
+        "text": "A matching pair of these doors is called a French window, as it resembles a door-height casement window."
+      },
+      {
+        "index": 156,
+        "text": "When a pair of French doors is used as a French window, the application does not generally include a central mullion (as do some casement window pairs), thus allowing a wider unobstructed opening."
+      },
+      {
+        "index": 157,
+        "text": "The frame typically requires a weather strip at floor level and where the doors meet to prevent water ingress."
+      },
+      {
+        "index": 158,
+        "text": "An espagnolette bolt may let the head and foot of each door be secured in one movement."
+      },
+      {
+        "index": 159,
+        "text": "The slender window joinery maximizes light into the room and minimizes the visual impact of the doorway joinery when considered externally."
+      },
+      {
+        "index": 160,
+        "text": "The doors of a French window often open outward onto a balconet, balcony, porch, or terrace and they may provide an entrance to a garden.. •\tA louvered door has fixed or movable wooden fins (often called slats or louvers) which permit open ventilation while preserving privacy and preventing the passage of light to the interior."
+      },
+      {
+        "index": 161,
+        "text": "Being relatively weak structures, they are most commonly used for wardrobes and drying rooms, where security is of less importance than good ventilation, although a very similar structure is commonly used to form window shutters."
+      },
+      {
+        "index": 162,
+        "text": "Double louvred doors were introduced into Seagate, built in Florida in 1929 by Gwendolyn and Powel Crosley, that provided the desired circulation of air with an added degree of privacy in that it is impossible to see through the fins in any direction.. •\tA composite door is a single leaf door that can be solid or with glass, and is usually filled with high density foam."
+      },
+      {
+        "index": 163,
+        "text": "In the United Kingdom, composite doors are commonly certified to BS PAS 23/24[11] and be compliant with Secured by Design, an official UK police initiative.[12]."
+      },
+      {
+        "index": 164,
+        "text": "•\tA steel security door is one which is made from strong steel, often for use on vaults and safe rooms to withstand attack."
+      },
+      {
+        "index": 165,
+        "text": "These may also be fitted with wooden outer panels to resemble standard internal and external doors.[13]."
+      },
+      {
+        "index": 166,
+        "text": "•\tA flush door is a completely smooth door, having plywood or MDF fixed over a light timber frame, the hollow parts of which are often filled with a cardboard core material.[citation needed] Skins can also be made out of hardboards, the first of which was invented by William H Mason in 1924."
+      },
+      {
+        "index": 167,
+        "text": "Called Masonite, its construction involved pressing and steaming wood chips into boards."
+      },
+      {
+        "index": 168,
+        "text": "Flush doors are most commonly employed in the interior of a dwelling, although slightly more substantial versions are occasionally used as exterior doors, especially within hotels and other buildings containing many independent dwellings.. •\tA moulded door has the same structure as that of flush door."
+      },
+      {
+        "index": 169,
+        "text": "The only difference is that the surface material is a moulded skin made of MDF."
+      },
+      {
+        "index": 170,
+        "text": "Skins can also be made out of hardboards.[citation needed]."
+      },
+      {
+        "index": 171,
+        "text": "•\tA ledge and brace door often called board and batten doors are made from multiple vertical boards fixed together by two or more horizontal timbers called ledges (or battens) and sometimes kept square by additional diagonal timbers called braces.[citation needed]."
+      },
+      {
+        "index": 172,
+        "text": "•\tA wicket door is a pedestrian door built into a much larger door allowing access without requiring the opening of the larger door."
+      },
+      {
+        "index": 173,
+        "text": "Examples might be found on the ceremonial door of a cathedral or in a large vehicle door in a garage or hangar.. •\tA bifold door is a unit that has several sections, folding in pairs."
+      },
+      {
+        "index": 174,
+        "text": "Wood is the most common material, and doors may also be metal or glass."
+      },
+      {
+        "index": 175,
+        "text": "Bifolds are most commonly made for closets, but may also be used as units between rooms."
+      },
+      {
+        "index": 176,
+        "text": "Bi-fold doors are essentially now doors that let the outside in."
+      },
+      {
+        "index": 177,
+        "text": "They open in concert; where the panels fold up against one another and are pushed together when opened."
+      },
+      {
+        "index": 178,
+        "text": "The main door panel (often known as the traffic door) is accompanied by a stack of panels that fold very neatly against one another when opened fully, which almost look like room dividers.[14]."
+      },
+      {
+        "index": 179,
+        "text": "•\tA sliding glass door, sometimes called an Arcadia door or patio door, is a door made of glass that slides open and sometimes has a screen (a removable metal mesh that covers the door).."
+      },
+      {
+        "index": 180,
+        "text": "•\tAustralian doors are a pair of plywood swinging doors often found in Australian public houses.[citation needed]"
+      },
+      {
+        "index": 181,
+        "text": "These doors are generally red or brown in color and bear a resemblance to the more formal doors found in other British Colonies' public houses.."
+      },
+      {
+        "index": 182,
+        "text": "•\tA false door is a wall decoration with the appearance of a window.[15]"
+      },
+      {
+        "index": 183,
+        "text": "In ancient Egyptian architecture, this was a common element in a tomb, the false door representing a gate to the afterlife."
+      },
+      {
+        "index": 184,
+        "text": "They can also be found in the funerary architecture of the desert tribes (e.g., Libyan Ghirza).."
+      },
+      {
+        "index": 185,
+        "text": "Types."
+      },
+      {
+        "index": 186,
+        "text": "The main types of door mechanisms."
+      },
+      {
+        "index": 187,
+        "text": "Hinged."
+      },
+      {
+        "index": 188,
+        "text": "Most doors are hinged along one side to allow the door to pivot away from the doorway in one direction, but not the other."
+      },
+      {
+        "index": 189,
+        "text": "The axis of rotation is usually vertical."
+      },
+      {
+        "index": 190,
+        "text": "In some cases, such as hinged garage doors, the axis may be horizontal, above the door opening.."
+      },
+      {
+        "index": 191,
+        "text": "Doors can be hinged so that the axis of rotation is not in the plane of the door to reduce the space required on the side to which the door opens."
+      },
+      {
+        "index": 192,
+        "text": "This requires a mechanism so that the axis of rotation is on the side other than that in which the door opens."
+      },
+      {
+        "index": 193,
+        "text": "This is sometimes the case in trains or airplanes, such as for the door to the toilet, which can be designed to open inward.."
+      },
+      {
+        "index": 194,
+        "text": "•\tA swing door has special single-action hinges that allow it to open either outward or inward, and is usually sprung to keep it closed.. •\tFrench doors are derived from the French design called the casement door."
+      },
+      {
+        "index": 195,
+        "text": "It is a door with lites where all or some panels would be in a casement door."
+      },
+      {
+        "index": 196,
+        "text": "A French door traditionally has a moulded panel at the bottom of the door."
+      },
+      {
+        "index": 197,
+        "text": "It is called a French window when used in a pair as double-leaved doors with large glass panels in each door leaf, and in which the doors may swing out (typically) as well as in.. •\tA double-acting door, patented in 1880 by the Dutch-American engineer Lorenz Bommer, swings both ways."
+      },
+      {
+        "index": 198,
+        "text": "They are often used in areas where many people are likely to pass through, such as restaurant kitchens.[16][17]."
+      },
+      {
+        "index": 199,
+        "text": "•\tA Dutch door or stable door consists of two halves."
+      },
+      {
+        "index": 200,
+        "text": "The top half operates independently from the bottom half."
+      },
+      {
+        "index": 201,
+        "text": "A variant exists in which opening the top part separately is possible, but because the lower part has a lip on the inside, closing the top part, while leaving the lower part open, is not.."
+      },
+      {
+        "index": 202,
+        "text": "•\tA garden door resembles a French window (with lites), but is more secure because only one door is operable."
+      },
+      {
+        "index": 203,
+        "text": "The hinge of the operating door is next to the adjacent fixed door and the latch is located at the wall opening jamb rather than between the two doors or with the use of an espagnolette bolt.. •\tA convection door (lev door) is an internal floor-to-ceiling (full height) door, consisting of a standard door leaf and an upper leaf in place of the usual header wall."
+      },
+      {
+        "index": 204,
+        "text": "The leaves may or may not be separated by a transom."
+      },
+      {
+        "index": 205,
+        "text": "The doors enable effective convection of warm air.."
+      },
+      {
+        "index": 206,
+        "text": "Sliding."
+      },
+      {
+        "index": 207,
+        "text": "It is often useful to have doors which slide along tracks, often for space or aesthetic considerations.."
+      },
+      {
+        "index": 208,
+        "text": "A bypass door is a door unit that has two or more sections."
+      },
+      {
+        "index": 209,
+        "text": "The doors can slide in either direction along one axis on parallel overhead tracks, sliding past each other."
+      },
+      {
+        "index": 210,
+        "text": "They are most commonly used in closets to provide access one side of the closet at a time."
+      },
+      {
+        "index": 211,
+        "text": "Doors in a bypass unit overlap slightly when viewed from the front so they do not have a visible gap when closed.."
+      },
+      {
+        "index": 212,
+        "text": "Doors which slide inside a wall cavity are called pocket doors."
+      },
+      {
+        "index": 213,
+        "text": "This type of door is used in tight spaces where privacy is also required."
+      },
+      {
+        "index": 214,
+        "text": "The door slab is mounted to roller and a track at the top of the door and slides inside a wall.."
+      },
+      {
+        "index": 215,
+        "text": "Sliding glass doors are common in many houses, particularly as an entrance to the backyard."
+      },
+      {
+        "index": 216,
+        "text": "Such doors are also popular for use for the entrances to commercial structures, although they are not counted as fire exit doors."
+      },
+      {
+        "index": 217,
+        "text": "The door that moves is called the \"active leaf\", while the door that remains fixed is called the \"inactive leaf\".. Rotating."
+      },
+      {
+        "index": 218,
+        "text": "•\tA revolving door has several wings or leaves, generally four, radiating from a central shaft, forming compartments that rotate about a vertical axis."
+      },
+      {
+        "index": 219,
+        "text": "A revolving door allows people to pass in both directions without colliding, and forms an airlock maintaining a seal between inside and out.. •\tA pivot door, instead of hinges, is supported on a bearing some distance away from the edge, so that there is more or less of a gap on the pivot side as well as the opening side."
+      },
+      {
+        "index": 220,
+        "text": "In some cases the pivot is central, creating two equal openings.. High-speed."
+      },
+      {
+        "index": 221,
+        "text": "A high-speed door is a very fast door some with opening speeds of up to 4 m/s, mainly used in the industrial sector where the speed of a door has an effect on production logistics, temperature and pressure control."
+      },
+      {
+        "index": 222,
+        "text": "High-speed cleanroom doors, usually consisting of a transparent material on a stainless steel frame, are used in pharmaceutical industries to allow passage between work areas while admitting minimal contaminants."
+      },
+      {
+        "index": 223,
+        "text": "The powerful high-speed doors have a smooth surface structure and no protruding edges, allowing minimal particle retention and easy cleaning.."
+      },
+      {
+        "index": 224,
+        "text": "High-speed doors are made to handle a high number of openings, generally more than 200,000 a year."
+      },
+      {
+        "index": 225,
+        "text": "They must be built with heavy-duty parts and counterbalance systems for speed enhancement and emergency opening function."
+      },
+      {
+        "index": 226,
+        "text": "The door curtain was originally made of PVC, but was later also developed in aluminium and acrylic glass sections."
+      },
+      {
+        "index": 227,
+        "text": "High-speed refrigeration and cold-room doors with excellent insulation values have also been introduced for green and energy-saving requirements.."
+      },
+      {
+        "index": 228,
+        "text": "In North America, the Door and Access Systems Manufacturing Association (DASMA) defines high-performance doors as non-residential powered doors characterized by rolling, folding, sliding or swinging action, that are either high-cycle (minimum 100 cycles/day) or high-speed (minimum 20 inches (508 mm)/second), and two out of three of the following: made-to-order for exact size and custom features, able to withstand equipment impact (break-away if accidentally hit by vehicle), or able to sustain heavy use with minimal maintenance.."
+      },
+      {
+        "index": 229,
+        "text": "Automatic."
+      },
+      {
+        "index": 230,
+        "text": "Automatically opening doors are powered open and closed either by electricity, spring, or both."
+      },
+      {
+        "index": 231,
+        "text": "There are several methods by which an automatically opening door is activated:."
+      },
+      {
+        "index": 232,
+        "text": "1.\tA sensor detects traffic is approaching."
+      },
+      {
+        "index": 233,
+        "text": "Sensors for automatic doors are generally:."
+      },
+      {
+        "index": 234,
+        "text": "•\tA pressure sensor – e.g., a floor mat which reacts to the pressure of someone standing on it.. •\tAn infrared curtain or beam which shines invisible light onto sensors; if someone or something blocks the beam the door is triggered open.. •\tA motion sensor which uses low-power microwave radar for the same effect.."
+      },
+      {
+        "index": 235,
+        "text": "•\tA remote sensor (e.g. based on infrared or radio waves) can be triggered by a portable remote control, or is installed inside a vehicle."
+      },
+      {
+        "index": 236,
+        "text": "These are popular for garage doors.."
+      },
+      {
+        "index": 237,
+        "text": "2.\tA switch is operated manually, perhaps after security checks."
+      },
+      {
+        "index": 238,
+        "text": "This can be a push button switch or a swipe card.. 3."
+      },
+      {
+        "index": 239,
+        "text": "The act of pushing or pulling the door triggers the open and close cycle."
+      },
+      {
+        "index": 240,
+        "text": "These are also known as power-assisted doors.."
+      },
+      {
+        "index": 241,
+        "text": "In addition to activation sensors, automatically opening doors are generally fitted with safety sensors."
+      },
+      {
+        "index": 242,
+        "text": "These are usually an infrared curtain or beam, but can be a pressure mat fitted on the swing side of the door."
+      },
+      {
+        "index": 243,
+        "text": "The safety sensor prevents the door from colliding with an object by stopping or slowing its motion."
+      },
+      {
+        "index": 244,
+        "text": "A mechanism in modern automatic doors ensures that the door can open in a power failure.. Other."
+      },
+      {
+        "index": 246,
+        "text": "•\tUp-and-over or overhead doors are often used in garages."
+      },
+      {
+        "index": 247,
+        "text": "Instead of hinges, it has a mechanism, often counterbalanced or sprung, so it can lift and rest horizontally above the opening."
+      },
+      {
+        "index": 248,
+        "text": "A roller shutter or sectional overhead door is one variant of this type.. •\tA tambour door or roller door is an up-and-over door made of narrow horizontal slats that rolls up and down by sliding along vertical tracks; it is typically found in entertainment centres and cabinets.. •\tRebated doors, a term chiefly used in Britain, are double doors with a lip or overlap (i.e. a rabbet) on the vertical edge(s) where they meet."
+      },
+      {
+        "index": 249,
+        "text": "Fire-rating can be achieved with an applied edge-guard or astragal molding on the meeting stile, in accordance with the American fire door.."
+      },
+      {
+        "index": 250,
+        "text": "Applications."
+      },
+      {
+        "index": 255,
+        "text": "Doors also are applied in more specialized cases:."
+      },
+      {
+        "index": 256,
+        "text": "•\tA blast-proof door is constructed to allow access to a structure as well as to provide protection from the force of explosions.. •\tA garden door is any door that opens to a backyard or garden."
+      },
+      {
+        "index": 265,
+        "text": "Additionally, pet doors may be electronic, only allowing animals with a special electronic tag to enter.. •\tA trapdoor is a door that is oriented horizontally in a ceiling or floor, often accessed via a ladder.. •\tA water door or water entrance, such as those used in Venice, Italy, is a door leading from a building built on the water, such as a canal, to the water itself where, for example, one may enter or exit a private boat or water taxi.[20][21]."
+      },
+      {
+        "index": 266,
+        "text": "Construction and components."
+      },
+      {
+        "index": 267,
+        "text": "Parts of a panel or glazed door Joint between midrail, lockrail and a gunstock stile A frame and filled door A hollow door with one face removed."
+      },
+      {
+        "index": 268,
+        "text": "Paneling."
+      },
+      {
+        "index": 269,
+        "text": "Panel doors, also called stile and rail doors, are built with frame and panel construction."
+      },
+      {
+        "index": 270,
+        "text": "EN 12519 is describing the terms which are officially used in European Member States."
+      },
+      {
+        "index": 271,
+        "text": "The main parts are listed below:."
+      },
+      {
+        "index": 272,
+        "text": "•\tStiles – Vertical boards that run the full height of a door and compose its right and left edges."
+      },
+      {
+        "index": 273,
+        "text": "The hinges are mounted to the fixed side (known as the \"hanging stile\"), and the handle, lock, bolt or latch are mounted on the swinging side (known as the \"latch stile\").. •\tRails – Horizontal boards at the top, bottom, and optionally in the middle of a door that join the two stiles and split the door into two or more rows of panels."
+      },
+      {
+        "index": 274,
+        "text": "The \"top rail\" and \"bottom rail\" are named for their positions."
+      },
+      {
+        "index": 275,
+        "text": "The bottom rail is also known as \"kick rail\"."
+      },
+      {
+        "index": 276,
+        "text": "A middle rail at the height of the bolt is known as the \"lock rail\", other middle rails are commonly known as \"cross rails\".. •\tMullions – Smaller optional vertical boards that run between two rails, and split the door into two or more columns of panels, the term is used sometimes for verticals in doors, but more often (UK and Australia)"
+      },
+      {
+        "index": 277,
+        "text": "it refers to verticals in windows.. •\tMuntin – Optional vertical members that divide the door into smaller panels.. •\tPanels – Large, wider boards used to fill the space between the stiles, rails, and mullions."
+      },
+      {
+        "index": 278,
+        "text": "The panels typically fit into grooves in the other pieces, and help to keep the door rigid."
+      },
+      {
+        "index": 279,
+        "text": "Panels may be flat, or in raised panel designs."
+      },
+      {
+        "index": 280,
+        "text": "Can be glued in or stay as a floating panel.. •\tLight – a piece of glass used in place of a panel, essentially giving the door a window.."
+      },
+      {
+        "index": 281,
+        "text": "Board battening."
+      },
+      {
+        "index": 282,
+        "text": "Also known as ledges and braced, board and batten doors are an older design consisting primarily of vertical slats:."
+      },
+      {
+        "index": 283,
+        "text": "•\tPlanks – Boards wider than 9\" that extend the full height of the door, and are placed side by side filling the door's width.. •\tLedges and braces – Ledges extend horizontally across the door which the boards are affixed to."
+      },
+      {
+        "index": 284,
+        "text": "The ledges hold the planks together."
+      },
+      {
+        "index": 285,
+        "text": "When diagonally they are called braces which prevent the door from skewing."
+      },
+      {
+        "index": 286,
+        "text": "On some doors, especially antique ones, the ledges are replaced with iron bars that are often built into the hinges as extensions of the door-side plates.. Ledging and bracing."
+      },
+      {
+        "index": 287,
+        "text": "As board and batten doors.."
+      },
+      {
+        "index": 288,
+        "text": "Impact resistance."
+      },
+      {
+        "index": 289,
+        "text": "Impact-resistant doors have rounded stile edges to dissipate energy and minimize edge chipping, scratching and denting."
+      },
+      {
+        "index": 290,
+        "text": "The formed edges are often made of an engineered material."
+      },
+      {
+        "index": 291,
+        "text": "Impact-resistant doors excel in high traffic areas such as hospitals, schools, hotels and coastal areas.."
+      },
+      {
+        "index": 292,
+        "text": "Frame and fill."
+      },
+      {
+        "index": 293,
+        "text": "This type consists of a solid timber frame, filled on one face, face with tongue and groove boards."
+      },
+      {
+        "index": 294,
+        "text": "Quite often used externally with the boards on the weather face.. Flushing."
+      },
+      {
+        "index": 295,
+        "text": "Flushing of a door means the door is flush with the face of the wall on either side.."
+      },
+      {
+        "index": 296,
+        "text": "Moulding."
+      },
+      {
+        "index": 297,
+        "text": "•\tStiles and rails – As above, but usually smaller."
+      },
+      {
+        "index": 298,
+        "text": "They form the outside edges of the door.. •\tCore material: Material within the door used simply to fill space, provide rigidity and reduce druminess.. •\tHollow-core – Often consists of a lattice or honeycomb made of corrugated cardboard, extruded polystyrene foam, or thin wooden slats."
+      },
+      {
+        "index": 299,
+        "text": "Can also be built with staggered wooden blocks."
+      },
+      {
+        "index": 300,
+        "text": "Hollow-core molded doors are commonly used as interior doors.[22]."
+      },
+      {
+        "index": 301,
+        "text": "•\tLock block – A solid block of wood mounted within a hollow-core flush door near the bolt to provide a solid and stable location for mounting the door's hardware.. •\tStave-core – Consists of wooden slats stacked upon one another in a manner similar to a board & batten door (though the slats are usually thinner) or the wooden-block hollow-core (except that the space is entirely filled).. •\tSolid-core – Can consist of low-density particle board or foam used to completely fill the space within the door."
+      },
+      {
+        "index": 302,
+        "text": "Solid-core flush doors (especially foam-core ones) are commonly used as exterior doors because they provide more insulation and strength.. •\tSkin – The front and back faces of the door are covered with HDF/MDF skins.."
+      },
+      {
+        "index": 303,
+        "text": "Swing direction."
+      },
+      {
+        "index": 304,
+        "text": "Generally, door swings, or handing, are determined while standing on the outside or less secure side of the door while facing the door (i.e., standing on the side requiring a key to open, going from outside to inside, or from public to private).."
+      },
+      {
+        "index": 305,
+        "text": "It is important to get the hand and swing correct on exterior doors, as the transom is usually sloped and sealed to resist water entry, and properly drain."
+      },
+      {
+        "index": 306,
+        "text": "In some custom millwork (or with some master carpenters), the manufacture or installer bevels the leading edge (the first edge to meet the jamb as the door closes) so that the door fits tight without binding."
+      },
+      {
+        "index": 307,
+        "text": "Specifying an incorrect hand or swing can make the door bind, not close properly, or leak."
+      },
+      {
+        "index": 308,
+        "text": "Fixing this error is expensive or time-consuming."
+      },
+      {
+        "index": 309,
+        "text": "In North America, many doors now come with factory-installed hinges, pre-hung on the jamb and sills.."
+      },
+      {
+        "index": 310,
+        "text": "While facing the door from the outside or less secure side, if the hinge is on the right side of the door, the door is \"right handed\"; or if the hinge is on the left, it is \"left handed\"."
+      },
+      {
+        "index": 311,
+        "text": "If the door swings toward you, it is \"reverse swing\"; or if the door swings away from you, it is \"normal swing\".."
+      },
+      {
+        "index": 312,
+        "text": "In other words:."
+      },
+      {
+        "index": 313,
+        "text": "•\tIn the United States:."
+      },
+      {
+        "index": 314,
+        "text": "•\tLeft hand hinge (LHH): Standing outside (or on the less secure side, or on the public side of the door), the hinges are on the left and the door opens in (away from you).."
+      },
+      {
+        "index": 315,
+        "text": "•\tRight hand hinge (RHH): Standing outside (or on the less secure side), the hinges are on the right and the door opens in (away from you).."
+      },
+      {
+        "index": 316,
+        "text": "•\tLeft hand reverse (LHR): Standing outside the house (or on the less secure side), the hinges are on the left, knob on right, on opening the door it swings toward you (i.e. the door swings open toward the outside, or \"outswing\")."
+      },
+      {
+        "index": 317,
+        "text": "•\tRight hand reverse (RHR): Standing outside the house (i.e. on the less secure side), the hinges are on the right, knob on left, opening the door by pulling the door toward you (i.e. open swings to the outside, or \"outswing\")."
+      },
+      {
+        "index": 318,
+        "text": "•\tIn Europe:."
+      },
+      {
+        "index": 319,
+        "text": "•\tOne of the oldest DIN standard applies: DIN 107"
+      },
+      {
+        "index": 320,
+        "text": "\"Building construction; identification of right and left side\" (first 1922–05, current 1974–04) defines that doors are categorized from the side where the door hinges can be seen."
+      },
+      {
+        "index": 321,
+        "text": "If the hinges are on the left, it is a DIN Left door (DIN Links, DIN gauche), if the hinges are on the right, it is a DIN Right door (DIN Rechts, DIN droite)."
+      },
+      {
+        "index": 322,
+        "text": "The DIN Right and DIN Left marking are also used to categorize matching installation material such as mortise locks (referenced in DIN 107)."
+      },
+      {
+        "index": 323,
+        "text": "The European Standard DIN EN 12519 \"Windows and pedestrian doors."
+      },
+      {
+        "index": 324,
+        "text": "Terminology\" includes these definitions of orientation.. •\tIn Australia:."
+      },
+      {
+        "index": 325,
+        "text": "•\tThe \"refrigerator rule\" applies, and a refrigerator door is not opened from the inside."
+      },
+      {
+        "index": 326,
+        "text": "If the hinges are on the right then it is a right hand (or right hung) door."
+      },
+      {
+        "index": 327,
+        "text": "(Australian Standards for Installation of Timber Doorsets, AS 1909–1984 pg 6.)."
+      },
+      {
+        "index": 328,
+        "text": "•\tIn public buildings, exterior doors open to the outside to comply with applicable fire codes."
+      },
+      {
+        "index": 329,
+        "text": "In a fire, a door that opens inward could cause a crush of people who cannot open it.[23]."
+      },
+      {
+        "index": 330,
+        "text": "Main materials."
+      },
+      {
+        "index": 331,
+        "text": "New exterior doors are largely defined by the type of materials they are made from: wood, steel, fiberglass, UPVC/vinyl, aluminum, composite, glass (patio doors), etc..  A neoclassical style door made of wood and wrought iron at the Palace of São Cristóvão, the former main residence of the Brazilian imperial family with gilded imperial cyphers of Emperor Pedro II of Brazil."
+      },
+      {
+        "index": 332,
+        "text": "Wooden doors – including solid wood doors – are a top choice for many homeowners, largely because of the aesthetic qualities of wood."
+      },
+      {
+        "index": 333,
+        "text": "Many wood doors are custom-made, but they have several downsides: their price, their maintenance requirements (regular painting and staining) and their limited insulating value[24] (R-5 to R-6, not including the effects of the glass elements of the doors)."
+      },
+      {
+        "index": 334,
+        "text": "Wood doors often have an overhang requirement to maintain a warranty."
+      },
+      {
+        "index": 335,
+        "text": "An overhang is a roof, porch area or awning that helps to protect the door and its finish from UV rays.."
+      },
+      {
+        "index": 336,
+        "text": "Steel doors are another major type of residential front doors; most of them come with a polyurethane or other type of foam insulation core – a critical factor in a building's overall comfort and efficiency."
+      },
+      {
+        "index": 337,
+        "text": "Steel doors mostly in default comes along with frame and lock system, which is a high cost efficiency factor compared to wooden doors.."
+      },
+      {
+        "index": 338,
+        "text": "Most modern exterior walls provide thermal insulation and energy efficiency, which can be indicated by the Energy Star label or the passive house standards."
+      },
+      {
+        "index": 339,
+        "text": "Premium composite (including steel doors with a thick core of polyurethane or other foam), fiberglass and vinyl doors benefit from the materials they are made from, from a thermal perspective.. Insulation and weatherstripping."
+      },
+      {
+        "index": 340,
+        "text": "This section provides insufficient context for those unfamiliar with the subject."
+      },
+      {
+        "index": 341,
+        "text": "Please help improve the article by providing more context for the reader."
+      },
+      {
+        "index": 342,
+        "text": "(November 2015)"
+      },
+      {
+        "index": 343,
+        "text": "(Learn how and when to remove this message)"
+      },
+      {
+        "index": 344,
+        "text": "There are very few door models with an R-value close to 10 (the R-value measures how well a barrier resists the conductive flow of heat)."
+      },
+      {
+        "index": 345,
+        "text": "This is far less than the R-40 walls or the R-50 ceilings of super-insulated buildings – passive solar and zero-energy buildings."
+      },
+      {
+        "index": 346,
+        "text": "Typical doors are not thick enough to provide very high levels of energy efficiency.."
+      },
+      {
+        "index": 347,
+        "text": "Many doors may have good R-values at their center, but their overall energy efficiency is reduced because of the presence of glass and reinforcing elements, or because of poor weatherstripping and the way the door is manufactured.."
+      },
+      {
+        "index": 348,
+        "text": "Door weatherstripping is particularly important for energy efficiency."
+      },
+      {
+        "index": 349,
+        "text": "German-made passive house doors use multiple weatherstrips, including magnetic strips, to meet higher standards."
+      },
+      {
+        "index": 350,
+        "text": "These weatherstrips reduce energy losses due to air leakage.. Dimensions."
+      },
+      {
+        "index": 351,
+        "text": "The examples and perspective in this section may not represent a worldwide view of the subject."
+      },
+      {
+        "index": 352,
+        "text": "You may improve this section, discuss the issue on the talk page, or create a new section, as appropriate."
+      },
+      {
+        "index": 353,
+        "text": "(July 2025)"
+      },
+      {
+        "index": 354,
+        "text": "(Learn how and when to remove this message) United States."
+      },
+      {
+        "index": 355,
+        "text": "Adams-Rogers Co. (Indianapolis, Indiana)."
+      },
+      {
+        "index": 356,
+        "text": "From a catalog of \"Bilt-well\" mill work for the interior and exterior of homes.."
+      },
+      {
+        "index": 357,
+        "text": "Standard door sizes in the US run along 2\" increments."
+      },
+      {
+        "index": 358,
+        "text": "Customary sizes have a height of 78 or 80 in (2,000 or 2,000 mm) and a width of 18, 24, 26, 28, 30 or 36 in (460, 610, 660, 710, 760 or 910 mm).[25]"
+      },
+      {
+        "index": 359,
+        "text": "Most residential passage (room to room) doors are 30 in × 80 in (760 mm × 2,030 mm).."
+      },
+      {
+        "index": 360,
+        "text": "A standard US residential (exterior) door size is 36 in × 80 in (910 mm × 2,030 mm)."
+      },
+      {
+        "index": 361,
+        "text": "Interior doors for wheelchair access must also have a minimum width of 36 in (910 mm)."
+      },
+      {
+        "index": 362,
+        "text": "Residential interior doors, as well as the doors of many small stores, offices, and other light commercial buildings, are often somewhat smaller than the doors of larger commercial buildings, public buildings, and grand homes."
+      },
+      {
+        "index": 363,
+        "text": "Older buildings often have smaller doors.."
+      },
+      {
+        "index": 364,
+        "text": "Thickness: Most pre-fabricated doors are 1 3/8\" thick (for interior doors) or 1 3/4\" (exterior).."
+      },
+      {
+        "index": 365,
+        "text": "Closets: small spaces such as closets, dressing rooms, half-baths, storage rooms, cellars, etc. often are accessed through doors smaller than passage doors in one or both dimensions but similar in design.."
+      },
+      {
+        "index": 366,
+        "text": "Garages:"
+      },
+      {
+        "index": 367,
+        "text": "Garage doors are generally 84\" (7 feet; 2134 mm) or 96\" (8 feet; 2438 mm) wide for a single-car opening."
+      },
+      {
+        "index": 368,
+        "text": "Two car garage doors (sometimes called double car doors) are a single door 192\" (16 feet; 4877 mm)."
+      },
+      {
+        "index": 369,
+        "text": "Because of size and weight these doors are usually sectional."
+      },
+      {
+        "index": 370,
+        "text": "That is split into four or five horizontal sections so that they can be raised more easily and do not require a lot of additional space above the door when opening and closing."
+      },
+      {
+        "index": 371,
+        "text": "Single piece double garage doors are common in some older homes.. Europe."
+      },
+      {
+        "index": 372,
+        "text": "Standard DIN doors are defined in DIN 18101 (published 1955–07, 1985–01, 2014–08)."
+      },
+      {
+        "index": 373,
+        "text": "Door sizes are also given in the construction standard for wooden door panels (DIN 68706–1)."
+      },
+      {
+        "index": 374,
+        "text": "The DIN commission created the harmonized European standard DIN EN 14351-1 for exterior doors and DIN EN 14351-2 for interior doors (published 2006–07, 2010–08), which define requirements for the CE marking and provide standard sizes by examples in the appendix.."
+      },
+      {
+        "index": 375,
+        "text": "The DIN 18101 standard has a normative size (Nennmaß) slightly larger than the panel size (Türblatt) as the standard derives the panel sizes from the normative size being different single door vs double door and molded vs unmolded doors."
+      },
+      {
+        "index": 376,
+        "text": "DIN 18101/1985 defines interior single molded doors to have a common panel height of 1985 mm (normativ height 2010 mm) at panel widths of 610 mm, 735 mm, 860 mm, 985 mm, 1110 mm, plus a larger door panel size of 1110 mm x 2110 mm.[26]"
+      },
+      {
+        "index": 377,
+        "text": "The newer DIN 18101/2014 drops the definition of just five standard door sizes in favor of a basic raster running along 125 mm increments where the height and width are independent."
+      },
+      {
+        "index": 378,
+        "text": "Panel width may be in the range 485 mm to 1360 mmm, and the height may be in the range of 1610 mm to 2735 mm.[27]"
+      },
+      {
+        "index": 379,
+        "text": "The most common interior door is 860 mm × 1,985 mm (33.9 in × 78.1 in).."
+      },
+      {
+        "index": 380,
+        "text": "Doorways."
+      },
+      {
+        "index": 381,
+        "text": "A diagram illustrating the components of a panel door."
+      },
+      {
+        "index": 382,
+        "text": "When framed in wood for snug fitting of a door, the doorway consists of two vertical jambs on either side, a lintel or head jamb at the top, and perhaps a threshold at the bottom."
+      },
+      {
+        "index": 383,
+        "text": "When a door has more than one movable section, one of the sections may be called a leaf."
+      },
+      {
+        "index": 384,
+        "text": "See door furniture for a discussion of attachments to doors such as door handles, doorknobs, and door knockers.. •\tLintel – A horizontal beam above a door that supports the wall above it."
+      },
+      {
+        "index": 385,
+        "text": "(Also known as a header)."
+      },
+      {
+        "index": 386,
+        "text": "•\tJambs or legs – The vertical posts that form the sides of a door frame, where the hinges are mounted, and with which the bolt interacts.. •\tDoor casing, door frame, or chambranle – formed by the lintel and the two jambs.. •\tSill (for exterior doors) – A horizontal sill plate below the door that supports the door frame."
+      },
+      {
+        "index": 387,
+        "text": "Similar to a window sill but for a door."
+      },
+      {
+        "index": 388,
+        "text": "•\tThreshold (for exterior doors) – A horizontal plate below the door that bridges the crack between the interior floor and the sill.. •\tDoorstop – a thin slat built inside the frame to prevent a door from swinging through when closed, an act which might break the hinges.. •\tArchitrave – The decorative molding that outlines a door frame, called an Archivolt if the door is arched."
+      },
+      {
+        "index": 389,
+        "text": "Sometimes called brickmold in North America.. •\tDoormat (also called door mat) – a mat placed typically in front of or behind a door of a home."
+      },
+      {
+        "index": 390,
+        "text": "This practice originated so that mud and dirt would be less prevalent on floors inside a building.. \t ."
+      },
+      {
+        "index": 391,
+        "text": "Front door of a house with typical door furniture: a letter box, door knocker, a latch and two locks.   ."
+      },
+      {
+        "index": 392,
+        "text": "A door knocker with putti holding a cartouche, in Paris.   ."
+      },
+      {
+        "index": 393,
+        "text": "Pair of door knobs in the Galerie dorée de la Banque de France of the Hôtel de Toulouse (Paris).   ."
+      },
+      {
+        "index": 394,
+        "text": "Hinge of a door of the St Pancras railway station (London)."
+      },
+      {
+        "index": 395,
+        "text": "Related hardware."
+      },
+      {
+        "index": 396,
+        "text": "Main article: Door furniture."
+      },
+      {
+        "index": 397,
+        "text": "Door furniture or hardware refers to any of the items that are attached to a door or a drawer to enhance its functionality or appearance."
+      },
+      {
+        "index": 398,
+        "text": "This includes items such as hinges, handles, door stops, etc.. Safety."
+      },
+      {
+        "index": 399,
+        "text": "Door safety relates to prevention of door-related accidents."
+      },
+      {
+        "index": 400,
+        "text": "Such accidents take place in various forms, and in a number of locations; ranging from car doors to garage doors."
+      },
+      {
+        "index": 401,
+        "text": "Accidents vary in severity and frequency."
+      },
+      {
+        "index": 402,
+        "text": "According to the National Safety Council in the United States, around 300,000 door-related injuries occur every year.[28]."
+      },
+      {
+        "index": 403,
+        "text": "The types of accidents vary from relatively minor cases where doors cause damage to other objects, such as walls, to serious cases resulting in human injury, particularly to fingers, hands, and feet."
+      },
+      {
+        "index": 404,
+        "text": "A closing door can exert up to 40 tons per square inch of pressure between the hinges."
+      },
+      {
+        "index": 405,
+        "text": "Because of the number of accidents taking place, there has been a surge in the number of lawsuits."
+      },
+      {
+        "index": 406,
+        "text": "Thus organisations may be at risk when car doors or doors within buildings are unprotected.."
+      },
+      {
+        "index": 407,
+        "text": "According to the US General Services Administration, discussing child care centres:."
+      },
+      {
+        "index": 408,
+        "text": "...It is essential that children's fingers be protected from being crushed or otherwise injured in the hinge space of a swinging door or gate."
+      },
+      {
+        "index": 409,
+        "text": "There are simple devices available to attach to the hinge side, ensuring that this type of injury does not occur."
+      },
+      {
+        "index": 410,
+        "text": "As the door closes, the hand is pushed out of the opening, away from harm."
+      },
+      {
+        "index": 411,
+        "text": "In addition, young children are vulnerable to injury when they fall against the other (hinged) side of doors and gates, striking projected hinges."
+      },
+      {
+        "index": 412,
+        "text": "Piano hinges are not recommended to alleviate this problem as they tend to sag over time with heavy use."
+      },
+      {
+        "index": 413,
+        "text": "Instead, an inexpensive device fitting over hinges is available on the market and should be used to ensure safety...[29]."
+      },
+      {
+        "index": 414,
+        "text": "Opening direction."
+      },
+      {
+        "index": 415,
+        "text": "Whenever a door is opened outward, there is a risk that it could strike another person."
+      },
+      {
+        "index": 416,
+        "text": "In many cases this can be avoided by architectural design which favors doors which open inward to rooms (from the perspective of a common area such as a corridor, the door opens outward)."
+      },
+      {
+        "index": 417,
+        "text": "In cases where this is infeasible, it may be possible to avoid an accident by placing vision panels in the door.[30]."
+      },
+      {
+        "index": 418,
+        "text": "Inward-hinged doors can also escalate an accident by preventing people from escaping the building: people inside the building may press against the doors, and thus prevent the doors from opening."
+      },
+      {
+        "index": 419,
+        "text": "Related accidents include:."
+      },
+      {
+        "index": 420,
+        "text": "•\tGrue Church fire: Grue, Norway in 1822."
+      },
+      {
+        "index": 421,
+        "text": "•\tVictoria Hall Disaster: Sunderland, UK in 1883."
+      },
+      {
+        "index": 422,
+        "text": "•\tGlen Cinema disaster: Paisley, UK in 1929."
+      },
+      {
+        "index": 423,
+        "text": "•\tCocoanut Grove fire:"
+      },
+      {
+        "index": 424,
+        "text": "Boston, USA in 1942."
+      },
+      {
+        "index": 425,
+        "text": "Today, the exterior doors of most large (especially public) buildings open outward, while interior doors such as doors to individual rooms, offices, suites, etc. open inward, as do many exterior doors of houses, particularly in North America.. Stops."
+      },
+      {
+        "index": 426,
+        "text": "Doorstops are simple devices that prevent a door from contacting and possibly damaging another object (typically a wall)."
+      },
+      {
+        "index": 427,
+        "text": "They may either absorb the force of a moving door, or hold the door against unintended motion.. Guards."
+      },
+      {
+        "index": 428,
+        "text": "Door guards (hinge guards, anti-finger trapping devices, or finger guards) help prevent finger trapping accidents, as doors pose a risk to children, especially when closing."
+      },
+      {
+        "index": 429,
+        "text": "Door guards protect fingers in door hinges by covering the hinge-side gap of an open door, typically with a piece of rubber or plastic that wraps from the door frame to the door."
+      },
+      {
+        "index": 430,
+        "text": "Other door safety products eject the fingers from the push side of the door as it closes.."
+      },
+      {
+        "index": 431,
+        "text": "There are various levels of door protection."
+      },
+      {
+        "index": 432,
+        "text": "Anti-finger trapping devices in front may leave the rear hinge pin side of doors unprotected."
+      },
+      {
+        "index": 433,
+        "text": "Full door protection uses front and rear anti-finger trapping devices and ensures the hinge side of a door is fully isolated."
+      },
+      {
+        "index": 434,
+        "text": "A risk assessment of the door determines the appropriate level of protection.."
+      },
+      {
+        "index": 435,
+        "text": "There is also handle-side door protection, which prevents the door from slamming shut on the frame, which can cause injury to fingers/hands.. Glass."
+      },
+      {
+        "index": 436,
+        "text": "Glass doors pose the risk of unintentional collision if a person is unaware there is a door, or thinks it is open when it is not."
+      },
+      {
+        "index": 437,
+        "text": "This risk is greater with sliding glass doors because they often have large single panes that are hard to see."
+      },
+      {
+        "index": 438,
+        "text": "Stickers or other types of warnings on the glass surface make it more visible and help prevent injury."
+      },
+      {
+        "index": 439,
+        "text": "In the UK, Regulation 14 of the Workplace (Health and Safety Regulations) 1992 requires that builders mark windows and glass doors to make them conspicuous."
+      },
+      {
+        "index": 440,
+        "text": "Australian Standards: AS1288 and AS2208 require that glass doors be made of laminated, tempered, or toughened glass.."
+      },
+      {
+        "index": 441,
+        "text": "Fire."
+      },
+      {
+        "index": 442,
+        "text": "Main article: Fire door."
+      },
+      {
+        "index": 443,
+        "text": "Buildings often have special purpose doors that automatically close to prevent the spread of fire and smoke."
+      },
+      {
+        "index": 444,
+        "text": "Fire doors that are improperly installed or tampered with can increase risk during a fire."
+      },
+      {
+        "index": 445,
+        "text": "Sometimes, door closer mechanisms ensure fire doors remain closed.."
+      },
+      {
+        "index": 446,
+        "text": "An additional fire risk is that doors may prevent access to emergency services personnel coming to fight the fire and rescue occupants, etc."
+      },
+      {
+        "index": 447,
+        "text": "Fire fighters must use door breaching techniques in these situations to gain access.."
+      },
+      {
+        "index": 448,
+        "text": "Doors in public buildings often have panic bars, which open the door in response to anyone pressing against the bar from the inside in the event of a fire or other emergency.."
+      },
+      {
+        "index": 449,
+        "text": "Automobiles."
+      },
+      {
+        "index": 450,
+        "text": "Main article: Vehicle door."
+      },
+      {
+        "index": 451,
+        "text": "Vehicle doors present an increased risk of trapping hands or fingers due to the proximity of occupants.[31]."
+      },
+      {
+        "index": 452,
+        "text": "Bicyclists cycling on public roads risk dooring: collision with an abruptly opened vehicle door."
+      },
+      {
+        "index": 453,
+        "text": "Because cyclists often ride near parked cars alongside the road, they are particularly vulnerable.[32]."
+      },
+      {
+        "index": 454,
+        "text": "Aircraft."
+      },
+      {
+        "index": 455,
+        "text": "Further information: Uncontrolled decompression."
+      },
+      {
+        "index": 456,
+        "text": "In aircraft, doors in a pressurized cabin or cargo hold could pose risk if they open during flight, causing decompression."
+      },
+      {
+        "index": 457,
+        "text": "Air may rush out of the fuselage with sufficient velocity to eject unsecured occupants, cargo, and other items, and drastic pressure differences between compartments may cause aircraft floors or other interior partitions to fail."
+      },
+      {
+        "index": 458,
+        "text": "These concerns are typically mitigated with plug doors, which open inward."
+      },
+      {
+        "index": 459,
+        "text": "They are secured into their door frames by the difference in air pressure."
+      },
+      {
+        "index": 460,
+        "text": "Most cabin doors and emergency exits are of this type, but cargo doors typically open outward to maximise interior space.."
+      },
+      {
+        "index": 461,
+        "text": "A number of aircraft accidents have involved outward-opening door failures, including:."
+      },
+      {
+        "index": 462,
+        "text": "•\tAmerican Airlines Flight 96 (1972) (design flaw)."
+      },
+      {
+        "index": 463,
+        "text": "•\tTurkish Airlines Flight 981 (1974) (design flaw)."
+      },
+      {
+        "index": 464,
+        "text": "•\t1975"
+      },
+      {
+        "index": 465,
+        "text": "Tân Sơn Nhứt C-5 accident (poor maintenance)."
+      },
+      {
+        "index": 466,
+        "text": "•\tUnited Airlines Flight 811 (1989) (design flaw)"
+      }
+    ]
+  },
+  "extra_in_translation": {
+    "description": "Translated sentences not found in original or added content",
+    "count": 174,
+    "sentences": [
+      {
+        "index": 0,
+        "text": "Para otros usos de este término, véase Puerta (desambiguación)"
+      },
+      {
+        "index": 1,
+        "text": "Puerta del Vino La Alhambra, Granada, España"
+      },
+      {
+        "index": 2,
+        "text": "Puerta en Isfahán, Irán"
+      },
+      {
+        "index": 3,
+        "text": "Puerta romana en trampantojo"
+      },
+      {
+        "index": 4,
+        "text": "Puerta en esviaje en el claustro de la catedral de León, España"
+      },
+      {
+        "index": 5,
+        "text": "Una puerta (del latín porta), a veces también denominada un portal cuando se trata de una puerta principal en algún sentido (por ejemplo, puerta que comunica una construcción con el exterior),[1]​ es un elemento de complemento en construcción con muy diversas aplicaciones, usos y emplazamientos, que industrialmente se fabrica en materiales básicos (madera, aluminio, vidrio, plástico)"
+      },
+      {
+        "index": 6,
+        "text": "En el espacio arquitectónico sirve para separar estancias, facilitando tanto su aislamiento como el acceso entre ellas"
+      },
+      {
+        "index": 7,
+        "text": "Dispone de varios tipos de herrajes metálicos del tipo bisagra o \"bibel\", y puede tener cerraduras, candados, cerrojos y resbalones complementarios, para cerrarlas o abrirlas con mayor facilidad"
+      },
+      {
+        "index": 13,
+        "text": "(En algunos países, como Brasil, es costumbre aplaudir desde la acera para anunciar la presencia de alguien)"
+      },
+      {
+        "index": 14,
+        "text": "Además de brindar acceso dentro y fuera de un espacio, las puertas pueden tener las funciones secundarias de garantizar la privacidad al evitar la atención no deseada de los extraños"
+      },
+      {
+        "index": 17,
+        "text": "Recibir la llave en una puerta puede significar un cambio de estado de extraño a interno"
+      },
+      {
+        "index": 18,
+        "text": "[3]​ Puertas y portales aparecen con frecuencia en la literatura y las artes con metafórica o alegoría de importancia como presagio de cambio"
+      },
+      {
+        "index": 19,
+        "text": "Origen de la palabra"
+      },
+      {
+        "index": 20,
+        "text": "En épocas del Imperio Romano, en ocasión de fundarse una vieja ciudad, se procedía a trazar su perímetro mediante un surco provocado con un arado según un viejo rito etrusco"
+      },
+      {
+        "index": 21,
+        "text": "El surco trazado no debía ser traspasado dado su carácter sagrado"
+      },
+      {
+        "index": 22,
+        "text": "En España el rey Alfonso VIII decidió que para poder proteger una casa debía de haber puertas"
+      },
+      {
+        "index": 23,
+        "text": "El sacrilegio del surco fundacional de Roma fue la causa de la vida que Rómulo dio a su hermano Remo"
+      },
+      {
+        "index": 24,
+        "text": "Debido a que la gente debía poder entrar y salir del perímetro trazado, resultaba necesario dejar segmentos del perímetro sin trazar, para lo cual se portaba el cuchillo unos metros para determinar el acceso a la ciudad"
+      },
+      {
+        "index": 25,
+        "text": "Posteriormente, al erguirse los muros perimetrales de las ciudades, el segmento en el cual se había alzado el arado adquiría las características de lo que hoy llamamos puerta"
+      },
+      {
+        "index": 30,
+        "text": "6"
+      },
+      {
+        "index": 31,
+        "text": ") se hacía con montantes (sea/si) y travesaños (véase: Marco y panel), los paneles cerrados con tímpanos colocados en ranuras en los montantes y travesaños"
+      },
+      {
+        "index": 35,
+        "text": "31-35), que estaban talladas y revestidas de oro"
+      },
+      {
+        "index": 39,
+        "text": "[4]​[5]​"
+      },
+      {
+        "index": 40,
+        "text": "Puerta de roca en Hampi (India) Calce para puerta maciza de Persépolis (actual Irán)"
+      },
+      {
+        "index": 42,
+        "text": "Las soleras encontradas en Nippur, que datan del año 2000 a"
+      },
+      {
+        "index": 43,
+        "text": "C"
+      },
+      {
+        "index": 44,
+        "text": ", eran de dolerita"
+      },
+      {
+        "index": 53,
+        "text": "C"
+      },
+      {
+        "index": 54,
+        "text": ", similares a las puertas neoclásicas del siglo XIX"
+      },
+      {
+        "index": 62,
+        "text": "El erudito griego Herón de Alejandría creó la primera puerta automática conocida en el siglo I d"
+      },
+      {
+        "index": 63,
+        "text": "C"
+      },
+      {
+        "index": 64,
+        "text": "durante la época del Egipto romano"
+      },
+      {
+        "index": 65,
+        "text": "[6]​ La primera puerta automática activada por un sensor en el pie se fabricó en China durante el reinado del emperador Yang de Sui (r"
+      },
+      {
+        "index": 66,
+        "text": "604-618), que hizo instalar una para su biblioteca real"
+      },
+      {
+        "index": 68,
+        "text": "[7]​[8]​ Elementos de una puerta"
+      },
+      {
+        "index": 69,
+        "text": "Elementos arquitectónicos"
+      },
+      {
+        "index": 70,
+        "text": "Dintel"
+      },
+      {
+        "index": 71,
+        "text": "Es la pieza horizontal superior, que soporta el techo como trabe y está construida con los mismos materiales que la casa permitiendo un hueco para una puerta o ventana"
+      },
+      {
+        "index": 72,
+        "text": "Faldón"
+      },
+      {
+        "index": 73,
+        "text": "Es la pieza fabricada de diferentes materiales generalmente similares a los utilizados al construir una puerta que se pone abajo del dintel como fijo"
+      },
+      {
+        "index": 74,
+        "text": "Antepecho"
+      },
+      {
+        "index": 75,
+        "text": "Es el término empleado por algunos instaladores de puertas para referirse al jambaje"
+      },
+      {
+        "index": 76,
+        "text": "Jambas"
+      },
+      {
+        "index": 77,
+        "text": "Son las piezas laterales, en el marco de una puerta"
+      },
+      {
+        "index": 78,
+        "text": "Jambaje"
+      },
+      {
+        "index": 79,
+        "text": "Se llama jambaje al faldón y a las jambas en conjunto"
+      },
+      {
+        "index": 80,
+        "text": "Mochetas"
+      },
+      {
+        "index": 81,
+        "text": "Son las piezas laterales en el marco de una puerta construidas con el mismo material del edificio"
+      },
+      {
+        "index": 82,
+        "text": "Umbral"
+      },
+      {
+        "index": 83,
+        "text": "Es la parte inferior contrapuesta al dintel, en una puerta"
+      },
+      {
+        "index": 84,
+        "text": "Derrame"
+      },
+      {
+        "index": 85,
+        "text": "[9]​ Es la parte lateral del muro por donde se descubre el grueso del mismo, así como la parte saliente de dicha repisa en el exterior del muro"
+      },
+      {
+        "index": 86,
+        "text": "Portada"
+      },
+      {
+        "index": 87,
+        "text": "Es el conjunto de columnas pequeñas y dinteles y de arcos con sus arquivoltas que rodean a una puerta (jambaje)"
+      },
+      {
+        "index": 88,
+        "text": "Tímpano"
+      },
+      {
+        "index": 89,
+        "text": "Es el espacio que media entre el dintel y el arco en la portada"
+      },
+      {
+        "index": 90,
+        "text": "Vano"
+      },
+      {
+        "index": 91,
+        "text": "Hueco hecho en el muro para alojar una puerta o una ventana"
+      },
+      {
+        "index": 92,
+        "text": "Portada de la iglesia de San Juan de Rabanera en Soria"
+      },
+      {
+        "index": 93,
+        "text": "Portada de la iglesia de San Juan de Rabanera en Soria"
+      },
+      {
+        "index": 94,
+        "text": "Tímpano de la iglesia del Santo Sepulcro en Estella"
+      },
+      {
+        "index": 95,
+        "text": "Tímpano de la iglesia del Santo Sepulcro en Estella"
+      },
+      {
+        "index": 96,
+        "text": "Dintel en los juzgados de Nueva Gales del Sur"
+      },
+      {
+        "index": 97,
+        "text": "Dintel en los juzgados de Nueva Gales del Sur"
+      },
+      {
+        "index": 98,
+        "text": "Jamba"
+      },
+      {
+        "index": 99,
+        "text": "Jamba"
+      },
+      {
+        "index": 100,
+        "text": "Vano en el templo de Karnak en Egipto"
+      },
+      {
+        "index": 101,
+        "text": "Vano en el templo de Karnak en Egipto"
+      },
+      {
+        "index": 102,
+        "text": "Elementos mecánicos"
+      },
+      {
+        "index": 103,
+        "text": "Pestillo, pasador o cerrojo, conjunto de elementos fijos y móviles que permiten el bloqueo de la puerta desde uno de los dos lados y que normalmente está colocado en la parte interior a la estancia a la que da paso la puerta"
+      },
+      {
+        "index": 104,
+        "text": "Caracol, tipo de pestillo consistente en una pieza espiral que gira sobre su centro sujeto a otra pieza articulada respecto a la puerta"
+      },
+      {
+        "index": 105,
+        "text": "Colocando dicha espiral sobre la pieza con un taladro pasante de la jamba y haciéndola girar para que la espiral se introduzca en dicho taladro, la puerta queda bloqueada"
+      },
+      {
+        "index": 106,
+        "text": "Bisel, soporte superior con balero para hacer girar una puerta abatible"
+      },
+      {
+        "index": 107,
+        "text": "Tejuelo, soporte inferior que descansa sobre un balín para hacer girar una puerta abatible"
+      },
+      {
+        "index": 108,
+        "text": "Bisagra, soporte para hacer girar una puerta, pueden ser laterales, descentradas, del tipo de leva excéntrica o techo bajo, para puerta de maroma"
+      },
+      {
+        "index": 109,
+        "text": "Rodaja, para puerta corrediza sobre piso o para guía de puerta ascendente"
+      },
+      {
+        "index": 110,
+        "text": "Carretilla, sistema de rodajas para puerta que corren sobre riel colgante"
+      },
+      {
+        "index": 111,
+        "text": "Pomo , tirador de la puerta"
+      },
+      {
+        "index": 112,
+        "text": "Quicio, parte de la puerta o ventana en que se asegura la hoja, donde están los goznes o bisagras"
+      },
+      {
+        "index": 113,
+        "text": "Llave , herramienta que sirve para abrir la puerta en caso de que esté bloqueada"
+      },
+      {
+        "index": 114,
+        "text": "Quicio"
+      },
+      {
+        "index": 115,
+        "text": "Quicio"
+      },
+      {
+        "index": 116,
+        "text": "Bisagra"
+      },
+      {
+        "index": 117,
+        "text": "Bisagra"
+      },
+      {
+        "index": 118,
+        "text": "Manija o picaporte"
+      },
+      {
+        "index": 119,
+        "text": "Manija o picaporte"
+      },
+      {
+        "index": 120,
+        "text": "Tirador"
+      },
+      {
+        "index": 121,
+        "text": "Tirador"
+      },
+      {
+        "index": 122,
+        "text": "Barra antipánico"
+      },
+      {
+        "index": 123,
+        "text": "Barra antipánico"
+      },
+      {
+        "index": 124,
+        "text": "Cerradura"
+      },
+      {
+        "index": 125,
+        "text": "Cerradura"
+      },
+      {
+        "index": 126,
+        "text": "Muelle de cierre"
+      },
+      {
+        "index": 127,
+        "text": "Muelle de cierre"
+      },
+      {
+        "index": 128,
+        "text": "Pestillo"
+      },
+      {
+        "index": 129,
+        "text": "Pestillo"
+      },
+      {
+        "index": 130,
+        "text": "Cerrojo"
+      },
+      {
+        "index": 131,
+        "text": "Cerrojo"
+      },
+      {
+        "index": 132,
+        "text": "Mirilla"
+      },
+      {
+        "index": 133,
+        "text": "Mirilla"
+      },
+      {
+        "index": 134,
+        "text": "Rendija para el correo"
+      },
+      {
+        "index": 135,
+        "text": "Rendija para el correo"
+      },
+      {
+        "index": 136,
+        "text": "Llamador"
+      },
+      {
+        "index": 137,
+        "text": "Llamador"
+      },
+      {
+        "index": 138,
+        "text": "Gatera"
+      },
+      {
+        "index": 139,
+        "text": "Gatera"
+      },
+      {
+        "index": 140,
+        "text": "Tipos de puertas Puerta holandesa o de establo"
+      },
+      {
+        "index": 141,
+        "text": "Puerta abatible, puede moverse hacia afuera o hacia adentro y el giro de la puerta puede ser con bisagras o con bibel y tejuelo"
+      },
+      {
+        "index": 142,
+        "text": "Puerta ascendente por secciones, fabricada en paneles de lámina troquelada en colores y figuras diversas, con textura imitación madera rugosa, para darle cuerpo a la lámina, pudiendo ser huecas o forradas con aislante de poliestreno o poliuretano espriado, también pueden ser fabricadas con bastidores de acero o aluminio y estar forradas de acero, duela o lámina de aluminio, cerradas, en rejillas horizontales, verticales, cuadros o con curvas de acero de forja también"
+      },
+      {
+        "index": 143,
+        "text": "Puerta basculante, puede subir en una o dos piezas mediante un par de bisagras especiales o guías de rodamiento con resortes de tensión o contrapesos generalmente de concreto para equilibrar el peso"
+      },
+      {
+        "index": 144,
+        "text": "Puerta corrediza, con movimiento paralelo, puede ser aérea cuando el riel cuelga del techo o estructura, volada cuando se mueve con rieles de proyección o de piso cuando va sobre una guía o riel"
+      },
+      {
+        "index": 145,
+        "text": "Puerta egipcia, en forma de trapecio isósceles con el lado mayor en la parte inferior"
+      },
+      {
+        "index": 146,
+        "text": "Puerta en esviaje, cuando hay una desviación del eje del arco respecto al frente"
+      },
+      {
+        "index": 147,
+        "text": "Puerta giratoria, utilizadas para impedir la entrada o salida de aire o luz"
+      },
+      {
+        "index": 148,
+        "text": "Puerta de guillotina, utilizadas cuando hay mucha altura, se equilibra el peso con contrapesos o resortes"
+      },
+      {
+        "index": 149,
+        "text": "Puerta de maroma, fabricada en una sola pieza mediante, utiliza un par de bisagras especiales con resortes de tensión para equilibrar el peso"
+      },
+      {
+        "index": 150,
+        "text": "Puerta plegadiza, se utilizan generalmente en pares, giran hacia afuera o hacia adentro sobre bisagras y si se desean automatizar son soportadas sobre rieles colgantes"
+      },
+      {
+        "index": 151,
+        "text": "Puerta veneciana, que contiene vidrieras en el bastidor"
+      },
+      {
+        "index": 152,
+        "text": "Puerta holandesa o puerta de establo, aquella dividida horizontalmente en dos secciones que se pueden operar indepedientemente, manteniendo cerrada la mitad inferior mientras se mantiene abierta la mitad superior"
+      },
+      {
+        "index": 153,
+        "text": "[10]​"
+      },
+      {
+        "index": 154,
+        "text": "Puertas automáticas"
+      },
+      {
+        "index": 155,
+        "text": "Las puertas automáticas se abren gracias a un operador que tira de la puerta, generalmente operan por un pulso seco, al que se le puede conectar un botón pulsador, o una receptora de señales para mandos a distancia infrarrojos, tarjeta de proximidad wiegand, mifare"
+      },
+      {
+        "index": 156,
+        "text": "Puerta giratoria"
+      },
+      {
+        "index": 157,
+        "text": "Puerta giratoria"
+      },
+      {
+        "index": 158,
+        "text": "Puertas automáticas"
+      },
+      {
+        "index": 159,
+        "text": "Puertas automáticas"
+      },
+      {
+        "index": 162,
+        "text": "Puertas cortafuegos"
+      },
+      {
+        "index": 163,
+        "text": "Puertas cortafuegos"
+      },
+      {
+        "index": 164,
+        "text": "Puerta abatible de garaje"
+      },
+      {
+        "index": 165,
+        "text": "Puerta abatible de garaje"
+      },
+      {
+        "index": 166,
+        "text": "Puerta plegable"
+      },
+      {
+        "index": 167,
+        "text": "Puerta plegable"
+      },
+      {
+        "index": 168,
+        "text": "Puertas de saloon"
+      },
+      {
+        "index": 169,
+        "text": "Puertas de saloon"
+      },
+      {
+        "index": 170,
+        "text": "Puertas y portones en los centros de trabajo"
+      },
+      {
+        "index": 171,
+        "text": "La necesidad de regular el uso y la señalización de puertas y portones en los lugares de trabajo es la de prevenir que no puedan ocurrir accidentes laborales cuando los trabajadores pasan mercancías o transitan dentro de las naves industriales"
+      },
+      {
+        "index": 172,
+        "text": "Las puertas deben ser diseñadas y fabricadas de acuerdo a su función y en torno a otros aspectos como lo son: La frecuencia de uso: considerando la cantidad de personas que comúnmente usarán la puerta cotidianamente"
+      },
+      {
+        "index": 173,
+        "text": "Anchura adecuada: (por ejemplo para dar paso a una silla de ruedas o vehículos motorizados)"
+      },
+      {
+        "index": 174,
+        "text": "Sentido de apertura: si la puerta debe de abrir hacia un lado solamente (y hacia que lado ha de abrir) o si es de vaivén"
+      },
+      {
+        "index": 175,
+        "text": "Si es de apertura eléctrica o manual"
+      },
+      {
+        "index": 176,
+        "text": "El sentido de pertura se determina mirando la puerta desde arriba"
+      },
+      {
+        "index": 177,
+        "text": "Es a derechas si gira en el sentido de las agujas del reloj al abrir, a izquierdas en caso contrario"
+      },
+      {
+        "index": 178,
+        "text": "Sistemas de aviso: si la puerta debe tener una ventanilla de aviso"
+      },
+      {
+        "index": 179,
+        "text": "Blindadas: son cinco niveles de blindaje, el nivel se refiere al tipo de protección ofrecida contra impactos de algún misil"
+      },
+      {
+        "index": 180,
+        "text": "Materiales constitutivos de la puerta: las puertas pueden ser categorizadas de acuerdo con sus propiedades en relación con el tiempo o duración estimada en un incendio ya que unas puertas pueden resistir el paso del fuego menos o más tiempo que otras"
+      },
+      {
+        "index": 181,
+        "text": "[11]​"
+      },
+      {
+        "index": 182,
+        "text": "Puertas por periodo"
+      },
+      {
+        "index": 183,
+        "text": "Puerta románica de bronce en la Catedral de Augsburgo"
+      },
+      {
+        "index": 184,
+        "text": "Puerta románica de bronce en la Catedral de Augsburgo"
+      },
+      {
+        "index": 185,
+        "text": "Puerta medieval del Castillo de Hedingham en Essex (Inglaterra)"
+      },
+      {
+        "index": 186,
+        "text": "Puerta medieval del Castillo de Hedingham en Essex (Inglaterra)"
+      },
+      {
+        "index": 187,
+        "text": "Puerta renacentista en el Oratorio dei Celestini en Bolonia"
+      },
+      {
+        "index": 188,
+        "text": "Puerta renacentista en el Oratorio dei Celestini en Bolonia"
+      },
+      {
+        "index": 189,
+        "text": "Puerta de estilo barroco en Alsacia (Francia)"
+      },
+      {
+        "index": 190,
+        "text": "Puerta de estilo barroco en Alsacia (Francia)"
+      },
+      {
+        "index": 191,
+        "text": "Puerta de estilo rococó en Toruń, Polonia"
+      },
+      {
+        "index": 192,
+        "text": "Puerta de estilo rococó en Toruń, Polonia"
+      },
+      {
+        "index": 193,
+        "text": "Puerta española de cuarterones de madera (s"
+      },
+      {
+        "index": 194,
+        "text": "XIX)"
+      },
+      {
+        "index": 195,
+        "text": "Puerta española de cuarterones de madera (s"
+      },
+      {
+        "index": 196,
+        "text": "XIX)"
+      },
+      {
+        "index": 197,
+        "text": "Puerta neoclásica en Holanda"
+      },
+      {
+        "index": 198,
+        "text": "Puerta neoclásica en Holanda"
+      },
+      {
+        "index": 199,
+        "text": "Puertas Art Decó de entrada a los juzgados de Bisbee, Arizona"
+      },
+      {
+        "index": 200,
+        "text": "Puertas Art Decó de entrada a los juzgados de Bisbee, Arizona"
+      },
+      {
+        "index": 201,
+        "text": "Puerta estilo Art Nouveau en Barcelona"
+      },
+      {
+        "index": 202,
+        "text": "Puerta estilo Art Nouveau en Barcelona"
+      },
+      {
+        "index": 206,
+        "text": ") por razones de conveniencia, privacidad, seguridad y protección"
+      },
+      {
+        "index": 208,
+        "text": "Las puertas también se aplican en casos más especializados: Una puerta a prueba de explosiones está construida para permitir el acceso a una estructura, así como para brindar protección contra la fuerza de las explosiones"
+      },
+      {
+        "index": 209,
+        "text": "Una puerta de jardín es cualquier puerta que se abre a un patio trasero o jardín"
+      },
+      {
+        "index": 214,
+        "text": "[12]​ : 101"
+      },
+      {
+        "index": 219,
+        "text": "Además, las puertas para mascotas pueden ser electrónicas y solo permiten el ingreso de animales con una etiqueta electrónica especial"
+      },
+      {
+        "index": 220,
+        "text": "Una trampilla es una puerta que está orientada horizontalmente en un techo o piso, a la que a menudo se accede a través de una escalera"
+      },
+      {
+        "index": 221,
+        "text": "Una puerta de agua o entrada de agua, como las que se usan en Venecia, Italia, es una puerta que conduce desde un edificio construido sobre el agua, como un canal, al agua misma donde, por ejemplo, se puede entrar o salir de un barco privado o taxi acuático"
+      }
+    ]
+  }
+}
