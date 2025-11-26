@@ -2,14 +2,13 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy
 
-from ..main import server
-
 def semantic_compare(
         original_blob,
         translated_blob,
         source_language,
         target_language,
-        sim_threshold
+        sim_threshold,
+        model_name
     ):
     """
     Performs semantic comparison between two articles in 
@@ -37,11 +36,12 @@ def semantic_compare(
 
     # Load a multilingual sentence transformer model (LaBSE or cmlm)
     try:
-        model = SentenceTransformer(server.selected_comparison_model)
-    except:
+        model = SentenceTransformer(model_name)
+    except Exception as e:
+        print(f"Could not load comparison model: {model_name},\n{e}")
         return {
-            "original_sentences": original_sentences,
-            "translated_sentences": translated_sentences,
+            "original_sentences": [],
+            "translated_sentences": [],
             "missing_info": [],
             "extra_info": [],
             "missing_info_indices": [],
@@ -58,8 +58,18 @@ def semantic_compare(
             translated_blob,
             target_language
         )
-    except:
-        success = False
+    except Exception as e:
+        print("1.")
+        print(e)
+        return {
+            "original_sentences": [],
+            "translated_sentences": [],
+            "missing_info": [],
+            "extra_info": [],
+            "missing_info_indices": [],
+            "extra_info_indices": [],
+            "success": False
+        }
 
     try: 
         # encode the sentences
@@ -82,8 +92,18 @@ def semantic_compare(
             original_embeddings,
             sim_threshold
         )
-    except:
-        success = False
+    except Exception as e:
+        print("2.")
+        print(e)
+        return {
+            "original_sentences": [],
+            "translated_sentences": [],
+            "missing_info": [],
+            "extra_info": [],
+            "missing_info_indices": [],
+            "extra_info_indices": [],
+            "success": False
+        }
 
     return {
         "original_sentences": original_sentences,
@@ -157,19 +177,21 @@ def preprocess_input(article, language):
         ' '
     ).strip()
 
-    if language in language_model_map:
-        # Load the appropriate spaCy model
-        model_name = language_model_map[language]
-        nlp = spacy.load(model_name)
+    try: 
+        if language in language_model_map:
+            # Load the appropriate spaCy model
+            model_name = language_model_map[language]
+            print(f"model_name is: {model_name}")
+            nlp = spacy.load(model_name)
 
-        # Process the article and extract sentences
-        doc = nlp(cleaned_article)
-        sentences = [sent.text for sent in doc.sents]
+            # Process the article and extract sentences
+            doc = nlp(cleaned_article)
+            sentences = [sent.text for sent in doc.sents]
+            return sentences
+    except:
+        # Fallback to universal sentence splitting
+        sentences = universal_sentences_split(cleaned_article)  
         return sentences
-
-    # Fallback to universal sentence splitting
-    sentences = universal_sentences_split(cleaned_article)  
-    return sentences
 
 
 def sentences_diff(

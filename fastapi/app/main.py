@@ -1,11 +1,11 @@
-# import uvicorn
-# import requests
+import uvicorn
+import requests
 import logging
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from .api.endpoints import router
+from .models.api_models import ComparisonResponse, ListResponse, ModelSelectionResponse, TranslationResponse, ArticleResponse
 from .models.server_model import ServerModel
 
 
@@ -21,15 +21,7 @@ Note: You can run this API using 'python main.py' and use postman to get respons
 
 '''
 
-# Configure logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-
 app = FastAPI()
-# Add endpoints from other modules
-app.include_router(router)
 
 # Allow all origins (be cautious with this in production)
 app.add_middleware(
@@ -41,6 +33,128 @@ app.add_middleware(
 )
 
 server = ServerModel()
+
+# Configure logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+@app.get("/get_article", response_model=ArticleResponse)
+def get_article(url: str = Query(None), title: str = Query(None)):
+    logging.info("Calling get article endpoint")
+
+    if url:
+        title = server.extract_title_from_url(url)
+        if not title:
+            logging.info("Invalid Wikipedia URL provided.")
+            raise HTTPException(status_code=400, detail="Invalid Wikipedia URL provided.")
+
+    if not title:
+        logging.info("Either 'url' or 'title' must be provided.")
+        raise HTTPException(status_code=400, detail="Either 'url' or 'title' must be provided.")
+
+    page = server.wikipedia.page(title)
+
+    if not page.exists():
+        logging.info("Article not found.")
+        raise HTTPException(status_code=404, detail="Article not found.")
+
+    article_content = page.text  # Get the article text
+
+    # Fetch available languages
+    languages = list(page.langlinks.keys())
+
+    return {"source_article": article_content, "article_languages": languages}
+
+@app.get("/translate", response_model=TranslationResponse)
+def translate_article(
+        source_language: str = Query(...),
+        target_language: str = Query(...),
+        text: str = Query(...)
+    ):
+    pass
+
+@app.get("/comparison/semantic_comparison", response_model=ComparisonResponse)
+def compare_articles(
+        original_text: str,
+        translated_text: str,
+        source_language: str,
+        target_language: str,
+        similarity_threshold: float = 0.75
+    ):
+    logging.info("Calling semantic comparison endpoint.")
+
+    if similarity_threshold < 0 or similarity_threshold > 1:
+        err_msg = "Provided similarity threshold is out of the defined valid range [0,1]"
+        logging.info(err_msg)
+        raise HTTPException(
+            status_code=400, 
+            detail=err_msg
+        )
+
+    if original_text.isnumeric() or translated_text.isnumeric():
+        err_msg = "Either text_a or text_b was not the correct input type."
+        logging.info(err_msg)
+        raise HTTPException(
+            status_code=400, 
+            detail=err_msg
+        )
+
+    output = server.perform_semantic_comparison(
+        original_text,
+        translated_text,
+        source_language,
+        target_language, 
+        similarity_threshold
+    )
+
+    return output
+
+@app.get("/models/translation/select", response_model=ModelSelectionResponse)
+def select_translation_model(modelname: str):
+    return {"successful": str(server.select_translation_model(modelname))}
+
+@app.get("/models/translation/delete", response_model=ModelSelectionResponse)
+def delete_translation_model(modelname: str):
+    return {"successful": str(server.delete_translation_model(modelname))}
+
+@app.get("/models/translation/import", response_model=ModelSelectionResponse)
+def import_translation_model(model: str, from_huggingface: bool):
+    return {"successful": str(server.import_new_translation_model(model, from_huggingface))}
+
+@app.get("/models/comparison/select", response_model=ModelSelectionResponse)
+def select_comparison_model(modelname: str):
+    return {"successful": str(server.select_comparison_model(modelname))}
+
+@app.get("/models/comparison/delete", response_model=ModelSelectionResponse)
+def delete_comparison_model(modelname: str):
+    return {"successful": str(server.delete_comparison_model(modelname))}
+
+@app.get("/models/comparison/import", response_model=ModelSelectionResponse)
+def import_comparison_model(model: str, from_huggingface: bool):
+    return {"successful": str(server.import_new_comparison_model(model, from_huggingface))}
+
+#check
+@app.get("/models/translation", response_model=ListResponse)
+def list_translation_models():
+    return {"response": server.available_translation_models_list()}
+
+#check
+@app.get("/models/comparison", response_model=ListResponse)
+def list_comparison_models():
+    return {"response": server.available_comparison_models_list()}
+#check
+@app.get("/models/comparison/selected", response_model=ListResponse)
+def get_selected_comparison_model():
+    return {"response": [server.selected_comparison_model]}
+
+#check
+@app.get("/models/translation/selected", response_model=ListResponse)
+def get_selected_translation_model():
+    return {"response": [server.selected_translation_model]}
+
+
 
 if __name__ == '__main__':
     # Defines API URL (host, port)
