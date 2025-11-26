@@ -6,6 +6,7 @@ import re
 import json
 from pathlib import Path
 from ..ai.semantic_comparison import semantic_compare
+from ..ai.translation import translate_text
 from huggingface_hub import model_info
 
 def model_exists(model_name: str) -> bool:
@@ -277,3 +278,6 @@ class ServerModel:
             sim_threshold, 
             self.selected_comparison_model
         )
+    
+    def text_translate(self, target_text: str, target_language: str):
+        return translate_text(target_text, target_language)

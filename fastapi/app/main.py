@@ -73,7 +73,7 @@ def translate_article(
         target_language: str = Query(...),
         text: str = Query(...)
     ):
-    pass
+    return {"response": server.text_translate(text, target_language)}
 
 @app.get("/comparison/semantic_comparison", response_model=ComparisonResponse)
 def compare_articles(
