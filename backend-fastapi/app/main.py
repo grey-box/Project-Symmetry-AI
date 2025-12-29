@@ -1,4 +1,3 @@
-#!/bin/bash
 import argparse
 import logging
 import re
@@ -18,6 +17,7 @@ from typing import List
 
 from app.api import wiki_article
 from app.api import comparison
+from app.api import structured_wiki
 
 from app.ai.semantic_comparison import perform_semantic_comparison
 from app.ai.llm_comparison import llm_semantic_comparison
@@ -110,6 +110,7 @@ app.add_middleware(
 # https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_2_1_1
 app.include_router(wiki_article.router)
 app.include_router(comparison.router)
+app.include_router(structured_wiki.router)
 
 
 # Class defines the API reponse format for source article (output)
